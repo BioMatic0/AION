@@ -1,0 +1,5 @@
+title: AION
+description: Open, human-centered AI platform for reflection, structure, privacy and growth.
+theme: minima
+plugins:
+  - jekyll-feed

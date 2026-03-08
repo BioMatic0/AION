@@ -1,5 +1,10 @@
 # AION
 
+[![Release](https://img.shields.io/github/v/release/BioMatic0/AION?display_name=tag)](https://github.com/BioMatic0/AION/releases/latest)
+[![License](https://img.shields.io/github/license/BioMatic0/AION)](https://github.com/BioMatic0/AION/blob/main/LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/BioMatic0/AION/ci.yml?branch=main)](https://github.com/BioMatic0/AION/actions/workflows/ci.yml)
+[![Discussions](https://img.shields.io/github/discussions/BioMatic0/AION)](https://github.com/BioMatic0/AION/discussions)
+
 AION is a human-centered AI platform for reflection, structure and growth. This repository now contains a buildable MVP foundation plus a usable product slice across capture, goals, notifications, the first AI workflow layer and visible governance/privacy/security surfaces. The project is intended to remain openly accessible and open to shared contribution.
 
 Project reference: Patrick Wirth  
@@ -10,6 +15,7 @@ Public source:
 
 - GitHub repository: `https://github.com/BioMatic0/AION`
 - Latest release: `https://github.com/BioMatic0/AION/releases/latest`
+- Project page: `https://biomatic0.github.io/AION/`
 
 Legal documents:
 
@@ -51,6 +57,13 @@ On this Windows environment, PowerShell script execution may block `npm` or `pnp
 - `%APPDATA%\\npm\\pnpm.cmd`
 
 ## Getting Started
+
+## Quick Links
+
+- Download latest release: `https://github.com/BioMatic0/AION/releases/latest`
+- Join discussions: `https://github.com/BioMatic0/AION/discussions`
+- Report bugs or request features: `https://github.com/BioMatic0/AION/issues`
+- Public roadmap: `https://biomatic0.github.io/AION/roadmap.html`
 
 1. Install dependencies
    - `pnpm install`
