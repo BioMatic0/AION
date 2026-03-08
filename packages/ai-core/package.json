@@ -1,0 +1,29 @@
+{
+    "name":  "@aion/ai-core",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "commonjs",
+    "main":  "dist/ai-core/src/index.js",
+    "types":  "dist/ai-core/src/index.d.ts",
+    "exports":  {
+                    ".":  {
+                              "types":  "./dist/ai-core/src/index.d.ts",
+                              "default":  "./dist/ai-core/src/index.js"
+                          },
+                    "./ethics-router":  {
+                                            "types":  "./dist/ai-core/src/ethics-router.d.ts",
+                                            "default":  "./dist/ai-core/src/ethics-router.js"
+                                        }
+                },
+    "scripts":  {
+                    "build":  "tsc -p tsconfig.json",
+                    "lint":  "tsc -p tsconfig.json --noEmit",
+                    "typecheck":  "tsc -p tsconfig.json --noEmit",
+                    "test":  "node -e \"console.log(\u0027No tests yet for @aion/ai-core\u0027)\""
+                },
+    "dependencies":  {
+                         "@aion/governance":  "workspace:*",
+                         "@aion/prompts":  "workspace:*",
+                         "@aion/shared-types":  "workspace:*"
+                     }
+}

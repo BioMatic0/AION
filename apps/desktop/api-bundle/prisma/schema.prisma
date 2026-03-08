@@ -1,0 +1,495 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                     String                   @id @default(cuid())
+  email                  String                   @unique
+  displayName            String
+  createdAt              DateTime                 @default(now())
+  preferences            UserPreference?
+  privacyPreference      PrivacyPreference?
+  sessions               ActiveSession[]
+  journal                JournalEntry[]
+  diaryEntries           DiaryEntry[]
+  notes                  Note[]
+  goals                  Goal[]
+  events                 SecurityEvent[]
+  incidents              SecurityIncident[]
+  incidentNotifications  IncidentNotification[]
+  consentRecords         ConsentRecord[]
+  privacyLedgerEntries   PrivacyLedgerRecord[]
+  dataExportRequests     DataExportRequest[]
+  dataDeletionRequests   DataDeletionRequest[]
+  auditLogs              AuditLog[]
+  achievements           Achievement[]
+  notificationPreference NotificationPreference?
+  notificationJobs       NotificationJob[]
+  notificationHistory    NotificationHistory[]
+  analyses               Analysis[]
+  growthStates           GrowthState[]
+  growthInterventions    GrowthIntervention[]
+  memoryItemRecords      MemoryItemRecord[]
+}
+
+model UserPreference {
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  responseDepth String  @default("balanced")
+  directness    String  @default("clear")
+  symbolicMode  Boolean @default(true)
+  quantumMode   Boolean @default(true)
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PrivacyPreference {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  privacyMode           String   @default("standard")
+  analyticsEnabled      Boolean  @default(false)
+  longTermMemoryEnabled Boolean  @default(true)
+  exportFormat          String   @default("json")
+  securityAlerts        Boolean  @default(true)
+  retentionProfile      String   @default("balanced")
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ActiveSession {
+  id          String   @id @default(cuid())
+  userId      String
+  deviceLabel String
+  ipHash      String?
+  createdAt   DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+  revokedAt   DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SecurityEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  eventType String
+  severity  String
+  summary   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SecurityIncident {
+  id                String   @id @default(cuid())
+  userId            String
+  incidentType      String
+  affectedScope     String
+  severity          String
+  status            String
+  summary           String
+  recommendedAction String
+  detectedAt        DateTime @default(now())
+  resolvedAt        DateTime?
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model IncidentNotification {
+  id                String   @id @default(cuid())
+  userId            String
+  incidentType      String
+  severity          String
+  title             String
+  description       String
+  recommendedAction String
+  deliveredVia      Json
+  deliveredAt       DateTime @default(now())
+  acknowledgedAt    DateTime?
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GovernancePolicy {
+  id              String   @id @default(cuid())
+  policyId        String   @unique
+  title           String
+  description     String
+  enforcementMode String
+  isActive        Boolean  @default(true)
+  version         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PolicyVersion {
+  id            String   @id @default(cuid())
+  policyId      String
+  version       String
+  signedBy      String
+  changeSummary String
+  createdAt     DateTime @default(now())
+}
+
+model GovernanceSignature {
+  id          String   @id @default(cuid())
+  targetType  String
+  targetRef   String
+  signedBy    String
+  signatureRef String
+  createdAt   DateTime @default(now())
+}
+
+model RelationshipProtocolEvent {
+  id        String   @id @default(cuid())
+  summary   String
+  severity  String
+  createdAt DateTime @default(now())
+}
+
+model IntegrityCheck {
+  id        String   @id @default(cuid())
+  policyId  String
+  severity  String
+  status    String
+  summary   String
+  createdAt DateTime @default(now())
+}
+
+model SafeHaltEvent {
+  id         String   @id @default(cuid())
+  moduleName String
+  reason     String
+  status     String
+  createdAt  DateTime @default(now())
+  resolvedAt DateTime?
+}
+
+model AutonomyBound {
+  id         String   @id @default(cuid())
+  boundKey   String   @unique
+  value      String
+  updatedAt  DateTime @updatedAt
+}
+
+model UsageCovenant {
+  id                   String   @id @default(cuid())
+  covenantName         String   @unique
+  version              String
+  summary              String
+  relationshipBoundary String
+  activeFrom           DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model RestrictedUsePolicy {
+  id              String   @id @default(cuid())
+  policyName      String
+  restrictedDomain String
+  severityLevel   String
+  enforcementMode String
+  rationale       String
+  createdAt       DateTime @default(now())
+}
+
+model PartnerEthicsProfile {
+  id                        String   @id @default(cuid())
+  partnerRef                String   @unique
+  humanCenteredCompliance   Boolean  @default(true)
+  restrictedDomainCheck     Boolean  @default(true)
+  relationshipBoundaryCheck Boolean  @default(true)
+  updatedAt                 DateTime @updatedAt
+}
+
+model ConsentRecord {
+  id          String   @id @default(cuid())
+  userId      String
+  scope       String
+  status      String
+  description String
+  required    Boolean  @default(false)
+  grantedAt   DateTime @default(now())
+  revokedAt   DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, scope])
+}
+
+model PrivacyLedgerRecord {
+  id                 String   @id @default(cuid())
+  userId             String
+  category           String
+  storageScope       String
+  retentionRule      String
+  activeUsageSummary String
+  userVisible        Boolean  @default(true)
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, category])
+}
+
+model DataExportRequest {
+  id          String   @id @default(cuid())
+  userId      String
+  format      String
+  status      String
+  requestedAt DateTime @default(now())
+  expiresAt   DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DataDeletionRequest {
+  id           String   @id @default(cuid())
+  userId       String
+  scope        String
+  status       String
+  requestedAt  DateTime @default(now())
+  scheduledFor DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  category  String
+  action    String
+  resource  String
+  actorType String
+  actorId   String?
+  detail    String
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Analysis {
+  id                 String   @id @default(cuid())
+  userId             String
+  reportType         String
+  mode               String
+  evidenceLabel      String
+  summary            String
+  observation        String
+  psychology         String
+  archetype          String
+  shadowCheck        String
+  developmentHint    String
+  timelineConnection String
+  extractedConcepts  Json
+  suggestedQuestions Json
+  governance         Json?
+  disconfirmingView  String?
+  mirrorQuestion     String?
+  stateDescription   String?
+  collapsePattern    String?
+  hiddenOption       String?
+  fieldQuestion      String?
+  generatedAt        DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, reportType])
+}
+
+model GrowthState {
+  id            String               @id @default(cuid())
+  userId        String
+  currentStage  String
+  focusArea     String
+  momentumScore Int
+  coherenceScore Int
+  strengths     Json
+  risks         Json
+  nextStep      String
+  updatedAt     DateTime             @default(now())
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interventions GrowthIntervention[]
+
+  @@index([userId, updatedAt])
+}
+
+model GrowthIntervention {
+  id        String       @id @default(cuid())
+  userId    String
+  stateId   String?
+  title     String
+  rationale String
+  action    String
+  tone      String
+  createdAt DateTime     @default(now())
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  state     GrowthState? @relation(fields: [stateId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+}
+
+model MemoryItemRecord {
+  id         String   @id @default(cuid())
+  userId     String
+  sourceType String
+  sourceRef  String?
+  syncKey    String?  @unique
+  title      String
+  content    String
+  concepts   Json
+  relevance  Int
+  isDerived  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isDerived])
+}
+
+model JournalEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  content   String
+  entryType String
+  mood      String?
+  intensity Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DiaryEntry {
+  id            String   @id @default(cuid())
+  userId        String
+  title         String
+  content       String
+  mood          String
+  entryDate     DateTime
+  autoGenerated Boolean  @default(false)
+  sourceContext String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DiaryPrompt {
+  id               String   @id @default(cuid())
+  userId           String?
+  promptText       String
+  promptType       String
+  suggestedForDate DateTime?
+  usedAt           DateTime?
+  createdAt        DateTime @default(now())
+}
+
+model Note {
+  id           String   @id @default(cuid())
+  userId       String
+  title        String
+  content      String
+  noteCategory String
+  isPinned     Boolean  @default(false)
+  sourceType   String?
+  tags         Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Goal {
+  id              String          @id @default(cuid())
+  userId          String
+  title           String
+  description     String
+  goalType        String
+  lifeArea        String
+  priority        String
+  status          String
+  progressPercent Int             @default(0)
+  startDate       DateTime?
+  dueDate         DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  milestones      GoalMilestone[]
+  achievements    Achievement[]
+  reminders       GoalReminder[]
+}
+
+model GoalMilestone {
+  id          String   @id @default(cuid())
+  goalId      String
+  title       String
+  description String?
+  status      String
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  goal        Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model Achievement {
+  id             String   @id @default(cuid())
+  userId         String
+  goalId         String
+  milestoneId    String?
+  title          String
+  reflectionNote String?
+  achievedAt     DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal           Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model GoalReminder {
+  id            String   @id @default(cuid())
+  goalId        String
+  frequency     String
+  preferredTime String
+  nextTriggerAt DateTime?
+  isEnabled     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  goal          Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model GoalStatsSnapshot {
+  id                  String   @id @default(cuid())
+  userId              String
+  snapshotDate        DateTime @default(now())
+  activeGoalsCount    Int
+  completedGoalsCount Int
+  completionRate      Float
+  averageProgress     Float
+}
+
+model NotificationPreference {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  developmentEnabled   Boolean  @default(true)
+  goalRemindersEnabled Boolean  @default(true)
+  frequency            String   @default("daily")
+  preferredTime        String   @default("08:00")
+  preferredWeekday     String   @default("monday")
+  tone                 String   @default("mixed")
+  updatedAt            DateTime @updatedAt
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NotificationJob {
+  id           String   @id @default(cuid())
+  userId       String
+  jobType      String
+  scheduledFor DateTime
+  status       String
+  payload      Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NotificationHistory {
+  id               String   @id @default(cuid())
+  userId           String
+  notificationType String
+  channel          String
+  title            String
+  message          String
+  deliveredAt      DateTime @default(now())
+  status           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

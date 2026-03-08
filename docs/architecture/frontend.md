@@ -1,0 +1,18 @@
+# Frontend
+
+The web client uses Next.js App Router, TypeScript and Tailwind CSS.
+
+Current structure:
+
+- marketing landing page at `/`
+- workspace shell at `/(app)`
+- generic section route for the AION core areas
+- reusable shell component with active navigation state
+
+The current UI is a production-minded scaffold. It prioritizes structure, visual direction and extension points over deep feature completion.
+
+Testing:
+
+- Vitest + React Testing Library cover the API-first MVP components in `apps/web/test`
+- Playwright provides a browser-level smoke path in `apps/web/e2e`
+- Runtime-focused tests currently cover dashboard data hydration, journal capture and notification preference persistence

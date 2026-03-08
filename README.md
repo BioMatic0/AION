@@ -1,0 +1,117 @@
+# AION
+
+AION is a human-centered AI platform for reflection, structure and growth. This repository now contains a buildable MVP foundation plus a usable product slice across capture, goals, notifications, the first AI workflow layer and visible governance/privacy/security surfaces. The project is intended to remain openly accessible and open to shared contribution.
+
+Project reference: Patrick Wirth  
+License: MIT
+Reference contact: patrickwirth_93@icloud.com  
+
+Legal documents:
+
+- `LICENSE`
+- `COPYRIGHT.md`
+- `REFERENCE.md`
+- `release-artifacts/FREE-USE-NOTICE.txt`
+- `CONTRIBUTING.md`
+- `CODE_OF_CONDUCT.md`
+- `SECURITY.md`
+
+## Workspace Layout
+
+- `apps/web` - Next.js application shell and MVP pages for dashboard, journal, diary, notes, goals, analysis, mirror, growth, quantum, notifications, governance, security, privacy and settings
+- `apps/api` - NestJS API with auth, journal, diary, notes, goals, notifications, analysis, mirror, growth, memory, search, governance, privacy, consents, audit, security and health modules
+- `apps/worker` - background worker skeleton for embeddings, memory seed generation and async jobs
+- `apps/admin` - reserved for later dedicated admin client
+- `packages/*` - shared packages for types, prompts, governance, AI core, UI primitives and SDKs
+- `infrastructure/*` - Docker, Compose, Kubernetes and Terraform start points
+- `docs/*` - architecture, product scope and operational runbooks
+
+## Requirements
+
+- Node.js 24 LTS
+- pnpm 10.x
+- PostgreSQL 16+
+- Redis 7+
+
+Additional tooling installed in this workspace environment:
+
+- Git 2.53
+- ripgrep 15.1
+
+Note: Docker is currently not available on this machine. The repository stays fully buildable without it, but local Postgres/Redis via Compose cannot be started until Docker is installed successfully.
+
+On this Windows environment, PowerShell script execution may block `npm` or `pnpm` shims. If that happens, call the `.cmd` launchers directly:
+
+- `C:\Program Files\nodejs\npm.cmd`
+- `%APPDATA%\\npm\\pnpm.cmd`
+
+## Getting Started
+
+1. Install dependencies
+   - `pnpm install`
+2. Copy environment file
+   - `Copy-Item .env.example .env`
+3. Generate Prisma client
+   - `pnpm --filter @aion/api prisma:generate`
+4. Start all workspaces
+   - `pnpm dev`
+5. Optional once Docker is available
+   - `docker compose -f infrastructure/compose/docker-compose.yml up -d`
+
+## Useful Commands
+
+- `pnpm build`
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm --filter @aion/web test`
+- `pnpm --filter @aion/web test:e2e`
+- `pnpm --filter @aion/api prisma:migrate`
+- `pnpm --filter @aion/api prisma:seed`
+- `pnpm --filter @aion/api verify:persistence`
+
+## Current Status
+
+The current repository delivers:
+
+- monorepo root configuration with buildable workspace packages
+- Next.js app shell with dedicated MVP pages for dashboard, journal, diary, notes, goals, analysis, mirror, growth, quantum, notifications, governance, security, privacy and settings
+- NestJS API modules for auth, journal, diary, notes, goals, notifications, analysis, mirror, growth, memory, search, governance, privacy, consents, audit, security and health
+- API-backed CRUD flows wired to the web UI, with explicit loading/error states and no silent demo-data fallback in the core MVP surfaces
+- Prisma-backed persistence for core capture, goal, governance, privacy and security domains
+- a deterministic AI core for analysis reports, mirror reports, growth state, interventions, memory items and quantum-lens reports
+- visible governance center with charter, policy exposure, integrity sweeps, restricted-use summaries and safe-halt history
+- active policy engine and ethics routing for analysis, mirror, growth and governance-preview flows
+- visible privacy center with preferences, consent records, privacy ledger and export/deletion request stubs
+- visible security center with sessions, events, incidents and user-facing incident notifications
+- Prisma-backed persistence for journal, diary, notes, goals, milestones, achievements and notification preferences/history/jobs
+- Prisma-backed persistence for generated analysis, quantum, mirror and growth records
+- Prisma-backed persistence for manual and synced memory items
+- Prisma-backed bootstrap and persistence for audit, consents, privacy, governance and security runtime data
+- shared type definitions for capture, growth, memory, governance, privacy and security domains
+- Prisma schema extended for diary, notes, goals, notifications, governance, privacy, consent and audit persistence
+- worker placeholder for AI routing and memory seed generation
+- real API service tests for diary, notes, goals, notifications, analysis, growth, memory, governance, privacy and security
+- audit-backed governance decisions on analysis, mirror and growth endpoints, including blocking for restricted-use requests
+- reusable API smoke verification for Prisma-backed governance, privacy, security, consent and audit persistence
+- architecture docs and runbooks updated to the current implementation slice
+- a documented open project reference and MIT-based collaboration baseline
+- public collaboration files and publishing guidance for mirrored code hosting
+
+## Known Gaps
+
+- memory now persists through Prisma while still keeping runtime caches for fast retrieval
+- journal, diary, notes, goals and notifications now persist through Prisma while still keeping in-memory runtime caches
+- analysis, mirror and growth now persist generated records through Prisma while still keeping in-memory runtime caches
+- audit, consents, privacy, governance and security now bootstrap and persist through Prisma while keeping in-memory runtime caches
+- real mail delivery, STT/TTS, embeddings and external model providers are not connected yet
+- admin is still embedded in the main web client
+- privacy export/deletion, incident escalation, browser/deep search, media, voice and collaboration modules remain partial or prepared only
+- policy enforcement is deterministic and keyword-driven for now; model-backed safety reasoning is still a later stage
+
+## Web Test Notes
+
+- Vitest covers API-first dashboard, journal capture flow and notification settings in `apps/web/test`
+- Playwright smoke coverage lives in `apps/web/e2e`
+- Install the browser runtime once per machine before running E2E locally:
+  - `pnpm --filter @aion/web exec playwright install chromium`

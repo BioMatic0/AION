@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@aion/shared-types": [
+        "packages/shared-types/src"
+      ],
+      "@aion/validation": [
+        "packages/validation/src"
+      ],
+      "@aion/ai-core": [
+        "packages/ai-core/src"
+      ],
+      "@aion/governance": [
+        "packages/governance/src"
+      ],
+      "@aion/prompts": [
+        "packages/prompts/src"
+      ],
+      "@aion/security-core": [
+        "packages/security-core/src"
+      ],
+      "@aion/sdk": [
+        "packages/sdk/src"
+      ],
+      "@aion/ui": [
+        "packages/ui/src"
+      ],
+      "@aion/observability": [
+        "packages/observability/src"
+      ]
+    }
+  }
+}

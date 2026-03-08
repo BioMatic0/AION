@@ -1,0 +1,61 @@
+{
+  "name": "@aion/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Windows-Desktop-Wrapper fuer die AION-Anwendung.",
+  "author": "Patrick Wirth",
+  "copyright": "Copyright (c) 2026 Patrick Wirth. Released under the MIT License.",
+  "main": "build/main.js",
+  "scripts": {
+    "dev": "tsc -p tsconfig.json && electron .",
+    "build": "tsc -p tsconfig.json",
+    "prepare:runtime": "node scripts/prepare-runtime.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node -e \"console.log('No tests yet for @aion/desktop')\"",
+    "package:win": "node scripts/prepare-runtime.mjs && electron-builder --win nsis portable"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.8.2"
+  },
+  "build": {
+    "appId": "com.patrickwirth.aion.desktop",
+    "productName": "AION",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "build/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../web/out",
+        "to": "web"
+      },
+      {
+        "from": "api-runtime",
+        "to": "api"
+      }
+    ],
+    "win": {
+      "icon": "build-resources/aion.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build-resources/aion.ico",
+      "uninstallerIcon": "build-resources/aion.ico",
+      "installerHeaderIcon": "build-resources/aion.ico"
+    }
+  }
+}

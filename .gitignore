@@ -1,0 +1,45 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# builds
+.next
+dist
+coverage
+.turbo
+out
+build
+release
+apps/desktop/release
+apps/desktop/api-runtime
+apps/web/android/.gradle
+apps/web/android/app/build
+apps/web/ios/App/App/public
+
+# env
+.env
+.env.local
+.env.*.local
+
+# prisma
+apps/api/prisma/dev.db
+
+# logs
+*.log
+
+# packaged artifacts
+release-artifacts/*.exe
+release-artifacts/*.apk
+release-artifacts/*.zip
+
+# editors
+.idea
+.vscode
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# local helper files
+aion_extracted.txt
+tmp_pdf_extract.ps1

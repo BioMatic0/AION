@@ -1,0 +1,33 @@
+{
+  "name": "aion",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "author": "Patrick Wirth",
+  "description": "AION monorepo for a human-centered AI platform.",
+  "packageManager": "pnpm@10.6.5",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "branding:generate": "node scripts/generate-branding-assets.mjs",
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "turbo run format",
+    "db:generate": "pnpm --filter @aion/api prisma generate",
+    "db:migrate": "pnpm --filter @aion/api prisma migrate dev",
+    "db:seed": "pnpm --filter @aion/api prisma db seed"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "png-to-ico": "^3.0.1",
+    "prettier": "^3.5.3",
+    "sharp": "^0.34.5",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2"
+  }
+}

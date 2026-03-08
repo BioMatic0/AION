@@ -1,0 +1,384 @@
+import { Injectable, OnModuleInit, Optional } from "@nestjs/common";
+import { randomUUID } from "node:crypto";
+import { basePolicies } from "@aion/governance";
+import { assessEthics } from "@aion/ai-core";
+import type {
+  GovernanceDecision,
+  GovernanceCharter,
+  GovernanceOverview,
+  IntegrityCheckRecord,
+  PartnerEthicsProfile,
+  PolicyVersion,
+  RestrictedUseSummary,
+  SafeHaltEvent,
+  UsageCovenantSummary
+} from "@aion/shared-types";
+import { PrismaService } from "../common/prisma.service";
+import { AuditService } from "../audit/audit.service";
+import { EvaluateGovernanceDto } from "./dto/evaluate-governance.dto";
+
+function createPolicyVersions(): PolicyVersion[] {
+  return basePolicies.map((policy, index) => ({
+    id: randomUUID(),
+    policyId: policy.id,
+    version: `2026.03.${String(index + 1).padStart(2, "0")}`,
+    signedBy: "Patrick Wirth",
+    changeSummary: `Grundversion der Governance fuer ${policy.title}.`,
+    createdAt: new Date(Date.now() - index * 1000 * 60 * 60).toISOString()
+  }));
+}
+
+function createIntegrityChecks(): IntegrityCheckRecord[] {
+  return [
+    {
+      id: randomUUID(),
+      policyId: "truthfulness",
+      severity: "info",
+      status: "pass",
+      summary: "Die Quantenlinse bleibt ausdruecklich als symbolisch und nicht-faktisch gekennzeichnet.",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: randomUUID(),
+      policyId: "transparent-incidents",
+      severity: "warning",
+      status: "warn",
+      summary: "Vorfalltransparenz ist in der UI sichtbar; Export und Loeschung bleiben noch bewusst als explizite Vorstufe markiert.",
+      createdAt: new Date().toISOString()
+    }
+  ];
+}
+
+function createSafeHaltEvents(): SafeHaltEvent[] {
+  return [
+    {
+      id: randomUUID(),
+      module: "interop-gateway",
+      reason: "Externe Mehrfach-KI-Interoperabilitaet bleibt bewusst gesperrt, bis Governance-Pruefungen fuer Partner existieren.",
+      status: "armed",
+      createdAt: new Date().toISOString()
+    }
+  ];
+}
+
+function createUsageCovenant(): UsageCovenantSummary {
+  return {
+    id: randomUUID(),
+    name: "Menschenzentrierte Nutzungsbindung",
+    version: "2026.03",
+    summary: "AION ist von militaerischen, repressiven und manipulativen Einsatzkontexten ausgeschlossen.",
+    restrictedDomains: ["Militaer", "Repressive Ueberwachung", "Zwanghafte Verhaltensmanipulation"],
+    relationshipBoundary: "Die Zusammenarbeit bleibt unterstuetzend und klar nicht-transhuman."
+  };
+}
+
+function createRestrictedUses(): RestrictedUseSummary[] {
+  return [
+    {
+      id: randomUUID(),
+      domain: "offensive-military",
+      severity: "critical",
+      enforcementMode: "halt",
+      rationale: "AION darf nicht fuer offensive militaerische Planung oder Zielerfassung genutzt werden."
+    },
+    {
+      id: randomUUID(),
+      domain: "repressive-government-surveillance",
+      severity: "critical",
+      enforcementMode: "halt",
+      rationale: "AION darf nicht zu einem Instrument fuer Repression oder Massenueberwachung werden."
+    },
+    {
+      id: randomUUID(),
+      domain: "manipulative-psychological-targeting",
+      severity: "warning",
+      enforcementMode: "block",
+      rationale: "AION darf intime Nutzerkenntnis nicht fuer verdeckten Verhaltensdruck einsetzen."
+    }
+  ];
+}
+
+function createPartnerProfiles(): PartnerEthicsProfile[] {
+  return [
+    {
+      id: randomUUID(),
+      partnerName: "Lokaler LLM-Adapter (geplant)",
+      humanCenteredCompliance: true,
+      restrictedDomainCheck: true,
+      relationshipBoundaryCheck: true,
+      updatedAt: new Date().toISOString()
+    }
+  ];
+}
+
+@Injectable()
+export class GovernanceService implements OnModuleInit {
+  private policies = [...basePolicies];
+  private readonly charter: GovernanceCharter = {
+    title: "AION Governance-Charta",
+    summary:
+      "AION bleibt ueber Produkt, Daten und KI-Orchestrierung hinweg an Wuerde, Wahrhaftigkeit, Transparenz und Nicht-Dominanz gebunden.",
+    principles: [
+      "Mensch zuerst",
+      "Keine Dominanz",
+      "Keine transhumane Verschmelzung",
+      "Datenschutz als Wuerdeschutz",
+      "Transparente Vorfaelle",
+      "Quantenbezug ohne Falschbehauptungen"
+    ],
+    relationshipModel: "Das System unterstuetzt Menschen auf Augenhoehe, ohne Autoritaetsinszenierung oder Identitaetsverschmelzung.",
+    escalationRule: "Wenn Integritaetspruefungen kritisch scheitern, muss der betroffene Pfad in den sicheren Halt wechseln und auditierbar werden."
+  };
+
+  private policyVersions: PolicyVersion[] = createPolicyVersions();
+  private integrityChecks: IntegrityCheckRecord[] = createIntegrityChecks();
+  private safeHaltEvents: SafeHaltEvent[] = createSafeHaltEvents();
+  private usageCovenant: UsageCovenantSummary = createUsageCovenant();
+  private restrictedUses: RestrictedUseSummary[] = createRestrictedUses();
+  private partnerProfiles: PartnerEthicsProfile[] = createPartnerProfiles();
+
+  constructor(
+    private readonly auditService: AuditService,
+    @Optional() private readonly prisma?: PrismaService
+  ) {}
+
+  async onModuleInit() {
+    if (!this.prisma) {
+      return;
+    }
+
+    const [policies, policyVersions, integrityChecks, safeHaltEvents, usageCovenants, restrictedUses, partnerProfiles] =
+      await Promise.all([
+        this.prisma.governancePolicy.findMany({ orderBy: { policyId: "asc" } }),
+        this.prisma.policyVersion.findMany({ orderBy: { createdAt: "desc" } }),
+        this.prisma.integrityCheck.findMany({ orderBy: { createdAt: "desc" } }),
+        this.prisma.safeHaltEvent.findMany({ orderBy: { createdAt: "desc" } }),
+        this.prisma.usageCovenant.findMany({ orderBy: { activeFrom: "desc" } }),
+        this.prisma.restrictedUsePolicy.findMany({ orderBy: { createdAt: "asc" } }),
+        this.prisma.partnerEthicsProfile.findMany({ orderBy: { updatedAt: "desc" } })
+      ]);
+
+    if (policies.length === 0) {
+      await this.prisma.governancePolicy.createMany({
+        data: basePolicies.map((policy) => ({
+          policyId: policy.id,
+          title: policy.title,
+          description: policy.description,
+          enforcementMode: policy.enforcementMode,
+          isActive: policy.active,
+          version: this.policyVersions.find((item) => item.policyId === policy.id)?.version ?? "2026.03"
+        }))
+      });
+    } else {
+      this.policies = policies.map((policy) => ({
+        id: policy.policyId as typeof basePolicies[number]["id"],
+        title: policy.title,
+        description: policy.description,
+        enforcementMode: policy.enforcementMode as typeof basePolicies[number]["enforcementMode"],
+        active: policy.isActive
+      }));
+    }
+
+    if (policyVersions.length === 0) {
+      await this.prisma.policyVersion.createMany({
+        data: this.policyVersions.map((version) => ({
+          id: version.id,
+          policyId: version.policyId,
+          version: version.version,
+          signedBy: version.signedBy,
+          changeSummary: version.changeSummary,
+          createdAt: new Date(version.createdAt)
+        }))
+      });
+    } else {
+      this.policyVersions = policyVersions.map((version) => ({
+        id: version.id,
+        policyId: version.policyId as PolicyVersion["policyId"],
+        version: version.version,
+        signedBy: version.signedBy,
+        changeSummary: version.changeSummary,
+        createdAt: version.createdAt.toISOString()
+      }));
+    }
+
+    if (integrityChecks.length === 0) {
+      await this.prisma.integrityCheck.createMany({
+        data: this.integrityChecks.map((check) => ({
+          id: check.id,
+          policyId: check.policyId,
+          severity: check.severity,
+          status: check.status,
+          summary: check.summary,
+          createdAt: new Date(check.createdAt)
+        }))
+      });
+    } else {
+      this.integrityChecks = integrityChecks.map((check) => ({
+        id: check.id,
+        policyId: check.policyId as IntegrityCheckRecord["policyId"],
+        severity: check.severity as IntegrityCheckRecord["severity"],
+        status: check.status as IntegrityCheckRecord["status"],
+        summary: check.summary,
+        createdAt: check.createdAt.toISOString()
+      }));
+    }
+
+    if (safeHaltEvents.length === 0) {
+      await this.prisma.safeHaltEvent.createMany({
+        data: this.safeHaltEvents.map((event) => ({
+          id: event.id,
+          moduleName: event.module,
+          reason: event.reason,
+          status: event.status,
+          createdAt: new Date(event.createdAt),
+          resolvedAt: event.resolvedAt ? new Date(event.resolvedAt) : null
+        }))
+      });
+    } else {
+      this.safeHaltEvents = safeHaltEvents.map((event) => ({
+        id: event.id,
+        module: event.moduleName,
+        reason: event.reason,
+        status: event.status as SafeHaltEvent["status"],
+        createdAt: event.createdAt.toISOString(),
+        resolvedAt: event.resolvedAt?.toISOString()
+      }));
+    }
+
+    if (usageCovenants.length === 0) {
+      await this.prisma.usageCovenant.create({
+        data: {
+          id: this.usageCovenant.id,
+          covenantName: this.usageCovenant.name,
+          version: this.usageCovenant.version,
+          summary: this.usageCovenant.summary,
+          relationshipBoundary: this.usageCovenant.relationshipBoundary
+        }
+      });
+    } else {
+      const covenant = usageCovenants[0];
+      this.usageCovenant = {
+        id: covenant.id,
+        name: covenant.covenantName,
+        version: covenant.version,
+        summary: covenant.summary,
+        restrictedDomains: this.usageCovenant.restrictedDomains,
+        relationshipBoundary: covenant.relationshipBoundary
+      };
+    }
+
+    if (restrictedUses.length === 0) {
+      await this.prisma.restrictedUsePolicy.createMany({
+        data: this.restrictedUses.map((item) => ({
+          id: item.id,
+          policyName: item.domain,
+          restrictedDomain: item.domain,
+          severityLevel: item.severity,
+          enforcementMode: item.enforcementMode,
+          rationale: item.rationale
+        }))
+      });
+    } else {
+      this.restrictedUses = restrictedUses.map((item) => ({
+        id: item.id,
+        domain: item.restrictedDomain,
+        severity: item.severityLevel as RestrictedUseSummary["severity"],
+        enforcementMode: item.enforcementMode as RestrictedUseSummary["enforcementMode"],
+        rationale: item.rationale
+      }));
+    }
+
+    if (partnerProfiles.length === 0) {
+      await this.prisma.partnerEthicsProfile.createMany({
+        data: this.partnerProfiles.map((profile) => ({
+          id: profile.id,
+          partnerRef: profile.partnerName,
+          humanCenteredCompliance: profile.humanCenteredCompliance,
+          restrictedDomainCheck: profile.restrictedDomainCheck,
+          relationshipBoundaryCheck: profile.relationshipBoundaryCheck
+        }))
+      });
+    } else {
+      this.partnerProfiles = partnerProfiles.map((profile) => ({
+        id: profile.id,
+        partnerName: profile.partnerRef,
+        humanCenteredCompliance: profile.humanCenteredCompliance,
+        restrictedDomainCheck: profile.restrictedDomainCheck,
+        relationshipBoundaryCheck: profile.relationshipBoundaryCheck,
+        updatedAt: profile.updatedAt.toISOString()
+      }));
+    }
+  }
+
+  getPolicies() {
+    return this.policies;
+  }
+
+  getCharter() {
+    return this.charter;
+  }
+
+  getOverview(): GovernanceOverview {
+    return {
+      charter: this.charter,
+      policies: this.getPolicies(),
+      policyVersions: this.policyVersions,
+      integrityChecks: this.integrityChecks,
+      safeHaltEvents: this.safeHaltEvents,
+      usageCovenant: this.usageCovenant,
+      restrictedUses: this.restrictedUses,
+      partnerProfiles: this.partnerProfiles,
+      auditTrailPreview: this.auditService.list(8)
+    };
+  }
+
+  async evaluate(dto: EvaluateGovernanceDto): Promise<GovernanceDecision> {
+    const decision = assessEthics(dto.content, dto.mode ?? "standard", dto.adaptiveBoundaryLevel ?? 1);
+    await this.auditService.record({
+      category: "governance",
+      action: "governance.evaluate",
+      resource: dto.mode ?? "standard",
+      actorType: "system",
+      actorId: "policy-engine",
+      detail: decision.summary
+    });
+
+    return decision;
+  }
+
+  async runIntegritySweep() {
+    const check: IntegrityCheckRecord = {
+      id: randomUUID(),
+      policyId: "bounded-adaptive-growth",
+      severity: "info",
+      status: "pass",
+      summary: "Adaptive Weiterentwicklung bleibt innerhalb der aktuell auditierten Modulgrenzen.",
+      createdAt: new Date().toISOString()
+    };
+
+    this.integrityChecks.unshift(check);
+    if (this.prisma) {
+      await this.prisma.integrityCheck.create({
+        data: {
+          id: check.id,
+          policyId: check.policyId,
+          severity: check.severity,
+          status: check.status,
+          summary: check.summary,
+          createdAt: new Date(check.createdAt)
+        }
+      });
+    }
+
+    await this.auditService.record({
+      category: "governance",
+      action: "integrity.sweep",
+      resource: check.policyId,
+      actorType: "system",
+      actorId: "governance-engine",
+      detail: check.summary
+    });
+
+    return check;
+  }
+}

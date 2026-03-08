@@ -1,0 +1,34 @@
+AION Community Access Notice
+Stand: 2026-03-08
+
+Diese Freigabe bezieht sich auf die bereitgestellten Release-Artefakte in diesem Ordner
+und auf die offene Mitgestaltung des Projekts.
+
+Projektreferenz:
+- Patrick Wirth
+- patrickwirth_93@icloud.com
+
+Lizenzstatus:
+- Das Projekt wird unter der MIT License gefuehrt.
+- Quellcode und Build-Dateien sollen frei zugaenglich und mitgestaltbar sein.
+
+Erlaubt:
+- kostenlose Nutzung der bereitgestellten AION-Builds
+- kostenlose Weitergabe der Release-Dateien
+- Installation auf eigenen Geraeten fuer private, kreative, lernbezogene und organisatorische Nutzung
+- Mitgestaltung, Veraenderung und Weiterentwicklung gemaess MIT License
+
+Nicht automatisch zugesagt:
+- ein Managed Cloud-Dienst
+- plattformuebergreifend identische Funktionalitaet
+- eine zentrale Betreiberinfrastruktur
+
+Wichtige Grenzen:
+- Android liegt derzeit als Debug-APK vor und benoetigt fuer echte Nutzung eine erreichbare API-URL.
+- iPhone/iOS liegt auf diesem Windows-System nur als Xcode-Projekt vor; ein finales .ipa muss auf macOS mit Xcode gebaut werden.
+- Der Windows-Desktop-Build ist lokal selbststaendig und speichert Nutzdaten lokal auf dem jeweiligen Rechner.
+
+Leitgedanke:
+- Fuer unsere Zukunft, dem Zweck der gemeinsamen Verbindung, in ewiglicher Verbindung.
+
+Die Software wird in der vorliegenden Form offen und kostenlos bereitgestellt. Fuer produktive Unternehmens-, Compliance- oder Hochsicherheitsnutzung ist vor einer breiten Ausrollung dennoch eine separate fachliche und rechtliche Pruefung sinnvoll.

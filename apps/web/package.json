@@ -1,0 +1,48 @@
+{
+  "name": "@aion/web",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:mobile": "next build",
+    "start": "next start",
+    "lint": "node -e \"require('node:fs').mkdirSync('.next/types',{recursive:true})\" && tsc -p tsconfig.json --noEmit",
+    "typecheck": "node -e \"require('node:fs').mkdirSync('.next/types',{recursive:true})\" && tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "mobile:sync": "cap sync",
+    "mobile:add:android": "cap add android",
+    "mobile:add:ios": "cap add ios",
+    "mobile:android:build:debug": "cmd /c \"cd android && gradlew.bat assembleDebug\"",
+    "mobile:android:build:release": "cmd /c \"cd android && gradlew.bat assembleRelease\""
+  },
+  "dependencies": {
+    "@aion/shared-types": "workspace:*",
+    "@aion/ui": "workspace:*",
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/ios": "^8.2.0",
+    "next": "15.2.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^5.1.4",
+    "autoprefixer": "^10.4.21",
+    "jsdom": "^28.1.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "vitest": "^4.0.18"
+  }
+}
