@@ -13,6 +13,7 @@ permalink: /roadmap.html
 - Open MIT license
 - Contribution, code-of-conduct and security documents
 - Buildable monorepo with API, web and desktop surfaces
+- Public roadmap project and milestone
 
 ## Near-term focus
 
@@ -49,4 +50,5 @@ Discussion and contribution should stay public and easy to access:
 
 - [Discussions](https://github.com/BioMatic0/AION/discussions)
 - [Issues](https://github.com/BioMatic0/AION/issues)
+- [Project board](https://github.com/users/BioMatic0/projects/1)
 - [Contributing guide](https://github.com/BioMatic0/AION/blob/main/CONTRIBUTING.md)

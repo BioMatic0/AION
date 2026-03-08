@@ -16,6 +16,7 @@ Public source:
 - GitHub repository: `https://github.com/BioMatic0/AION`
 - Latest release: `https://github.com/BioMatic0/AION/releases/latest`
 - Project page: `https://biomatic0.github.io/AION/`
+- Public roadmap project: `https://github.com/users/BioMatic0/projects/1`
 
 Legal documents:
 
@@ -61,8 +62,10 @@ On this Windows environment, PowerShell script execution may block `npm` or `pnp
 ## Quick Links
 
 - Download latest release: `https://github.com/BioMatic0/AION/releases/latest`
+- Visit the project page: `https://biomatic0.github.io/AION/`
 - Join discussions: `https://github.com/BioMatic0/AION/discussions`
 - Report bugs or request features: `https://github.com/BioMatic0/AION/issues`
+- Public roadmap project: `https://github.com/users/BioMatic0/projects/1`
 - Public roadmap: `https://biomatic0.github.io/AION/roadmap.html`
 
 1. Install dependencies
