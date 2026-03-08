@@ -2,6 +2,11 @@
 
 This project is prepared for public release and mirrored publishing.
 
+## Current canonical source
+
+- GitHub repository: `https://github.com/BioMatic0/AION`
+- Latest release: `https://github.com/BioMatic0/AION/releases/latest`
+
 ## Recommended primary hosts
 
 - GitHub
@@ -16,9 +21,9 @@ This project is prepared for public release and mirrored publishing.
 
 ## Suggested order
 
-1. Publish the canonical repo on GitHub or GitLab.
-2. Mirror to Codeberg.
-3. Mirror to additional platforms if needed.
+1. Keep GitHub as the canonical public source.
+2. Mirror to GitLab and Codeberg.
+3. Mirror to additional platforms when the repository URLs and access tokens exist.
 
 ## Required files already prepared
 
@@ -29,54 +34,57 @@ This project is prepared for public release and mirrored publishing.
 - `SECURITY.md`
 - `.github/workflows/ci.yml`
 
-## Local repository setup
+## Fastest local mirror workflow
 
-Initialize:
+Use the prepared PowerShell helper:
 
 ```powershell
-"C:\Program Files\Git\bin\git.exe" init -b main
-"C:\Program Files\Git\bin\git.exe" config user.name "Patrick Wirth"
-"C:\Program Files\Git\bin\git.exe" config user.email "patrickwirth_93@icloud.com"
-"C:\Program Files\Git\bin\git.exe" add .
-"C:\Program Files\Git\bin\git.exe" commit -m "Initial public release"
+.\infrastructure\scripts\publish-mirrors.ps1 `
+  -GitLabUrl "<gitlab-repo-url>" `
+  -CodebergUrl "<codeberg-repo-url>" `
+  -PushAll
 ```
 
-## GitHub
+The script can also register SourceHut, Bitbucket and SourceForge remotes.
+
+## Manual mirror setup
+
+### GitHub
 
 ```powershell
-"C:\Program Files\Git\bin\git.exe" remote add origin <github-repo-url>
+"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/BioMatic0/AION.git
 "C:\Program Files\Git\bin\git.exe" push -u origin main
 ```
 
-## GitLab
+### GitLab
 
 ```powershell
 "C:\Program Files\Git\bin\git.exe" remote add gitlab <gitlab-repo-url>
 "C:\Program Files\Git\bin\git.exe" push -u gitlab main
 ```
 
-## Codeberg
+### Codeberg
 
 ```powershell
 "C:\Program Files\Git\bin\git.exe" remote add codeberg <codeberg-repo-url>
 "C:\Program Files\Git\bin\git.exe" push -u codeberg main
 ```
 
-## SourceHut
+### SourceHut
 
 ```powershell
 "C:\Program Files\Git\bin\git.exe" remote add sourcehut <sourcehut-repo-url>
 "C:\Program Files\Git\bin\git.exe" push -u sourcehut main
 ```
 
-## Bitbucket
+### Bitbucket
 
 ```powershell
 "C:\Program Files\Git\bin\git.exe" remote add bitbucket <bitbucket-repo-url>
 "C:\Program Files\Git\bin\git.exe" push -u bitbucket main
 ```
 
-## SourceForge
+### SourceForge
 
 ```powershell
 "C:\Program Files\Git\bin\git.exe" remote add sourceforge <sourceforge-repo-url>
@@ -85,5 +93,5 @@ Initialize:
 
 ## Important limitation
 
-Creating accounts, completing email verification and accepting platform terms
-must be done through the owner of those accounts.
+Creating accounts, completing email verification, accepting platform terms and
+granting access tokens must be done through the owner of those accounts.

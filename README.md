@@ -6,6 +6,11 @@ Project reference: Patrick Wirth
 License: MIT
 Reference contact: patrickwirth_93@icloud.com  
 
+Public source:
+
+- GitHub repository: `https://github.com/BioMatic0/AION`
+- Latest release: `https://github.com/BioMatic0/AION/releases/latest`
+
 Legal documents:
 
 - `LICENSE`
