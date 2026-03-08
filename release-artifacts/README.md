@@ -7,6 +7,7 @@ Aktueller Windows-Stand:
 - das NSIS-Setup und die portable EXE wurden mit der ueberarbeiteten Grau-/Anthrazit-Oberflaeche neu gebaut
 - die Desktop-App startet weiterhin die lokale AION-Runtime automatisch mit
 - die frischen `0.1.1`-Artefakte sind aktuell als Einzeldateien verfuegbar
+- der Windows-Desktop hat jetzt einen vorbereiteten GitHub-Update-Kanal fuer kuenftige Releases
 
 ## Enthaltene Dateien
 
@@ -67,6 +68,9 @@ Aktueller Windows-Stand:
 
 - `AION Setup 0.1.1.exe`
 - `AION 0.1.1.exe`
+- `AION-Setup-0.1.1.exe`
+- `AION-Setup-0.1.1.exe.blockmap`
+- `latest.yml`
 - `SHA256SUMS-0.1.1.txt`
 
 Die `0.1.0`-ZIP-Pakete bleiben als aeltere Sammelpakete im Ordner liegen. Fuer den aktuellen Stand bitte die `0.1.1`-Dateien verwenden.

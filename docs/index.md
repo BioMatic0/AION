@@ -33,6 +33,10 @@ Open, human-centered AI platform for reflection, structure, privacy and growth.
 | iOS Xcode project | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/AION-ios-xcode-project.zip) |
 | SHA256 checksums | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/SHA256SUMS-0.1.1.txt) |
 
+The installed Windows build now includes a prepared GitHub-based update path.
+Future signed releases can be published through the desktop packaging pipeline so
+the app can check for new versions directly from the AION menu.
+
 ## Release notes
 
 - [AION v0.1.1 release notes](./releases/v0.1.1.html)

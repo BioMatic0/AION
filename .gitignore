@@ -29,8 +29,10 @@ apps/api/prisma/dev.db
 
 # packaged artifacts
 release-artifacts/*.exe
+release-artifacts/*.blockmap
 release-artifacts/*.apk
 release-artifacts/*.zip
+release-artifacts/latest.yml
 
 # editors
 .idea

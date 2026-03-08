@@ -1,4 +1,6 @@
 import { app, BrowserWindow, dialog, Menu, shell, type MenuItemConstructorOptions } from "electron";
+import log from "electron-log/main";
+import { autoUpdater } from "electron-updater";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
@@ -17,6 +19,10 @@ const RECHTLICHES_ROUTE = ["rechtliches", "index.html"];
 
 let backendProcess: ChildProcessWithoutNullStreams | null = null;
 let mainWindow: BrowserWindow | null = null;
+let updateDownloaded = false;
+let updateTargetVersion: string | null = null;
+let updateCheckInFlight = false;
+let manualUpdateCheck = false;
 
 function resolveIndexHtml() {
   if (app.isPackaged) {
@@ -60,6 +66,10 @@ function resolveRuntimeDataDir() {
 
 function appendRuntimeLog(filename: string, chunk: Buffer) {
   appendFileSync(path.join(resolveRuntimeLogDir(), filename), chunk);
+}
+
+function isUpdateSupported() {
+  return app.isPackaged && process.platform === "win32";
 }
 
 async function waitForBackendReady(timeoutMs = 15000) {
@@ -142,6 +152,154 @@ function showAboutDialog() {
   });
 }
 
+function refreshMenu() {
+  buildAppMenu();
+}
+
+async function checkForUpdates(isManual = false) {
+  if (!isUpdateSupported()) {
+    if (isManual) {
+      await dialog.showMessageBox({
+        type: "info",
+        title: "Updates",
+        message: "Die Update-Pruefung ist nur in der installierten Windows-Version aktiv."
+      });
+    }
+    return;
+  }
+
+  if (updateCheckInFlight) {
+    if (isManual) {
+      await dialog.showMessageBox({
+        type: "info",
+        title: "Updates",
+        message: "Es laeuft bereits eine Update-Pruefung."
+      });
+    }
+    return;
+  }
+
+  manualUpdateCheck = isManual;
+  updateCheckInFlight = true;
+  refreshMenu();
+
+  try {
+    await autoUpdater.checkForUpdates();
+  } catch (error) {
+    log.error("Update-Pruefung fehlgeschlagen", error);
+    updateCheckInFlight = false;
+    refreshMenu();
+
+    const detail =
+      error instanceof Error ? error.message : "Die Update-Pruefung konnte nicht abgeschlossen werden.";
+
+    if (isManual) {
+      await dialog.showMessageBox({
+        type: "error",
+        title: "Update-Pruefung fehlgeschlagen",
+        message: "AION konnte keine Updates abrufen.",
+        detail
+      });
+    }
+  }
+}
+
+function configureAutoUpdater() {
+  if (!isUpdateSupported()) {
+    return;
+  }
+
+  log.initialize();
+  autoUpdater.logger = log;
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on("checking-for-update", () => {
+    log.info("Pruefe auf Updates");
+  });
+
+  autoUpdater.on("update-available", async (info) => {
+    updateCheckInFlight = false;
+    updateTargetVersion = info.version;
+    refreshMenu();
+
+    const response = await dialog.showMessageBox({
+      type: "info",
+      title: "Update verfuegbar",
+      buttons: ["Jetzt herunterladen", "Spaeter"],
+      defaultId: 0,
+      cancelId: 1,
+      message: `Version ${info.version} ist verfuegbar.`,
+      detail: "AION kann das Update jetzt herunterladen und spaeter installieren."
+    });
+
+    if (response.response === 0) {
+      await autoUpdater.downloadUpdate();
+    }
+  });
+
+  autoUpdater.on("update-not-available", async () => {
+    updateCheckInFlight = false;
+    updateTargetVersion = null;
+    refreshMenu();
+
+    if (manualUpdateCheck) {
+      await dialog.showMessageBox({
+        type: "info",
+        title: "Keine Updates",
+        message: "AION ist bereits auf dem aktuellen Stand."
+      });
+    }
+
+    manualUpdateCheck = false;
+  });
+
+  autoUpdater.on("error", async (error) => {
+    log.error("Auto-Updater Fehler", error);
+    updateCheckInFlight = false;
+    refreshMenu();
+
+    if (manualUpdateCheck) {
+      const detail =
+        error instanceof Error ? error.message : "Der Update-Dienst hat einen unbekannten Fehler gemeldet.";
+
+      await dialog.showMessageBox({
+        type: "error",
+        title: "Update-Fehler",
+        message: "Das Update konnte nicht verarbeitet werden.",
+        detail
+      });
+    }
+
+    manualUpdateCheck = false;
+  });
+
+  autoUpdater.on("download-progress", (progress) => {
+    log.info(`Update-Download ${Math.round(progress.percent)}%`);
+  });
+
+  autoUpdater.on("update-downloaded", async (info) => {
+    updateCheckInFlight = false;
+    updateDownloaded = true;
+    updateTargetVersion = info.version;
+    refreshMenu();
+
+    const response = await dialog.showMessageBox({
+      type: "info",
+      title: "Update bereit",
+      buttons: ["Jetzt neu starten", "Spaeter"],
+      defaultId: 0,
+      cancelId: 1,
+      message: `Version ${info.version} wurde heruntergeladen.`,
+      detail: "AION muss neu gestartet werden, um das Update zu installieren."
+    });
+
+    if (response.response === 0) {
+      autoUpdater.quitAndInstall();
+    }
+  });
+}
+
 function openInfoWindow(title: string, routeSegments: string[]) {
   const target = new BrowserWindow({
     title,
@@ -182,6 +340,25 @@ function buildAppMenu() {
         {
           label: "Impressum",
           click: () => openInfoWindow("AION Impressum", IMPRESSUM_ROUTE)
+        },
+        { type: "separator" as const },
+        {
+          id: "check-for-updates",
+          label: updateCheckInFlight ? "Suche nach Updates..." : "Nach Updates suchen",
+          enabled: !updateCheckInFlight,
+          click: () => {
+            void checkForUpdates(true);
+          }
+        },
+        {
+          id: "install-update",
+          label: updateTargetVersion
+            ? `Update ${updateTargetVersion} installieren`
+            : "Update installieren",
+          enabled: updateDownloaded,
+          click: () => {
+            autoUpdater.quitAndInstall();
+          }
         },
         { type: "separator" as const },
         {
@@ -238,8 +415,15 @@ app.whenReady().then(async () => {
   try {
     startBackendSidecar();
     await waitForBackendReady();
+    configureAutoUpdater();
     buildAppMenu();
     createMainWindow();
+
+    if (isUpdateSupported()) {
+      setTimeout(() => {
+        void checkForUpdates(false);
+      }, 10000);
+    }
   } catch (error) {
     const message =
       error instanceof Error

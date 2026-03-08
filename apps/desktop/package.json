@@ -13,7 +13,8 @@
     "prepare:runtime": "node scripts/prepare-runtime.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node -e \"console.log('No tests yet for @aion/desktop')\"",
-    "package:win": "node scripts/prepare-runtime.mjs && electron-builder --win nsis portable"
+    "package:win": "node scripts/prepare-runtime.mjs && electron-builder --win nsis portable",
+    "package:win:publish": "node scripts/prepare-runtime.mjs && electron-builder --win nsis portable --publish always"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
@@ -27,6 +28,14 @@
     "directories": {
       "output": "release"
     },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "BioMatic0",
+        "repo": "AION",
+        "releaseType": "release"
+      }
+    ],
     "files": [
       "build/**/*",
       "package.json"
@@ -56,6 +65,11 @@
       "installerIcon": "build-resources/aion.ico",
       "uninstallerIcon": "build-resources/aion.ico",
       "installerHeaderIcon": "build-resources/aion.ico"
-    }
+    },
+    "generateUpdatesFilesForAllChannels": true
+  },
+  "dependencies": {
+    "electron-log": "^5.4.3",
+    "electron-updater": "^6.8.3"
   }
 }

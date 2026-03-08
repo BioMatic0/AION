@@ -90,6 +90,8 @@ On this Windows environment, PowerShell script execution may block `npm` or `pnp
 - `pnpm --filter @aion/api prisma:migrate`
 - `pnpm --filter @aion/api prisma:seed`
 - `pnpm --filter @aion/api verify:persistence`
+- `pnpm --filter @aion/desktop package:win`
+- `pnpm --filter @aion/desktop package:win:publish`
 
 ## Current Status
 
@@ -121,6 +123,7 @@ The current repository delivers:
 - architecture docs and runbooks updated to the current implementation slice
 - a documented open project reference and MIT-based collaboration baseline
 - public collaboration files and publishing guidance for mirrored code hosting
+- Windows desktop packaging with a prepared GitHub-based auto-update path for installed releases
 
 ## Known Gaps
 
@@ -132,6 +135,7 @@ The current repository delivers:
 - admin is still embedded in the main web client
 - privacy export/deletion, incident escalation, browser/deep search, media, voice and collaboration modules remain partial or prepared only
 - policy enforcement is deterministic and keyword-driven for now; model-backed safety reasoning is still a later stage
+- desktop auto-updates depend on GitHub release metadata and are currently intended for packaged Windows builds
 
 ## Web Test Notes
 
