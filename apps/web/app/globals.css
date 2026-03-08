@@ -3,19 +3,31 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
+  --aion-bg: #0d0f13;
+  --aion-bg-elevated: #171b22;
+  --aion-bg-panel: #1d222b;
+  --aion-bg-soft: #262d37;
+  --aion-line: #353d49;
+  --aion-line-strong: #4c5563;
+  --aion-text: #f3f5f7;
+  --aion-text-muted: #cad1db;
+  --aion-text-soft: #93a1b3;
+  --aion-accent: #8d98a8;
 }
 
 html,
 body {
   margin: 0;
   min-height: 100%;
-  background: #e8ede8;
+  background:
+    radial-gradient(circle at top, rgba(82, 90, 104, 0.2), transparent 28%),
+    linear-gradient(180deg, #0b0d11 0%, #11151b 38%, #151a22 100%);
 }
 
 body {
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  color: #10211d;
+  color: var(--aion-text);
 }
 
 * {
@@ -25,4 +37,178 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@layer base {
+  input,
+  textarea,
+  select {
+    background: rgba(18, 22, 28, 0.94);
+    color: var(--aion-text);
+    border-color: var(--aion-line);
+    caret-color: var(--aion-text);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(147, 161, 179, 0.78);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--aion-line-strong);
+    box-shadow: 0 0 0 1px rgba(141, 152, 168, 0.28);
+  }
+}
+
+@layer utilities {
+  .bg-white {
+    background-color: rgba(29, 34, 43, 0.96) !important;
+  }
+
+  .bg-white\/90 {
+    background-color: rgba(29, 34, 43, 0.9) !important;
+  }
+
+  .bg-mist {
+    background-color: var(--aion-bg) !important;
+  }
+
+  .bg-mist\/40 {
+    background-color: rgba(38, 45, 55, 0.76) !important;
+  }
+
+  .bg-mist\/70 {
+    background-color: rgba(38, 45, 55, 0.9) !important;
+  }
+
+  .bg-moss\/5 {
+    background-color: rgba(255, 255, 255, 0.035) !important;
+  }
+
+  .bg-moss\/10 {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .bg-slate {
+    background-color: var(--aion-bg-elevated) !important;
+  }
+
+  .bg-slate\/70 {
+    background-color: rgba(23, 27, 34, 0.7) !important;
+  }
+
+  .bg-ink {
+    background-color: #2f3640 !important;
+  }
+
+  .bg-ember\/10 {
+    background-color: rgba(141, 152, 168, 0.12) !important;
+  }
+
+  .text-ink {
+    color: var(--aion-text) !important;
+  }
+
+  .text-slate {
+    color: var(--aion-text-muted) !important;
+  }
+
+  .text-slate\/75 {
+    color: rgba(202, 209, 219, 0.75) !important;
+  }
+
+  .text-slate\/80 {
+    color: rgba(202, 209, 219, 0.8) !important;
+  }
+
+  .text-moss {
+    color: var(--aion-text-soft) !important;
+  }
+
+  .text-mist {
+    color: #eef2f7 !important;
+  }
+
+  .text-mist\/60 {
+    color: rgba(238, 242, 247, 0.6) !important;
+  }
+
+  .text-mist\/75 {
+    color: rgba(238, 242, 247, 0.75) !important;
+  }
+
+  .text-mist\/80 {
+    color: rgba(238, 242, 247, 0.8) !important;
+  }
+
+  .border-mist {
+    border-color: var(--aion-line) !important;
+  }
+
+  .border-moss\/20 {
+    border-color: rgba(147, 161, 179, 0.18) !important;
+  }
+
+  .border-moss\/25 {
+    border-color: rgba(147, 161, 179, 0.24) !important;
+  }
+
+  .border-moss\/40 {
+    border-color: rgba(147, 161, 179, 0.34) !important;
+  }
+
+  .border-ember\/20 {
+    border-color: rgba(141, 152, 168, 0.24) !important;
+  }
+
+  .border-ink\/20 {
+    border-color: rgba(243, 245, 247, 0.12) !important;
+  }
+
+  .border-ink\/40 {
+    border-color: rgba(243, 245, 247, 0.26) !important;
+  }
+
+  .border-white\/10 {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .border-white\/20 {
+    border-color: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .ring-moss\/10 {
+    --tw-ring-color: rgba(147, 161, 179, 0.12) !important;
+  }
+
+  .hover\:bg-ink:hover {
+    background-color: #404854 !important;
+  }
+
+  .hover\:bg-slate:hover {
+    background-color: #242a33 !important;
+  }
+
+  .hover\:bg-mist\/70:hover {
+    background-color: rgba(46, 54, 64, 0.94) !important;
+  }
+
+  .hover\:border-ink\/40:hover {
+    border-color: rgba(243, 245, 247, 0.28) !important;
+  }
+
+  .hover\:border-moss\/30:hover {
+    border-color: rgba(147, 161, 179, 0.28) !important;
+  }
+
+  .hover\:border-moss\/40:hover {
+    border-color: rgba(147, 161, 179, 0.34) !important;
+  }
+
+  .disabled\:bg-slate\/70:disabled {
+    background-color: rgba(45, 52, 61, 0.7) !important;
+  }
 }

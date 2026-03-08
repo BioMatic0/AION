@@ -4,7 +4,7 @@ interface StatusNoticeProps {
 }
 
 const styles: Record<NonNullable<StatusNoticeProps["variant"]>, string> = {
-  info: "border-moss/20 bg-moss/5 text-slate",
+  info: "border-white/10 bg-white/90 text-slate",
   success: "border-moss/25 bg-moss/10 text-slate",
   error: "border-ember/20 bg-ember/10 text-ink"
 };

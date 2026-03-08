@@ -27,15 +27,15 @@ Open, human-centered AI platform for reflection, structure, privacy and growth.
 
 | Artifact | Link |
 | --- | --- |
-| Windows installer | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/AION.Setup.0.1.0.exe) |
-| Windows portable build | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/AION.0.1.0.exe) |
-| Android APK | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/AION-android-debug.apk) |
-| iOS Xcode project | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/AION-ios-xcode-project.zip) |
-| Full release bundle | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/AION-Release-Bundle-0.1.0.zip) |
-| SHA256 checksums | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.0/SHA256SUMS.txt) |
+| Windows installer | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/AION.Setup.0.1.1.exe) |
+| Windows portable build | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/AION.0.1.1.exe) |
+| Android APK | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/AION-android-debug.apk) |
+| iOS Xcode project | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/AION-ios-xcode-project.zip) |
+| SHA256 checksums | [Download](https://github.com/BioMatic0/AION/releases/download/v0.1.1/SHA256SUMS-0.1.1.txt) |
 
 ## Release notes
 
+- [AION v0.1.1 release notes](./releases/v0.1.1.html)
 - [AION v0.1.0 release notes](./releases/v0.1.0.html)
 
 ## Open collaboration

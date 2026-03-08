@@ -12,7 +12,13 @@ model User {
   id                     String                   @id @default(cuid())
   email                  String                   @unique
   displayName            String
+  passwordHash           String?
+  passwordUpdatedAt      DateTime?
+  twoFactorEnabled       Boolean                  @default(false)
+  twoFactorMethod        String?
+  twoFactorPhoneHint     String?
   createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @default(now()) @updatedAt
   preferences            UserPreference?
   privacyPreference      PrivacyPreference?
   sessions               ActiveSession[]
@@ -65,6 +71,7 @@ model ActiveSession {
   id          String   @id @default(cuid())
   userId      String
   deviceLabel String
+  sessionTokenHash String? @unique
   ipHash      String?
   createdAt   DateTime @default(now())
   lastSeenAt  DateTime @default(now())

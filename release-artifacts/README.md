@@ -2,6 +2,12 @@
 
 Stand: 2026-03-08
 
+Aktueller Windows-Stand:
+
+- das NSIS-Setup und die portable EXE wurden mit der ueberarbeiteten Grau-/Anthrazit-Oberflaeche neu gebaut
+- die Desktop-App startet weiterhin die lokale AION-Runtime automatisch mit
+- die frischen `0.1.1`-Artefakte sind aktuell als Einzeldateien verfuegbar
+
 ## Enthaltene Dateien
 
 - `AION Setup 0.1.0.exe`
@@ -26,9 +32,9 @@ Stand: 2026-03-08
 ## SHA256
 
 - `AION Setup 0.1.0.exe`
-  `138FBF7B10961C307ABEF9548487D157DB76655D4FF7B2265839B417D843AB9C`
+  `D1D2591755D017BDC567A0046EF91CD8604E694CC1CC7A2A3016EFBE019A2CD3`
 - `AION 0.1.0.exe`
-  `6F23CD0B36AEB83F2093DEC25D045D4A449A7393F197E62B850F988AE10F7F69`
+  `11E385CBDE8C064D89C3FAF558FB770C6FBF7DB6225B7ACB4EB25A861C322180`
 - `AION-android-debug.apk`
   `1BEE876A90FA57BADA07BD0CC85E7A0C1EBDB907FA0796789FE877BB0132D9F1`
 - `AION-ios-xcode-project.zip`
@@ -56,5 +62,13 @@ Stand: 2026-03-08
 - Die Hinweise dafuer stehen in `FREE-USE-NOTICE.txt`.
 - Die ZIP-Pakete enthalten `LICENSE`, `COPYRIGHT.md`, `REFERENCE.md` und die iOS-Build-Hinweise.
 - AION soll fuer jeden und jederzeit frei zugaenglich sein und gemeinschaftlich mitgestaltet werden.
+
+## Release 0.1.1
+
+- `AION Setup 0.1.1.exe`
+- `AION 0.1.1.exe`
+- `SHA256SUMS-0.1.1.txt`
+
+Die `0.1.0`-ZIP-Pakete bleiben als aeltere Sammelpakete im Ordner liegen. Fuer den aktuellen Stand bitte die `0.1.1`-Dateien verwenden.
 
 Wenn spaeter eine zentrale API-URL bereitsteht, sollten Android- und iOS-Builds gegen diese URL neu erzeugt werden.

@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import type { AuthSessionPayload } from "@aion/shared-types";
 import { brand } from "@aion/ui";
+import { apiRequest } from "../../lib/api";
 import type { SectionDefinition } from "../../lib/navigation";
 
 interface AppShellProps {
@@ -12,11 +15,69 @@ interface AppShellProps {
 
 export function AppShell({ children, navigation }: AppShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [auth, setAuth] = useState<AuthSessionPayload | null>(null);
+  const [authStatus, setAuthStatus] = useState<"loading" | "ready" | "redirecting">("loading");
+  const [logoutPending, startLogoutTransition] = useTransition();
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadSession() {
+      const result = await apiRequest<AuthSessionPayload>("/auth/me");
+      if (!active) {
+        return;
+      }
+
+      if (result.ok && result.data) {
+        setAuth(result.data);
+        setAuthStatus("ready");
+        return;
+      }
+
+      setAuth(null);
+      setAuthStatus("redirecting");
+      router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+    }
+
+    void loadSession();
+
+    return () => {
+      active = false;
+    };
+  }, [pathname, router]);
+
+  function handleLogout() {
+    startLogoutTransition(async () => {
+      await apiRequest("/auth/logout", { method: "POST" });
+      setAuth(null);
+      setAuthStatus("redirecting");
+      router.replace("/login");
+      router.refresh();
+    });
+  }
+
+  if (authStatus !== "ready" || !auth) {
+    return (
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.2),_transparent_30%),linear-gradient(180deg,_#0b0d11_0%,_#11151b_42%,_#151a22_100%)] px-6 py-8 text-ink sm:px-8 lg:px-12">
+        <div className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center">
+          <div className="w-full rounded-[32px] bg-white/90 p-10 text-center shadow-panel">
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{brand.name}</p>
+            <h1 className="mt-4 font-display text-4xl">Sitzung wird geprueft</h1>
+            <p className="mt-4 text-sm leading-7 text-slate/80">
+              Der Arbeitsbereich wird nur mit gueltiger Anmeldung geoeffnet. Falls keine Sitzung vorhanden ist,
+              wirst du direkt zur Anmeldung weitergeleitet.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-mist text-ink">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.16),_transparent_26%),linear-gradient(180deg,_#0b0d11_0%,_#10141a_38%,_#151a22_100%)] text-ink">
       <div className="mx-auto flex min-h-screen max-w-[1600px] gap-6 px-4 py-4 sm:px-6 lg:px-8">
-        <aside className="hidden w-80 shrink-0 rounded-[28px] bg-slate p-6 text-mist shadow-panel lg:block">
+        <aside className="hidden w-80 shrink-0 rounded-[28px] border border-white/10 bg-slate p-6 text-mist shadow-panel lg:block">
           <div className="space-y-3">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">{brand.name}</p>
             <h1 className="font-display text-3xl leading-tight">Adaptive Intelligenz fuer Ordnung, Navigation und Bewusstseinsmuster.</h1>
@@ -32,7 +93,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
                   className={`block rounded-2xl border px-4 py-3 transition ${
                     isActive
                       ? "border-ember bg-ember/10 text-white"
-                      : "border-white/10 bg-white/5 text-mist/80 hover:border-white/20 hover:bg-white/10"
+                      : "border-white/10 bg-white/90 text-mist/80 hover:border-white/20 hover:bg-white/90"
                   }`}
                 >
                   <div className="font-body text-sm font-semibold">{item.label}</div>
@@ -43,19 +104,33 @@ export function AppShell({ children, navigation }: AppShellProps) {
           </nav>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col gap-6">
-          <header className="rounded-[28px] bg-white px-6 py-5 shadow-panel">
+          <header className="rounded-[28px] border border-white/10 bg-white/90 px-6 py-5 shadow-panel backdrop-blur">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">AION Aufbauphase</p>
                 <h2 className="font-display text-3xl text-ink">Monorepo-Fundament im Ausbau</h2>
               </div>
-              <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
-                Aktiver Bereich: <span className="font-semibold">{pathname}</span>
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
+                  <div className="font-semibold text-ink">{auth.user.displayName}</div>
+                  <div className="text-xs text-slate/75">{auth.user.email}</div>
+                </div>
+                <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
+                  Aktiver Bereich: <span className="font-semibold">{pathname}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={logoutPending}
+                  className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate disabled:cursor-not-allowed disabled:bg-slate/70"
+                >
+                  {logoutPending ? "Abmeldung laeuft..." : "Abmelden"}
+                </button>
               </div>
             </div>
           </header>
           <main className="flex-1">{children}</main>
-          <footer className="rounded-[28px] bg-white px-6 py-4 text-sm text-slate shadow-panel">
+          <footer className="rounded-[28px] border border-white/10 bg-white/90 px-6 py-4 text-sm text-slate shadow-panel">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p>Copyright (c) 2026 Patrick Wirth. Veroeffentlicht unter der MIT License und offen fuer Mitgestaltung.</p>
               <div className="flex flex-wrap gap-4">

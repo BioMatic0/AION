@@ -34,7 +34,11 @@ export async function apiRequest<T>(path: string, init?: RequestInit): Promise<A
       headers.set("Content-Type", "application/json");
     }
 
-    const response = await fetch(`${API_BASE_URL}${path}`, { ...init, headers });
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      credentials: init?.credentials ?? "include",
+      ...init,
+      headers
+    });
     const contentType = response.headers.get("content-type") ?? "";
 
     let payload: unknown = null;

@@ -18,9 +18,9 @@ const pillars = [
 
 export default function MarketingPage() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#f6f1e7,_#e8ede8_55%,_#dce4de)] px-6 py-10 text-ink sm:px-8 lg:px-12">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.22),_transparent_28%),linear-gradient(180deg,_#090b0f_0%,_#10141a_42%,_#151a22_100%)] px-6 py-10 text-ink sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-12">
-        <section className="grid gap-10 rounded-[36px] bg-white/90 p-8 shadow-panel lg:grid-cols-[1.4fr_0.9fr] lg:p-12">
+        <section className="grid gap-10 rounded-[36px] border border-white/10 bg-white/90 p-8 shadow-panel lg:grid-cols-[1.4fr_0.9fr] lg:p-12">
           <div className="space-y-6">
             <p className="font-body text-sm uppercase tracking-[0.32em] text-moss">{brand.name}</p>
             <h1 className="max-w-4xl font-display text-5xl leading-tight sm:text-6xl">Die Architektur fuer deine KI-gestuetzte Erkenntnis- und Entwicklungsplattform.</h1>
@@ -28,8 +28,11 @@ export default function MarketingPage() {
               AION verbindet Journal, Analyse, Wachstum, Governance und Sicherheitslogik in einer produktionsnahen Full-Stack-Struktur.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/dashboard" className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate">
-                Zum Arbeitsbereich
+              <Link href="/login" className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate">
+                Anmelden
+              </Link>
+              <Link href="/register" className="rounded-full border border-ink/20 bg-white/90 px-6 py-3 text-sm font-semibold text-ink transition hover:border-ink/40">
+                Konto erstellen
               </Link>
               <Link href="/impressum" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Impressum
@@ -55,7 +58,7 @@ export default function MarketingPage() {
         </section>
         <section className="grid gap-6 lg:grid-cols-3">
           {pillars.map((pillar) => (
-            <article key={pillar.title} className="rounded-[28px] bg-white p-8 shadow-panel">
+            <article key={pillar.title} className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
               <h2 className="font-display text-2xl text-ink">{pillar.title}</h2>
               <p className="mt-3 text-sm leading-7 text-slate/80">{pillar.description}</p>
             </article>

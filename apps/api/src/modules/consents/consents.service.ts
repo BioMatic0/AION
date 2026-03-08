@@ -125,11 +125,85 @@ export class ConsentsService implements OnModuleInit {
     });
   }
 
-  listConsents() {
+  async listConsents(userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const records = await this.prisma.consentRecord.findMany({
+        where: { userId },
+        orderBy: { grantedAt: "desc" }
+      });
+
+      return records.map((record) => ({
+        id: record.id,
+        scope: record.scope,
+        status: record.status as ConsentRecordSummary["status"],
+        description: record.description,
+        required: record.required,
+        grantedAt: record.grantedAt.toISOString(),
+        revokedAt: record.revokedAt?.toISOString()
+      }));
+    }
+
     return this.records;
   }
 
-  async setConsent(dto: SetConsentDto) {
+  async setConsent(dto: SetConsentDto, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const now = new Date();
+      const existing = await this.prisma.consentRecord.findUnique({
+        where: {
+          userId_scope: {
+            userId,
+            scope: dto.scope
+          }
+        }
+      });
+
+      const record = await this.prisma.consentRecord.upsert({
+        where: {
+          userId_scope: {
+            userId,
+            scope: dto.scope
+          }
+        },
+        update: {
+          status: dto.status,
+          description: dto.description ?? existing?.description ?? "Expliziter Einwilligungsstatus, verwaltet im Datenschutzbereich.",
+          required: dto.required ?? existing?.required ?? false,
+          grantedAt: dto.status === "granted" ? now : existing?.grantedAt ?? now,
+          revokedAt: dto.status === "revoked" ? now : null
+        },
+        create: {
+          id: randomUUID(),
+          userId,
+          scope: dto.scope,
+          status: dto.status,
+          description: dto.description ?? "Expliziter Einwilligungsstatus, verwaltet im Datenschutzbereich.",
+          required: dto.required ?? false,
+          grantedAt: now,
+          revokedAt: dto.status === "revoked" ? now : null
+        }
+      });
+
+      await this.auditService.record({
+        category: "privacy",
+        action: `consent.${dto.status}`,
+        resource: dto.scope,
+        actorType: "user",
+        actorId: userId,
+        detail: `Die Einwilligung ${dto.scope} wurde auf ${dto.status} gesetzt.`
+      });
+
+      return {
+        id: record.id,
+        scope: record.scope,
+        status: record.status as ConsentRecordSummary["status"],
+        description: record.description,
+        required: record.required,
+        grantedAt: record.grantedAt.toISOString(),
+        revokedAt: record.revokedAt?.toISOString()
+      };
+    }
+
     const now = new Date().toISOString();
     const existing = this.records.find((item) => item.scope === dto.scope);
 
@@ -150,7 +224,7 @@ export class ConsentsService implements OnModuleInit {
         action: `consent.${dto.status}`,
         resource: dto.scope,
         actorType: "user",
-        actorId: LOCAL_USER_ID,
+        actorId: userId,
         detail: `Die Einwilligung ${dto.scope} wurde auf ${dto.status} gesetzt.`
       });
 
@@ -174,7 +248,7 @@ export class ConsentsService implements OnModuleInit {
       action: `consent.${dto.status}`,
       resource: dto.scope,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Die Einwilligung ${dto.scope} wurde mit dem Status ${dto.status} angelegt.`
     });
     return created;

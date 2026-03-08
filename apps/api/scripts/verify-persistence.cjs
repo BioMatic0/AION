@@ -11,6 +11,11 @@ const port = Number(process.env.AION_VERIFY_PORT ?? 4010);
 const baseUrl = `http://127.0.0.1:${port}`;
 const localUserId = "local-user";
 const uniqueScope = `persistence.check.${Date.now()}`;
+const verificationEmail = `persistence-${Date.now()}@example.com`;
+const verificationPassword = "Aion!23456789";
+
+let sessionCookie = "";
+let currentUserId = null;
 
 const runtimePath = path.resolve(__dirname, "../dist/apps/api/src/main.js");
 const workingDirectory = path.resolve(__dirname, "..");
@@ -84,14 +89,34 @@ async function parseResponse(response) {
   }
 }
 
+function captureSessionCookie(response) {
+  const rawCookie =
+    typeof response.headers.getSetCookie === "function"
+      ? response.headers.getSetCookie()[0]
+      : response.headers.get("set-cookie");
+
+  if (!rawCookie) {
+    return;
+  }
+
+  sessionCookie = rawCookie.split(";")[0] ?? sessionCookie;
+}
+
 async function request(method, resourcePath, body) {
+  const headers = {
+    "content-type": "application/json"
+  };
+
+  if (sessionCookie) {
+    headers.cookie = sessionCookie;
+  }
+
   const response = await fetch(`${baseUrl}${resourcePath}`, {
     method,
-    headers: {
-      "content-type": "application/json"
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined
   });
+  captureSessionCookie(response);
 
   const payload = await parseResponse(response);
   if (!response.ok) {
@@ -207,6 +232,13 @@ async function main() {
   try {
     await waitForHealth(runtime);
 
+    const registration = await request("POST", "/auth/register", {
+      displayName: "Persistence Verifier",
+      email: verificationEmail,
+      password: verificationPassword
+    });
+    currentUserId = registration.user.id;
+
     const before = await getCounts();
 
     await request("POST", "/privacy/export", { format: "json" });
@@ -305,6 +337,12 @@ async function main() {
         }
       }
     });
+    const currentUserDerivedMemoryItems = await prisma.memoryItemRecord.count({
+      where: {
+        userId: currentUserId,
+        isDerived: true
+      }
+    });
 
     assert.equal(after.exportRequests, before.exportRequests + 1, "Export requests were not persisted.");
     assert.equal(after.integrityChecks, before.integrityChecks + 1, "Integrity checks were not persisted.");
@@ -359,7 +397,7 @@ async function main() {
       prisma.goal.findUnique({ where: { id: goal.id } }),
       prisma.goalMilestone.findUnique({ where: { id: milestone.id } }),
       prisma.achievement.findFirst({ where: { goalId: goal.id } }),
-      prisma.notificationPreference.findUnique({ where: { userId: localUserId } }),
+      prisma.notificationPreference.findUnique({ where: { userId: currentUserId } }),
       prisma.notificationHistory.findUnique({ where: { id: notificationPreview.id } }),
       prisma.memoryItemRecord.findUnique({ where: { id: memoryItem.id } }),
       prisma.memoryItemRecord.findUnique({ where: { id: `goal:${goal.id}` } })
@@ -384,7 +422,11 @@ async function main() {
     assert.equal(storedNotificationPreview?.id, notificationPreview.id, "Stored notification preview is incorrect.");
     assert.equal(storedManualMemoryItem?.title, memoryItem.title, "Stored manual memory item is incorrect.");
     assert.equal(storedDerivedGoalMemoryItem?.sourceType, "goal", "Stored derived goal memory item is incorrect.");
-    assert.equal(memorySync.total, after.derivedMemoryItems, "Memory sync total does not match persisted derived items.");
+    assert.equal(
+      memorySync.total,
+      currentUserDerivedMemoryItems,
+      "Memory sync total does not match the current user's persisted derived items."
+    );
 
     console.log(
       JSON.stringify(

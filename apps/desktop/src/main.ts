@@ -150,7 +150,7 @@ function openInfoWindow(title: string, routeSegments: string[]) {
     minWidth: 760,
     minHeight: 620,
     autoHideMenuBar: false,
-    backgroundColor: "#f6f1e7",
+    backgroundColor: "#101319",
     parent: mainWindow ?? undefined,
     webPreferences: {
       contextIsolation: true,
@@ -211,7 +211,7 @@ function createMainWindow() {
     title: WINDOW_TITLE,
     ...DEFAULT_WINDOW,
     autoHideMenuBar: true,
-    backgroundColor: "#f6f1e7",
+    backgroundColor: "#101319",
     webPreferences: {
       contextIsolation: true,
       sandbox: true,

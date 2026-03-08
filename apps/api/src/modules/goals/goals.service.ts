@@ -352,15 +352,15 @@ export class GoalsService implements OnModuleInit {
     });
   }
 
-  private async persistStatsSnapshot() {
+  private async persistStatsSnapshot(userId: string = LOCAL_USER_ID) {
     if (!this.prisma) {
       return;
     }
 
-    const stats = this.getStats();
+    const stats = await this.getStats(userId);
     await this.prisma.goalStatsSnapshot.create({
       data: {
-        userId: LOCAL_USER_ID,
+        userId,
         activeGoalsCount: stats.active,
         completedGoalsCount: stats.completed,
         completionRate: stats.completionRate,
@@ -369,18 +369,76 @@ export class GoalsService implements OnModuleInit {
     });
   }
 
-  listGoals() {
+  private mapGoalRecord(goal: {
+    id: string;
+    title: string;
+    description: string;
+    goalType: string;
+    lifeArea: string;
+    priority: string;
+    status: string;
+    progressPercent: number;
+    dueDate: Date | null;
+    createdAt: Date;
+    updatedAt: Date;
+    milestones: Array<{
+      id: string;
+      title: string;
+      status: string;
+      dueDate: Date | null;
+      completedAt: Date | null;
+    }>;
+  }): GoalRecord {
     return {
-      items: this.goals,
-      stats: this.getStats()
+      id: goal.id,
+      title: goal.title,
+      description: goal.description,
+      goalType: goal.goalType,
+      lifeArea: goal.lifeArea,
+      priority: goal.priority,
+      status: goal.status as GoalRecord["status"],
+      progressPercent: goal.progressPercent,
+      dueDate: goal.dueDate?.toISOString(),
+      milestones: goal.milestones.map((milestone) => ({
+        id: milestone.id,
+        title: milestone.title,
+        status: milestone.status as GoalMilestone["status"],
+        dueDate: milestone.dueDate?.toISOString(),
+        completedAt: milestone.completedAt?.toISOString()
+      })),
+      createdAt: goal.createdAt.toISOString(),
+      updatedAt: goal.updatedAt.toISOString()
     };
   }
 
-  getStats() {
-    const total = this.goals.length;
-    const completed = this.goals.filter((goal) => goal.status === "achieved").length;
-    const active = this.goals.filter((goal) => goal.status === "active").length;
-    const averageProgress = total === 0 ? 0 : Math.round(this.goals.reduce((sum, goal) => sum + goal.progressPercent, 0) / total);
+  private async listGoalRecordsForUser(userId: string) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      return this.goals;
+    }
+
+    const goals = await this.prisma.goal.findMany({
+      where: { userId },
+      include: { milestones: true },
+      orderBy: { createdAt: "desc" }
+    });
+
+    return goals.map((goal) => this.mapGoalRecord(goal));
+  }
+
+  async listGoals(userId: string = LOCAL_USER_ID) {
+    const items = await this.listGoalRecordsForUser(userId);
+    return {
+      items,
+      stats: await this.getStats(userId)
+    };
+  }
+
+  async getStats(userId: string = LOCAL_USER_ID) {
+    const goals = await this.listGoalRecordsForUser(userId);
+    const total = goals.length;
+    const completed = goals.filter((goal) => goal.status === "achieved").length;
+    const active = goals.filter((goal) => goal.status === "active").length;
+    const averageProgress = total === 0 ? 0 : Math.round(goals.reduce((sum, goal) => sum + goal.progressPercent, 0) / total);
 
     return {
       total,
@@ -391,11 +449,38 @@ export class GoalsService implements OnModuleInit {
     };
   }
 
-  getAchievements() {
+  async getAchievements(userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const achievements = await this.prisma.achievement.findMany({
+        where: { userId },
+        orderBy: { achievedAt: "desc" }
+      });
+
+      return achievements.map((achievement) => ({
+        id: achievement.id,
+        goalId: achievement.goalId,
+        title: achievement.title,
+        achievedAt: achievement.achievedAt.toISOString()
+      }));
+    }
+
     return this.achievements;
   }
 
-  getGoal(id: string) {
+  async getGoal(id: string, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const goal = await this.prisma.goal.findFirst({
+        where: { id, userId },
+        include: { milestones: true }
+      });
+
+      if (!goal) {
+        throw new NotFoundException("Ziel nicht gefunden.");
+      }
+
+      return this.mapGoalRecord(goal);
+    }
+
     const goal = this.goals.find((item) => item.id === id);
     if (!goal) {
       throw new NotFoundException("Ziel nicht gefunden.");
@@ -404,7 +489,7 @@ export class GoalsService implements OnModuleInit {
     return goal;
   }
 
-  async createGoal(dto: CreateGoalDto) {
+  async createGoal(dto: CreateGoalDto, userId: string = LOCAL_USER_ID) {
     const now = new Date().toISOString();
     const goal: GoalRecord = {
       id: randomUUID(),
@@ -421,25 +506,96 @@ export class GoalsService implements OnModuleInit {
       updatedAt: now
     };
 
-    this.goals.unshift(goal);
-    await this.createGoalRecord(goal);
-    if (!this.prisma && this.desktopState?.isEnabled()) {
-      await this.desktopState.saveSection("goals.items", this.goals);
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.goals.unshift(goal);
+      await this.createGoalRecord(goal);
+      if (!this.prisma && this.desktopState?.isEnabled()) {
+        await this.desktopState.saveSection("goals.items", this.goals);
+      }
+    } else {
+      await this.prisma.goal.create({
+        data: {
+          id: goal.id,
+          userId,
+          title: goal.title,
+          description: goal.description,
+          goalType: goal.goalType,
+          lifeArea: goal.lifeArea,
+          priority: goal.priority,
+          status: goal.status,
+          progressPercent: goal.progressPercent,
+          dueDate: goal.dueDate ? new Date(goal.dueDate) : null,
+          createdAt: new Date(goal.createdAt),
+          updatedAt: new Date(goal.updatedAt)
+        }
+      });
     }
-    await this.persistStatsSnapshot();
+    await this.persistStatsSnapshot(userId);
     await this.auditService.record({
       category: "goals",
       action: "goal.created",
       resource: goal.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Das Ziel "${goal.title}" wurde angelegt.`
     });
     return goal;
   }
 
-  async updateGoal(id: string, dto: UpdateGoalDto) {
-    const goal = this.getGoal(id);
+  async updateGoal(id: string, dto: UpdateGoalDto, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const current = await this.prisma.goal.findFirst({
+        where: { id, userId },
+        include: { milestones: true }
+      });
+
+      if (!current) {
+        throw new NotFoundException("Ziel nicht gefunden.");
+      }
+
+      const previousStatus = current.status;
+      const updatedAt = new Date();
+      const updatedGoal = await this.prisma.goal.update({
+        where: { id: current.id },
+        data: {
+          title: dto.title ?? current.title,
+          description: dto.description ?? current.description,
+          goalType: dto.goalType ?? current.goalType,
+          lifeArea: dto.lifeArea ?? current.lifeArea,
+          priority: dto.priority ?? current.priority,
+          status: dto.status ?? current.status,
+          progressPercent: dto.progressPercent ?? current.progressPercent,
+          dueDate: dto.dueDate ? new Date(dto.dueDate) : current.dueDate,
+          updatedAt
+        },
+        include: { milestones: true }
+      });
+
+      if ((dto.status ?? current.status) === "achieved" && previousStatus !== "achieved") {
+        await this.prisma.achievement.create({
+          data: {
+            id: randomUUID(),
+            userId,
+            goalId: updatedGoal.id,
+            title: updatedGoal.title,
+            achievedAt: updatedAt
+          }
+        });
+      }
+
+      await this.auditService.record({
+        category: "goals",
+        action: "goal.updated",
+        resource: updatedGoal.id,
+        actorType: "user",
+        actorId: userId,
+        detail: `Das Ziel "${updatedGoal.title}" wurde aktualisiert.`
+      });
+
+      return this.mapGoalRecord(updatedGoal);
+    }
+
+    const goal = await this.getGoal(id, userId);
     const previousStatus = goal.status;
     Object.assign(goal, dto, { updatedAt: new Date().toISOString() });
 
@@ -462,19 +618,55 @@ export class GoalsService implements OnModuleInit {
         this.desktopState.saveSection("goals.achievements", this.achievements)
       ]);
     }
-    await this.persistStatsSnapshot();
+    await this.persistStatsSnapshot(userId);
     await this.auditService.record({
       category: "goals",
       action: "goal.updated",
       resource: goal.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Das Ziel "${goal.title}" wurde aktualisiert.`
     });
     return goal;
   }
 
-  async removeGoal(id: string) {
+  async removeGoal(id: string, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const current = await this.prisma.goal.findFirst({
+        where: { id, userId }
+      });
+
+      if (!current) {
+        throw new NotFoundException("Ziel nicht gefunden.");
+      }
+
+      await this.prisma.goal.delete({
+        where: { id: current.id }
+      });
+      await this.auditService.record({
+        category: "goals",
+        action: "goal.removed",
+        resource: current.id,
+        actorType: "user",
+        actorId: userId,
+        detail: `Das Ziel "${current.title}" wurde entfernt.`
+      });
+      return {
+        id: current.id,
+        title: current.title,
+        description: current.description,
+        goalType: current.goalType,
+        lifeArea: current.lifeArea,
+        priority: current.priority,
+        status: current.status as GoalRecord["status"],
+        progressPercent: current.progressPercent,
+        dueDate: current.dueDate?.toISOString(),
+        milestones: [],
+        createdAt: current.createdAt.toISOString(),
+        updatedAt: current.updatedAt.toISOString()
+      };
+    }
+
     const index = this.goals.findIndex((item) => item.id === id);
     if (index === -1) {
       throw new NotFoundException("Ziel nicht gefunden.");
@@ -484,20 +676,60 @@ export class GoalsService implements OnModuleInit {
     this.achievements = this.achievements.filter((achievement) => achievement.goalId !== removed.id);
     this.reminders = this.reminders.filter((reminder) => reminder.goalId !== removed.id);
     await this.removeGoalRecord(id);
-    await this.persistStatsSnapshot();
+    await this.persistStatsSnapshot(userId);
     await this.auditService.record({
       category: "goals",
       action: "goal.removed",
       resource: removed.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Das Ziel "${removed.title}" wurde entfernt.`
     });
     return removed;
   }
 
-  async addMilestone(goalId: string, dto: CreateGoalMilestoneDto) {
-    const goal = this.getGoal(goalId);
+  async addMilestone(goalId: string, dto: CreateGoalMilestoneDto, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const goal = await this.prisma.goal.findFirst({
+        where: { id: goalId, userId }
+      });
+
+      if (!goal) {
+        throw new NotFoundException("Ziel nicht gefunden.");
+      }
+
+      const milestoneId = randomUUID();
+      await this.prisma.goalMilestone.create({
+        data: {
+          id: milestoneId,
+          goalId: goal.id,
+          title: dto.title,
+          status: "pending",
+          dueDate: dto.dueDate ? new Date(dto.dueDate) : null
+        }
+      });
+      await this.prisma.goal.update({
+        where: { id: goal.id },
+        data: { updatedAt: new Date() }
+      });
+      await this.auditService.record({
+        category: "goals",
+        action: "milestone.created",
+        resource: milestoneId,
+        actorType: "user",
+        actorId: userId,
+        detail: `Der Meilenstein "${dto.title}" wurde dem Ziel "${goal.title}" hinzugefuegt.`
+      });
+
+      return {
+        id: milestoneId,
+        title: dto.title,
+        status: "pending" as const,
+        dueDate: dto.dueDate
+      };
+    }
+
+    const goal = await this.getGoal(goalId, userId);
     const milestone: GoalMilestone = {
       id: randomUUID(),
       title: dto.title,
@@ -517,14 +749,63 @@ export class GoalsService implements OnModuleInit {
       action: "milestone.created",
       resource: milestone.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Der Meilenstein "${milestone.title}" wurde dem Ziel "${goal.title}" hinzugefuegt.`
     });
     return milestone;
   }
 
-  async updateMilestone(goalId: string, milestoneId: string, dto: UpdateGoalMilestoneDto) {
-    const goal = this.getGoal(goalId);
+  async updateMilestone(goalId: string, milestoneId: string, dto: UpdateGoalMilestoneDto, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const goal = await this.prisma.goal.findFirst({
+        where: { id: goalId, userId }
+      });
+
+      if (!goal) {
+        throw new NotFoundException("Ziel nicht gefunden.");
+      }
+
+      const milestone = await this.prisma.goalMilestone.findFirst({
+        where: { id: milestoneId, goalId: goal.id }
+      });
+
+      if (!milestone) {
+        throw new NotFoundException("Ziel-Meilenstein nicht gefunden.");
+      }
+
+      const completedAt = dto.status === "completed" ? new Date() : milestone.completedAt;
+      const updated = await this.prisma.goalMilestone.update({
+        where: { id: milestone.id },
+        data: {
+          title: dto.title ?? milestone.title,
+          status: dto.status ?? milestone.status,
+          dueDate: dto.dueDate ? new Date(dto.dueDate) : milestone.dueDate,
+          completedAt
+        }
+      });
+      await this.prisma.goal.update({
+        where: { id: goal.id },
+        data: { updatedAt: new Date() }
+      });
+      await this.auditService.record({
+        category: "goals",
+        action: "milestone.updated",
+        resource: updated.id,
+        actorType: "user",
+        actorId: userId,
+        detail: `Der Meilenstein "${updated.title}" des Ziels "${goal.title}" wurde aktualisiert.`
+      });
+
+      return {
+        id: updated.id,
+        title: updated.title,
+        status: updated.status as GoalMilestone["status"],
+        dueDate: updated.dueDate?.toISOString(),
+        completedAt: updated.completedAt?.toISOString()
+      };
+    }
+
+    const goal = await this.getGoal(goalId, userId);
     const milestone = goal.milestones.find((item) => item.id === milestoneId);
     if (!milestone) {
       throw new NotFoundException("Ziel-Meilenstein nicht gefunden.");
@@ -546,7 +827,7 @@ export class GoalsService implements OnModuleInit {
       action: "milestone.updated",
       resource: milestone.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Der Meilenstein "${milestone.title}" des Ziels "${goal.title}" wurde aktualisiert.`
     });
     return milestone;

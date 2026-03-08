@@ -44,27 +44,30 @@ export class MemoryService implements OnModuleInit {
 
     this.manualItems = records
       .filter((record) => !record.isDerived)
-      .map((record) => ({
-        id: record.id,
-        sourceType: record.sourceType as MemoryItem["sourceType"],
-        title: record.title,
-        content: record.content,
-        concepts: Array.isArray(record.concepts) ? record.concepts.filter((item): item is string => typeof item === "string") : [],
-        relevance: record.relevance,
-        createdAt: record.createdAt.toISOString()
-      }));
-
+      .map((record) => this.mapRecord(record));
     this.syncedItems = records
       .filter((record) => record.isDerived)
-      .map((record) => ({
-        id: record.id,
-        sourceType: record.sourceType as MemoryItem["sourceType"],
-        title: record.title,
-        content: record.content,
-        concepts: Array.isArray(record.concepts) ? record.concepts.filter((item): item is string => typeof item === "string") : [],
-        relevance: record.relevance,
-        createdAt: record.createdAt.toISOString()
-      }));
+      .map((record) => this.mapRecord(record));
+  }
+
+  private mapRecord(record: {
+    id: string;
+    sourceType: string;
+    title: string;
+    content: string;
+    concepts: unknown;
+    relevance: number;
+    createdAt: Date;
+  }): MemoryItem {
+    return {
+      id: record.id,
+      sourceType: record.sourceType as MemoryItem["sourceType"],
+      title: record.title,
+      content: record.content,
+      concepts: Array.isArray(record.concepts) ? record.concepts.filter((item): item is string => typeof item === "string") : [],
+      relevance: record.relevance,
+      createdAt: record.createdAt.toISOString()
+    };
   }
 
   private buildDerivedItem(sourceType: MemoryItem["sourceType"], sourceId: string, title: string, content: string, createdAt?: string) {
@@ -77,38 +80,40 @@ export class MemoryService implements OnModuleInit {
     } satisfies MemoryItem;
   }
 
-  private buildDerivedItems() {
-    const journalItems = this.journalService.listEntries().map((entry) =>
+  private async buildDerivedItems(userId: string) {
+    const [journalItems, diaryItems, noteItems, goalResponse] = await Promise.all([
+      this.journalService.listEntries(userId),
+      this.diaryService.listEntries(userId),
+      this.notesService.listNotes(userId),
+      this.goalsService.listGoals(userId)
+    ]);
+
+    const journalMemory = journalItems.map((entry) =>
       this.buildDerivedItem("journal", entry.id, entry.title, entry.content, entry.updatedAt)
     );
-    const diaryItems = this.diaryService.listEntries().map((entry) =>
+    const diaryMemory = diaryItems.map((entry) =>
       this.buildDerivedItem("diary", entry.id, entry.title, entry.content, entry.updatedAt)
     );
-    const noteItems = this.notesService.listNotes().map((note) =>
+    const noteMemory = noteItems.map((note) =>
       this.buildDerivedItem("note", note.id, note.title, note.content, note.updatedAt)
     );
-    const goalItems = this.goalsService.listGoals().items.map((goal) =>
+    const goalMemory = goalResponse.items.map((goal) =>
       this.buildDerivedItem(
         "goal",
         goal.id,
         goal.title,
-        `${goal.description} ${goal.milestones.map((milestone) => milestone.title).join(" ")}`,
+        `${goal.description} ${goal.milestones.map((milestone) => milestone.title).join(" ")}`.trim(),
         goal.updatedAt
       )
     );
 
-    return [...journalItems, ...diaryItems, ...noteItems, ...goalItems].sort((left, right) =>
+    return [...journalMemory, ...diaryMemory, ...noteMemory, ...goalMemory].sort((left, right) =>
       right.createdAt.localeCompare(left.createdAt)
     );
   }
 
-  private currentItems() {
-    const derivedItems = this.syncedItems.length > 0 ? this.syncedItems : this.buildDerivedItems();
-    return [...this.manualItems, ...derivedItems].sort((left, right) => right.createdAt.localeCompare(left.createdAt));
-  }
-
-  private async persistManualItem(item: MemoryItem) {
-    if (!this.prisma) {
+  private async persistManualItem(item: MemoryItem, userId: string) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
       if (this.desktopState?.isEnabled()) {
         await this.desktopState.saveSection("memory.manualItems", this.manualItems);
       }
@@ -118,7 +123,7 @@ export class MemoryService implements OnModuleInit {
     await this.prisma.memoryItemRecord.create({
       data: {
         id: item.id,
-        userId: LOCAL_USER_ID,
+        userId,
         sourceType: item.sourceType,
         title: item.title,
         content: item.content,
@@ -130,8 +135,8 @@ export class MemoryService implements OnModuleInit {
     });
   }
 
-  private async persistSyncedItems(items: MemoryItem[]) {
-    if (!this.prisma) {
+  private async persistSyncedItems(items: MemoryItem[], userId: string) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
       if (this.desktopState?.isEnabled()) {
         await this.desktopState.saveSection("memory.syncedItems", this.syncedItems);
       }
@@ -140,55 +145,70 @@ export class MemoryService implements OnModuleInit {
 
     await this.prisma.memoryItemRecord.deleteMany({
       where: {
-        userId: LOCAL_USER_ID,
+        userId,
         isDerived: true
       }
     });
 
-    if (items.length === 0) {
-      return;
+    if (items.length > 0) {
+      await this.prisma.memoryItemRecord.createMany({
+        data: items.map((item) => ({
+          id: item.id,
+          userId,
+          sourceType: item.sourceType,
+          sourceRef: item.id.split(":").slice(1).join(":") || null,
+          syncKey: item.id,
+          title: item.title,
+          content: item.content,
+          concepts: item.concepts,
+          relevance: item.relevance,
+          isDerived: true,
+          createdAt: new Date(item.createdAt)
+        }))
+      });
+    }
+  }
+
+  private async currentItems(userId: string) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const records = await this.prisma.memoryItemRecord.findMany({
+        where: { userId },
+        orderBy: { updatedAt: "desc" }
+      });
+      return records.map((record) => this.mapRecord(record));
     }
 
-    await this.prisma.memoryItemRecord.createMany({
-      data: items.map((item) => ({
-        id: item.id,
-        userId: LOCAL_USER_ID,
-        sourceType: item.sourceType,
-        sourceRef: item.id.split(":").slice(1).join(":") || null,
-        syncKey: item.id,
-        title: item.title,
-        content: item.content,
-        concepts: item.concepts,
-        relevance: item.relevance,
-        isDerived: true,
-        createdAt: new Date(item.createdAt)
-      }))
-    });
+    const derivedItems = this.syncedItems.length > 0 ? this.syncedItems : await this.buildDerivedItems(userId);
+    return [...this.manualItems, ...derivedItems].sort((left, right) => right.createdAt.localeCompare(left.createdAt));
   }
 
-  listItems() {
-    return this.currentItems();
+  async listItems(userId: string = LOCAL_USER_ID) {
+    return this.currentItems(userId);
   }
 
-  async addItem(dto: CreateMemoryItemDto) {
+  async addItem(dto: CreateMemoryItemDto, userId: string = LOCAL_USER_ID) {
     const item = createMemoryItem(dto.sourceType, dto.title, dto.content);
-    this.manualItems.unshift(item);
-    await this.persistManualItem(item);
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.manualItems.unshift(item);
+    }
+    await this.persistManualItem(item, userId);
     await this.auditService.record({
       category: "memory",
       action: "item.created",
       resource: item.id,
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Manual memory item "${item.title}" was created.`
     });
     return item;
   }
 
-  async syncSystemMemory() {
-    const items = this.buildDerivedItems();
-    this.syncedItems = items;
-    await this.persistSyncedItems(items);
+  async syncSystemMemory(userId: string = LOCAL_USER_ID) {
+    const items = await this.buildDerivedItems(userId);
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.syncedItems = items;
+    }
+    await this.persistSyncedItems(items, userId);
     await this.auditService.record({
       category: "memory",
       action: "sync.completed",
@@ -205,7 +225,7 @@ export class MemoryService implements OnModuleInit {
     };
   }
 
-  search(query: string) {
-    return searchMemory(query, this.currentItems());
+  async search(query: string, userId: string = LOCAL_USER_ID) {
+    return searchMemory(query, await this.currentItems(userId));
   }
 }

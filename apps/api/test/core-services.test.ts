@@ -29,7 +29,8 @@ test("DiaryService creates entries and exposes prompts", async () => {
     sourceContext: "manual"
   });
 
-  assert.equal(service.listEntries()[0]?.id, created.id);
+  const entries = await service.listEntries();
+  assert.equal(entries[0]?.id, created.id);
 });
 
 test("NotesService stores tags and pinned flag", async () => {
@@ -63,8 +64,10 @@ test("GoalsService tracks created goals and achievements", async () => {
   });
 
   await service.updateGoal(created.id, { status: "achieved", progressPercent: 100 });
-  assert.equal(service.getGoal(created.id).status, "achieved");
-  assert.ok(service.getAchievements().some((item) => item.goalId === created.id));
+  const goal = await service.getGoal(created.id);
+  const achievements = await service.getAchievements();
+  assert.equal(goal?.status, "achieved");
+  assert.ok(achievements.some((item) => item.goalId === created.id));
 });
 
 test("NotificationsService updates preferences and creates previews", async () => {
@@ -75,8 +78,9 @@ test("NotificationsService updates preferences and creates previews", async () =
   assert.equal(updated.frequency, "weekly");
 
   const preview = await service.createPreviewNotification();
+  const history = await service.getHistory();
   assert.equal(preview.channel, "in-app");
-  assert.ok(service.getHistory().some((item) => item.id === preview.id));
+  assert.ok(history.some((item) => item.id === preview.id));
 });
 
 test("AnalysisService builds reports and quantum lens outputs", async () => {
@@ -129,7 +133,7 @@ test("GrowthService derives state and interventions from existing modules", asyn
 
   assert.ok(evaluation.state.focusArea.length > 0);
   assert.ok(evaluation.intervention.action.length > 0);
-  assert.ok(service.getHistory().length >= 1);
+  assert.ok((await service.getHistory()).length >= 1);
 });
 
 test("MemoryService syncs domain data and returns search matches", async () => {
@@ -144,7 +148,7 @@ test("MemoryService syncs domain data and returns search matches", async () => {
   });
   const service = new MemoryService(journal, new DiaryService(audit), new NotesService(audit), new GoalsService(audit), audit);
   const sync = await service.syncSystemMemory();
-  const search = service.search("memory coherence mvp");
+  const search = await service.search("memory coherence mvp");
 
   assert.ok(sync.total >= 1);
   assert.ok(search.total >= 1);
@@ -159,7 +163,7 @@ test("PrivacyService exposes preferences, consents and export-deletion workflows
   await service.updatePreferences({ privacyMode: "privacy-max", retentionProfile: "minimal" });
   const exportRequest = await service.requestExport({ format: "pdf" });
   const deletionRequest = await service.requestDeletion({ scope: "memory" });
-  const overview = service.getOverview();
+  const overview = await service.getOverview();
 
   assert.equal(overview.preferences.privacyMode, "privacy-max");
   assert.equal(exportRequest.format, "pdf");
@@ -186,11 +190,12 @@ test("GovernanceService returns overview and can run integrity sweeps", async ()
 
 test("SecurityService exposes incidents and simulated suspicious logins", async () => {
   const service = new SecurityService(new AuditService());
-  const before = service.listIncidents().length;
+  const before = (await service.listIncidents()).length;
   const created = await service.simulateSuspiciousLogin();
-  const after = service.listIncidents().length;
+  const after = (await service.listIncidents()).length;
+  const overview = await service.getOverview();
 
   assert.equal(created.incidentType, "login.suspicious");
   assert.equal(after, before + 1);
-  assert.ok(service.getOverview().notifications.length >= 1);
+  assert.ok(overview.notifications.length >= 1);
 });

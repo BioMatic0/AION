@@ -1,60 +1,64 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { CurrentUserId } from "../auth/current-user.decorator";
+import { SessionAuthGuard } from "../auth/session-auth.guard";
 import { CreateGoalDto } from "./dto/create-goal.dto";
 import { CreateGoalMilestoneDto } from "./dto/create-goal-milestone.dto";
 import { UpdateGoalDto } from "./dto/update-goal.dto";
 import { UpdateGoalMilestoneDto } from "./dto/update-goal-milestone.dto";
 import { GoalsService } from "./goals.service";
 
+@UseGuards(SessionAuthGuard)
 @Controller("goals")
 export class GoalsController {
   constructor(private readonly goalsService: GoalsService) {}
 
   @Get()
-  listGoals() {
-    return this.goalsService.listGoals();
+  listGoals(@CurrentUserId() userId: string) {
+    return this.goalsService.listGoals(userId);
   }
 
   @Get("stats")
-  getStats() {
-    return this.goalsService.getStats();
+  getStats(@CurrentUserId() userId: string) {
+    return this.goalsService.getStats(userId);
   }
 
   @Get("achievements")
-  getAchievements() {
-    return this.goalsService.getAchievements();
+  getAchievements(@CurrentUserId() userId: string) {
+    return this.goalsService.getAchievements(userId);
   }
 
   @Get(":id")
-  getGoal(@Param("id") id: string) {
-    return this.goalsService.getGoal(id);
+  getGoal(@CurrentUserId() userId: string, @Param("id") id: string) {
+    return this.goalsService.getGoal(id, userId);
   }
 
   @Post()
-  createGoal(@Body() dto: CreateGoalDto) {
-    return this.goalsService.createGoal(dto);
+  createGoal(@CurrentUserId() userId: string, @Body() dto: CreateGoalDto) {
+    return this.goalsService.createGoal(dto, userId);
   }
 
   @Patch(":id")
-  updateGoal(@Param("id") id: string, @Body() dto: UpdateGoalDto) {
-    return this.goalsService.updateGoal(id, dto);
+  updateGoal(@CurrentUserId() userId: string, @Param("id") id: string, @Body() dto: UpdateGoalDto) {
+    return this.goalsService.updateGoal(id, dto, userId);
   }
 
   @Delete(":id")
-  removeGoal(@Param("id") id: string) {
-    return this.goalsService.removeGoal(id);
+  removeGoal(@CurrentUserId() userId: string, @Param("id") id: string) {
+    return this.goalsService.removeGoal(id, userId);
   }
 
   @Post(":id/milestones")
-  addMilestone(@Param("id") id: string, @Body() dto: CreateGoalMilestoneDto) {
-    return this.goalsService.addMilestone(id, dto);
+  addMilestone(@CurrentUserId() userId: string, @Param("id") id: string, @Body() dto: CreateGoalMilestoneDto) {
+    return this.goalsService.addMilestone(id, dto, userId);
   }
 
   @Patch(":goalId/milestones/:milestoneId")
   updateMilestone(
+    @CurrentUserId() userId: string,
     @Param("goalId") goalId: string,
     @Param("milestoneId") milestoneId: string,
     @Body() dto: UpdateGoalMilestoneDto
   ) {
-    return this.goalsService.updateMilestone(goalId, milestoneId, dto);
+    return this.goalsService.updateMilestone(goalId, milestoneId, dto, userId);
   }
 }

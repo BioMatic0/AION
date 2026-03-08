@@ -5,6 +5,28 @@ test("dashboard renders live counts from intercepted API responses", async ({ pa
     const url = new URL(route.request().url());
 
     switch (url.pathname) {
+      case "/auth/me":
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            user: {
+              id: "user-1",
+              displayName: "Patrick Wirth",
+              email: "patrick@example.com",
+              createdAt: "2026-03-08T08:00:00.000Z"
+            },
+            session: {
+              id: "session-1",
+              userId: "user-1",
+              label: "Browser",
+              createdAt: "2026-03-08T08:00:00.000Z",
+              lastSeenAt: "2026-03-08T08:00:00.000Z",
+              revokedAt: null
+            }
+          })
+        });
+        return;
       case "/journal":
         await route.fulfill({
           status: 200,
@@ -92,8 +114,8 @@ test("dashboard renders live counts from intercepted API responses", async ({ pa
   await page.goto("/dashboard");
 
   await expect(page.getByText("Dashboard zeigt Live-Zahlen aus der API.")).toBeVisible();
-  await expect(page.locator('a[href="/journal"]').nth(1)).toContainText("2");
-  await expect(page.locator('a[href="/diary"]').nth(1)).toContainText("1");
-  await expect(page.locator('a[href="/notes"]').nth(1)).toContainText("1");
-  await expect(page.locator('a[href="/goals"]').nth(1)).toContainText("64%");
+  await expect(page.getByTestId("dashboard-card-journal")).toContainText("2");
+  await expect(page.getByTestId("dashboard-card-diary")).toContainText("1");
+  await expect(page.getByTestId("dashboard-card-notes")).toContainText("1");
+  await expect(page.getByTestId("dashboard-card-goals")).toContainText("64%");
 });

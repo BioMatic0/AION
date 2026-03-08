@@ -270,11 +270,49 @@ export class NotificationsService implements OnModuleInit {
     });
   }
 
-  getPreferences() {
+  async getPreferences(userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const preference = await this.prisma.notificationPreference.findUnique({
+        where: { userId }
+      });
+
+      return preference
+        ? {
+            developmentEnabled: preference.developmentEnabled,
+            goalRemindersEnabled: preference.goalRemindersEnabled,
+            frequency: preference.frequency as NotificationPreference["frequency"],
+            preferredTime: preference.preferredTime,
+            preferredWeekday: preference.preferredWeekday,
+            tone: preference.tone as NotificationPreference["tone"]
+          }
+        : createDefaultPreferences();
+    }
+
     return this.preferences;
   }
 
-  async updatePreferences(dto: UpdateNotificationPreferencesDto) {
+  async updatePreferences(dto: UpdateNotificationPreferencesDto, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const current = await this.getPreferences(userId);
+      const next = { ...current, ...dto };
+
+      await this.prisma.notificationPreference.upsert({
+        where: { userId },
+        update: next,
+        create: { userId, ...next }
+      });
+      await this.syncJobsForUser(userId, next);
+      await this.auditService.record({
+        category: "notifications",
+        action: "preferences.updated",
+        resource: "notification-preferences",
+        actorType: "user",
+        actorId: userId,
+        detail: `Die Benachrichtigungspraeferenzen wurden auf ${next.frequency} / ${next.tone} aktualisiert.`
+      });
+      return next;
+    }
+
     this.preferences = {
       ...this.preferences,
       ...dto
@@ -287,39 +325,124 @@ export class NotificationsService implements OnModuleInit {
       action: "preferences.updated",
       resource: "notification-preferences",
       actorType: "user",
-      actorId: LOCAL_USER_ID,
+      actorId: userId,
       detail: `Die Benachrichtigungspraeferenzen wurden auf ${this.preferences.frequency} / ${this.preferences.tone} aktualisiert.`
     });
 
     return this.preferences;
   }
 
-  getHistory() {
+  async getHistory(userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const history = await this.prisma.notificationHistory.findMany({
+        where: { userId },
+        orderBy: { deliveredAt: "desc" }
+      });
+
+      return history.map((item) => ({
+        id: item.id,
+        notificationType: item.notificationType as NotificationHistoryItem["notificationType"],
+        channel: item.channel as NotificationHistoryItem["channel"],
+        title: item.title,
+        message: item.message,
+        deliveredAt: item.deliveredAt.toISOString(),
+        status: item.status as NotificationHistoryItem["status"]
+      }));
+    }
+
     return this.history;
   }
 
-  getJobs() {
+  async getJobs(userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const jobs = await this.prisma.notificationJob.findMany({
+        where: { userId },
+        orderBy: { scheduledFor: "asc" }
+      });
+
+      return jobs.map((job) => ({
+        id: job.id,
+        jobType: job.jobType as NotificationJobRecord["jobType"],
+        scheduledFor: job.scheduledFor.toISOString(),
+        status: job.status as NotificationJobRecord["status"]
+      }));
+    }
+
     return this.jobs;
   }
 
-  async createPreviewNotification() {
+  private async syncJobsForUser(userId: string, preferences: NotificationPreference) {
+    const nextJobs: NotificationJobRecord[] = [];
+
+    if (preferences.developmentEnabled) {
+      nextJobs.push({
+        id: randomUUID(),
+        jobType: "growth",
+        scheduledFor: computeScheduledFor("growth", preferences),
+        status: "scheduled"
+      });
+    }
+
+    if (preferences.goalRemindersEnabled) {
+      nextJobs.push({
+        id: randomUUID(),
+        jobType: "goal",
+        scheduledFor: computeScheduledFor("goal", preferences),
+        status: "scheduled"
+      });
+    }
+
+    await this.prisma?.notificationJob.deleteMany({
+      where: { userId }
+    });
+
+    if (nextJobs.length > 0) {
+      await this.prisma?.notificationJob.createMany({
+        data: nextJobs.map((job) => ({
+          id: job.id,
+          userId,
+          jobType: job.jobType,
+          scheduledFor: new Date(job.scheduledFor),
+          status: job.status
+        }))
+      });
+    }
+  }
+
+  async createPreviewNotification(userId: string = LOCAL_USER_ID) {
+    const preferences = await this.getPreferences(userId);
     const preview: NotificationHistoryItem = {
       id: randomUUID(),
-      notificationType: this.preferences.goalRemindersEnabled ? "goal" : "growth",
+      notificationType: preferences.goalRemindersEnabled ? "goal" : "growth",
       channel: "in-app",
-      title: this.preferences.goalRemindersEnabled ? "Ziel-Erinnerung" : "Entwicklungsimpuls",
+      title: preferences.goalRemindersEnabled ? "Ziel-Erinnerung" : "Entwicklungsimpuls",
       message:
-        this.preferences.tone === "motivational"
+        preferences.tone === "motivational"
           ? "Bleib in Bewegung. Ein echter kleiner Schritt reicht fuer heute."
-          : this.preferences.tone === "reflective"
+          : preferences.tone === "reflective"
             ? "Welcher offene Punkt verlangt heute nach Klarheit statt Aufschub?"
             : "Heute gilt: klar schauen, klein handeln, dranbleiben.",
       deliveredAt: new Date().toISOString(),
       status: "queued"
     };
 
-    this.history.unshift(preview);
-    await this.persistHistoryItem(preview);
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      await this.prisma.notificationHistory.create({
+        data: {
+          id: preview.id,
+          userId,
+          notificationType: preview.notificationType,
+          channel: preview.channel,
+          title: preview.title,
+          message: preview.message,
+          deliveredAt: new Date(preview.deliveredAt),
+          status: preview.status
+        }
+      });
+    } else {
+      this.history.unshift(preview);
+      await this.persistHistoryItem(preview);
+    }
     await this.auditService.record({
       category: "notifications",
       action: "preview.created",

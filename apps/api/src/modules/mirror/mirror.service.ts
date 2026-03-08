@@ -67,11 +67,32 @@ export class MirrorService implements OnModuleInit {
     });
   }
 
-  listReports() {
-    return this.reports;
+  async listReports(userId: string = LOCAL_USER_ID) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      return this.reports;
+    }
+
+    const records = await this.prisma.analysis.findMany({
+      where: { userId, reportType: "mirror" },
+      orderBy: { generatedAt: "desc" }
+    });
+
+    return records.map((record) => hydrateAnalysisRecord(record) as MirrorReport);
   }
 
-  getReport(id: string) {
+  async getReport(id: string, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const record = await this.prisma.analysis.findFirst({
+        where: { id, userId, reportType: "mirror" }
+      });
+
+      if (!record) {
+        throw new NotFoundException("Spiegelbericht nicht gefunden.");
+      }
+
+      return hydrateAnalysisRecord(record) as MirrorReport;
+    }
+
     const report = this.reports.find((item) => item.id === id);
     if (!report) {
       throw new NotFoundException("Spiegelbericht nicht gefunden.");
@@ -80,7 +101,7 @@ export class MirrorService implements OnModuleInit {
     return report;
   }
 
-  async runMirror(dto: MirrorInputDto) {
+  async runMirror(dto: MirrorInputDto, userId: string = LOCAL_USER_ID) {
     const decision = assessEthics(dto.content, "mirror");
     if (requiresGovernanceBlock(decision)) {
       await this.auditService.record({
@@ -95,8 +116,14 @@ export class MirrorService implements OnModuleInit {
     }
 
     const report = buildMirrorReport(dto);
-    this.reports.unshift(report);
-    await this.persistReport(report);
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.reports.unshift(report);
+      await this.persistReport(report);
+    } else {
+      await this.prisma.analysis.create({
+        data: serializeAnalysisRecord(report, userId, "mirror")
+      });
+    }
     await this.auditService.record({
       category: "governance",
       action: "mirror.generated",

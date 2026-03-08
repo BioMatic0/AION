@@ -1,15 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { CurrentUserId } from "../auth/current-user.decorator";
+import { SessionAuthGuard } from "../auth/session-auth.guard";
 import { CreateDiaryEntryDto } from "./dto/create-diary-entry.dto";
 import { UpdateDiaryEntryDto } from "./dto/update-diary-entry.dto";
 import { DiaryService } from "./diary.service";
 
+@UseGuards(SessionAuthGuard)
 @Controller("diary")
 export class DiaryController {
   constructor(private readonly diaryService: DiaryService) {}
 
   @Get()
-  listEntries() {
-    return this.diaryService.listEntries();
+  listEntries(@CurrentUserId() userId: string) {
+    return this.diaryService.listEntries(userId);
   }
 
   @Get("prompts")
@@ -18,27 +21,27 @@ export class DiaryController {
   }
 
   @Get("summary")
-  getPreparedSummary() {
-    return this.diaryService.prepareDailySummary();
+  getPreparedSummary(@CurrentUserId() userId: string) {
+    return this.diaryService.prepareDailySummary(userId);
   }
 
   @Get(":id")
-  getEntry(@Param("id") id: string) {
-    return this.diaryService.getEntry(id);
+  getEntry(@CurrentUserId() userId: string, @Param("id") id: string) {
+    return this.diaryService.getEntry(id, userId);
   }
 
   @Post()
-  createEntry(@Body() dto: CreateDiaryEntryDto) {
-    return this.diaryService.createEntry(dto);
+  createEntry(@CurrentUserId() userId: string, @Body() dto: CreateDiaryEntryDto) {
+    return this.diaryService.createEntry(dto, userId);
   }
 
   @Patch(":id")
-  updateEntry(@Param("id") id: string, @Body() dto: UpdateDiaryEntryDto) {
-    return this.diaryService.updateEntry(id, dto);
+  updateEntry(@CurrentUserId() userId: string, @Param("id") id: string, @Body() dto: UpdateDiaryEntryDto) {
+    return this.diaryService.updateEntry(id, dto, userId);
   }
 
   @Delete(":id")
-  removeEntry(@Param("id") id: string) {
-    return this.diaryService.removeEntry(id);
+  removeEntry(@CurrentUserId() userId: string, @Param("id") id: string) {
+    return this.diaryService.removeEntry(id, userId);
   }
 }

@@ -104,7 +104,12 @@ export function DashboardOverview() {
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {cards.map((card) => (
-            <Link key={card.title} href={card.href} className="rounded-2xl border border-mist bg-mist/40 p-5 transition hover:border-moss/30 hover:bg-mist/70">
+            <Link
+              key={card.title}
+              href={card.href}
+              data-testid={`dashboard-card-${card.href.slice(1)}`}
+              className="rounded-2xl border border-mist bg-mist/40 p-5 transition hover:border-moss/30 hover:bg-mist/70"
+            >
               <div className="font-body text-xs uppercase tracking-[0.24em] text-moss">{card.title}</div>
               <div className="mt-3 text-3xl font-semibold text-ink">{card.value}</div>
               <p className="mt-3 text-sm leading-6 text-slate/75">{card.description}</p>

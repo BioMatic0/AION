@@ -26,6 +26,7 @@ export type ConsentStatus = "granted" | "revoked";
 export type PrivacyMode = "standard" | "privacy-max";
 export type ExportFormat = "json" | "pdf";
 export type DeletionScope = "account" | "journal" | "notes" | "memory";
+export type TwoFactorMethod = "authenticator" | "email" | "sms";
 export type PolicyId =
   | "human-first"
   | "non-dominance"
@@ -44,6 +45,37 @@ export interface NavigationItem {
   href: string;
   label: string;
   description: string;
+}
+
+export interface AuthenticatedUserSummary {
+  id: string;
+  email: string;
+  displayName: string;
+  createdAt: string;
+}
+
+export interface UserProfileSummary extends AuthenticatedUserSummary {
+  updatedAt: string;
+  passwordUpdatedAt?: string;
+  twoFactorEnabled: boolean;
+  twoFactorMethod?: TwoFactorMethod;
+  twoFactorPhoneHint?: string;
+}
+
+export interface TwoFactorSettingsSummary {
+  enabled: boolean;
+  method?: TwoFactorMethod;
+  phoneHint?: string;
+  availableMethods: TwoFactorMethod[];
+  readiness: "scaffold";
+  note: string;
+}
+
+export interface UserSecuritySummary {
+  profile: UserProfileSummary;
+  sessionCount: number;
+  activeSessionCount: number;
+  twoFactor: TwoFactorSettingsSummary;
 }
 
 export interface PolicyDefinition {
@@ -322,6 +354,11 @@ export interface SecuritySessionSummary {
   createdAt: string;
   lastSeenAt: string;
   revokedAt: string | null;
+}
+
+export interface AuthSessionPayload {
+  user: AuthenticatedUserSummary;
+  session: SecuritySessionSummary;
 }
 
 export interface SecurityEventSummary {

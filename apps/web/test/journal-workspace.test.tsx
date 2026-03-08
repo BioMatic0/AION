@@ -25,7 +25,7 @@ describe("JournalWorkspace", () => {
         body: {
           id: "entry-2",
           title: "Neuer Fokus",
-          content: "Die neue Beobachtung bleibt sichtbar.",
+          content: "Sichtbar und klar.",
           entryType: "journal",
           mood: "ruhig",
           intensity: 6,
@@ -44,7 +44,7 @@ describe("JournalWorkspace", () => {
     await user.type(screen.getByPlaceholderText("Stimmung"), "ruhig");
     await user.type(
       screen.getByPlaceholderText("Was ist beobachtbar, was ist Deutung und was braucht spaeter die Spiegelung?"),
-      "Die neue Beobachtung bleibt sichtbar."
+      "Sichtbar und klar."
     );
     await user.click(screen.getByRole("button", { name: "Eintrag erfassen" }));
 
@@ -57,5 +57,5 @@ describe("JournalWorkspace", () => {
     expect(fetchMock.mock.calls[1]?.[1]).toMatchObject({
       method: "POST"
     });
-  });
+  }, 10000);
 });

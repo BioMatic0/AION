@@ -1,32 +1,35 @@
-import { Controller, Get, Param, Post } from "@nestjs/common";
+import { Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import { CurrentUserId } from "../auth/current-user.decorator";
+import { SessionAuthGuard } from "../auth/session-auth.guard";
 import { SecurityService } from "./security.service";
 
+@UseGuards(SessionAuthGuard)
 @Controller("security")
 export class SecurityController {
   constructor(private readonly securityService: SecurityService) {}
 
   @Get("overview")
-  getOverview() {
-    return this.securityService.getOverview();
+  getOverview(@CurrentUserId() userId: string) {
+    return this.securityService.getOverview(userId);
   }
 
   @Get("incidents")
-  getIncidents() {
-    return this.securityService.listIncidents();
+  getIncidents(@CurrentUserId() userId: string) {
+    return this.securityService.listIncidents(userId);
   }
 
   @Get("notifications")
-  getNotifications() {
-    return this.securityService.listNotifications();
+  getNotifications(@CurrentUserId() userId: string) {
+    return this.securityService.listNotifications(userId);
   }
 
   @Post("simulate/suspicious-login")
-  simulateSuspiciousLogin() {
-    return this.securityService.simulateSuspiciousLogin();
+  simulateSuspiciousLogin(@CurrentUserId() userId: string) {
+    return this.securityService.simulateSuspiciousLogin(userId);
   }
 
   @Post("notifications/:notificationId/acknowledge")
-  acknowledgeNotification(@Param("notificationId") notificationId: string) {
-    return this.securityService.acknowledgeNotification(notificationId);
+  acknowledgeNotification(@CurrentUserId() userId: string, @Param("notificationId") notificationId: string) {
+    return this.securityService.acknowledgeNotification(notificationId, userId);
   }
 }

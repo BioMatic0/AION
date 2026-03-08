@@ -105,14 +105,17 @@ The current repository delivers:
 - active policy engine and ethics routing for analysis, mirror, growth and governance-preview flows
 - visible privacy center with preferences, consent records, privacy ledger and export/deletion request stubs
 - visible security center with sessions, events, incidents and user-facing incident notifications
+- settings workspace with profile editing, password change and a user-facing 2FA scaffold
 - Prisma-backed persistence for journal, diary, notes, goals, milestones, achievements and notification preferences/history/jobs
 - Prisma-backed persistence for generated analysis, quantum, mirror and growth records
 - Prisma-backed persistence for manual and synced memory items
+- Prisma-backed user profile security fields for password rotation metadata and 2FA scaffold state
 - Prisma-backed bootstrap and persistence for audit, consents, privacy, governance and security runtime data
 - shared type definitions for capture, growth, memory, governance, privacy and security domains
 - Prisma schema extended for diary, notes, goals, notifications, governance, privacy, consent and audit persistence
 - worker placeholder for AI routing and memory seed generation
 - real API service tests for diary, notes, goals, notifications, analysis, growth, memory, governance, privacy and security
+- real API service tests for profile updates, password change validation and 2FA scaffold rules
 - audit-backed governance decisions on analysis, mirror and growth endpoints, including blocking for restricted-use requests
 - reusable API smoke verification for Prisma-backed governance, privacy, security, consent and audit persistence
 - architecture docs and runbooks updated to the current implementation slice

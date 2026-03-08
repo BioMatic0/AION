@@ -1,5 +1,6 @@
 import { NotificationSettingsPanel } from "../../../components/mvp/notification-settings-panel";
 import { SectionHeader } from "../../../components/mvp/section-header";
+import { UserProfileSettingsPanel } from "../../../components/mvp/user-profile-settings-panel";
 
 export default function SettingsPage() {
   return (
@@ -7,9 +8,10 @@ export default function SettingsPage() {
       <SectionHeader
         eyebrow="Einstellungen"
         title="Agent, Benachrichtigungen und Steuerlogik an einem Ort"
-        description="Die Einstellungen bleiben die Steuerzentrale des MVP. Aktuell ist hier vor allem die Benachrichtigungs- und Erinnerungslogik eingebunden; Agentenprofile folgen im naechsten Ausbau."
+        description="Die Einstellungen bleiben die Steuerzentrale des MVP. Profil, Passwortwechsel, 2FA-Vorstruktur und Benachrichtigungslogik sind hier zusammengezogen; weitere Agentenprofile folgen spaeter."
         badge="Steuerzentrale"
       />
+      <UserProfileSettingsPanel />
       <NotificationSettingsPanel />
     </section>
   );

@@ -23,7 +23,7 @@ export default function SectionPage({ params }: SectionPageProps) {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-      <article className="rounded-[28px] bg-white p-8 shadow-panel">
+      <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{definition.label}</p>
         <h1 className="mt-3 font-display text-4xl text-ink">{definition.description}</h1>
         <p className="mt-6 max-w-3xl text-base leading-8 text-slate/80">
@@ -35,7 +35,7 @@ export default function SectionPage({ params }: SectionPageProps) {
         <h2 className="mt-3 font-display text-3xl">{definition.status}</h2>
         <p className="mt-5 text-sm leading-7 text-mist/80">{definition.nextStep}</p>
       </article>
-      <article className="rounded-[28px] bg-white p-8 shadow-panel lg:col-span-2">
+      <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel lg:col-span-2">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">MVP-Fokus</p>

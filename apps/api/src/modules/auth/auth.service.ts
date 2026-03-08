@@ -1,9 +1,10 @@
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
-import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
+import type { AuthSessionPayload } from "@aion/shared-types";
 import { SecurityService } from "../security/security.service";
 import { UsersService } from "../users/users.service";
 import { LoginDto } from "./dto/login.dto";
 import { RegisterDto } from "./dto/register.dto";
+import { comparePasswordHash, hashPassword } from "./password-utils";
 
 @Injectable()
 export class AuthService {
@@ -13,17 +14,55 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const existing = this.usersService.findByEmail(dto.email);
+    const existing = await this.usersService.findByEmail(dto.email);
     if (existing) {
-      throw new BadRequestException("A user with this email already exists.");
+      throw new BadRequestException("Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.");
     }
 
-    const user = this.usersService.createUser({
+    const user = await this.usersService.createUser({
       displayName: dto.displayName,
       email: dto.email,
-      passwordHash: this.hashPassword(dto.password)
+      passwordHash: hashPassword(dto.password)
     });
-    const session = await this.securityService.openSession(user.id, `${user.displayName} primary device`);
+    const { session, token } = await this.securityService.openSessionWithToken(
+      user.id,
+      `${user.displayName} primaeres Geraet`
+    );
+
+    return {
+      user: this.usersService.sanitizeUser(user),
+      session,
+      token
+    };
+  }
+
+  async login(dto: LoginDto) {
+    const user = await this.usersService.findByEmail(dto.email);
+    if (!user || !comparePasswordHash(dto.password, user.passwordHash)) {
+      throw new UnauthorizedException("Ungueltige Zugangsdaten.");
+    }
+
+    const { session, token } = await this.securityService.openSessionWithToken(
+      user.id,
+      `${user.displayName} aktive Anmeldung`
+    );
+    return {
+      user: this.usersService.sanitizeUser(user),
+      session,
+      token
+    };
+  }
+
+  async getCurrentSession(token: string): Promise<AuthSessionPayload | null> {
+    const session = await this.securityService.resolveSessionToken(token);
+    if (!session) {
+      return null;
+    }
+
+    const user = await this.usersService.findById(session.userId);
+    if (!user) {
+      return null;
+    }
 
     return {
       user: this.usersService.sanitizeUser(user),
@@ -31,16 +70,9 @@ export class AuthService {
     };
   }
 
-  async login(dto: LoginDto) {
-    const user = this.usersService.findByEmail(dto.email);
-    if (!user || !this.comparePasswords(dto.password, user.passwordHash)) {
-      throw new UnauthorizedException("Invalid credentials.");
-    }
-
-    const session = await this.securityService.openSession(user.id, `${user.displayName} active login`);
+  async logoutByToken(token: string) {
     return {
-      user: this.usersService.sanitizeUser(user),
-      session
+      revoked: Boolean(await this.securityService.revokeSessionByToken(token))
     };
   }
 
@@ -48,18 +80,5 @@ export class AuthService {
     return {
       revoked: Boolean(await this.securityService.revokeSession(sessionId))
     };
-  }
-
-  private hashPassword(password: string) {
-    const salt = randomBytes(16).toString("hex");
-    const hash = scryptSync(password, salt, 64).toString("hex");
-    return `${salt}:${hash}`;
-  }
-
-  private comparePasswords(password: string, stored: string) {
-    const [salt, hash] = stored.split(":");
-    const candidate = scryptSync(password, salt, 64);
-    const storedBuffer = Buffer.from(hash, "hex");
-    return timingSafeEqual(candidate, storedBuffer);
   }
 }

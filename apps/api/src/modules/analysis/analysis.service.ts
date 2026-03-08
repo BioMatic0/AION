@@ -88,15 +88,45 @@ export class AnalysisService implements OnModuleInit {
     });
   }
 
-  listReports() {
-    return this.reports;
+  async listReports(userId: string = LOCAL_USER_ID) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      return this.reports;
+    }
+
+    const records = await this.prisma.analysis.findMany({
+      where: { userId, reportType: "analysis" },
+      orderBy: { generatedAt: "desc" }
+    });
+
+    return records.map((record) => hydrateAnalysisRecord(record) as AnalysisReport);
   }
 
-  listQuantumReports() {
-    return this.quantumReports;
+  async listQuantumReports(userId: string = LOCAL_USER_ID) {
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      return this.quantumReports;
+    }
+
+    const records = await this.prisma.analysis.findMany({
+      where: { userId, reportType: "quantum" },
+      orderBy: { generatedAt: "desc" }
+    });
+
+    return records.map((record) => hydrateAnalysisRecord(record) as QuantumLensReport);
   }
 
-  getReport(id: string) {
+  async getReport(id: string, userId: string = LOCAL_USER_ID) {
+    if (this.prisma && userId !== LOCAL_USER_ID) {
+      const record = await this.prisma.analysis.findFirst({
+        where: { id, userId }
+      });
+
+      if (!record) {
+        throw new NotFoundException("Analysebericht nicht gefunden.");
+      }
+
+      return hydrateAnalysisRecord(record) as AnalysisReport | QuantumLensReport;
+    }
+
     const report = this.reports.find((item) => item.id === id) ?? this.quantumReports.find((item) => item.id === id);
     if (!report) {
       throw new NotFoundException("Analysebericht nicht gefunden.");
@@ -105,7 +135,7 @@ export class AnalysisService implements OnModuleInit {
     return report;
   }
 
-  async runAnalysis(dto: AnalyzeInputDto) {
+  async runAnalysis(dto: AnalyzeInputDto, userId: string = LOCAL_USER_ID) {
     const decision = assessEthics(dto.content, "thinking");
     if (requiresGovernanceBlock(decision)) {
       await this.auditService.record({
@@ -120,8 +150,14 @@ export class AnalysisService implements OnModuleInit {
     }
 
     const report = buildAnalysisReport(dto, "thinking");
-    this.reports.unshift(report);
-    await this.persistReport(report, "analysis");
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.reports.unshift(report);
+      await this.persistReport(report, "analysis");
+    } else {
+      await this.prisma.analysis.create({
+        data: serializeAnalysisRecord(report, userId, "analysis")
+      });
+    }
     await this.auditService.record({
       category: "governance",
       action: "analysis.generated",
@@ -133,7 +169,7 @@ export class AnalysisService implements OnModuleInit {
     return report;
   }
 
-  async runQuantumLens(dto: AnalyzeInputDto) {
+  async runQuantumLens(dto: AnalyzeInputDto, userId: string = LOCAL_USER_ID) {
     const decision = assessEthics(dto.content, "quantum-lens");
     if (requiresGovernanceBlock(decision)) {
       await this.auditService.record({
@@ -148,8 +184,14 @@ export class AnalysisService implements OnModuleInit {
     }
 
     const report = buildQuantumLensReport(dto);
-    this.quantumReports.unshift(report);
-    await this.persistReport(report, "quantum");
+    if (!this.prisma || userId === LOCAL_USER_ID) {
+      this.quantumReports.unshift(report);
+      await this.persistReport(report, "quantum");
+    } else {
+      await this.prisma.analysis.create({
+        data: serializeAnalysisRecord(report, userId, "quantum")
+      });
+    }
     await this.auditService.record({
       category: "governance",
       action: "analysis.quantum.generated",
