@@ -5,10 +5,13 @@
   "license": "MIT",
   "author": "Patrick Wirth <patrickwirth_93@icloud.com>",
   "scripts": {
+    "prebuild": "pnpm prisma:generate",
     "dev": "tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
+    "prelint": "pnpm prisma:generate",
     "start": "node dist/apps/api/src/main.js",
     "lint": "tsc -p tsconfig.json --noEmit",
+    "pretypecheck": "pnpm prisma:generate",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "tsx --test test/**/*.test.ts",
     "verify:persistence": "node scripts/verify-persistence.cjs",

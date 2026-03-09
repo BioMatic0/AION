@@ -18,7 +18,7 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "turbo run format",
-    "db:generate": "pnpm --filter @aion/api prisma generate",
+    "db:generate": "pnpm --filter @aion/api prisma:generate",
     "db:migrate": "pnpm --filter @aion/api prisma migrate dev",
     "db:seed": "pnpm --filter @aion/api prisma db seed"
   },
