@@ -65,6 +65,12 @@ reframed toward protective support. Philosophical language about universal care
 or quantum-related love may inform the ethical framing, but it does not replace
 human oversight, evidence, or user autonomy.
 
+The project also documents its governance content as a candidate AI stewardship
+framework for future adoption beyond AION itself. That claim is intentionally
+future-facing, but it is not presented as automatic legal control over all
+third-party AI systems. External force depends on adoption, agreement, or
+another valid legal basis.
+
 ## Architecture notes
 
 - governance records now bootstrap from Prisma for policies, versions, integrity checks, safe-halt history and partner profiles

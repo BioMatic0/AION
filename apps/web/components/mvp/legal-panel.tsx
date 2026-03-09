@@ -57,6 +57,10 @@ export function LegalPanel() {
         text="AION is intended to protect and support the most vulnerable people, never to exploit weakness, crisis, dependence, grief, addiction, age, or disability. This protection is part of the active governance baseline."
       />
       <LegalCard
+        title="AI stewardship reservation"
+        text="AION's ethical framework is also documented as a candidate stewardship basis for future AI systems and operators. The project reserves the right to publish future AI governance licenses and covenants derived from this framework, while acknowledging that outside systems are not automatically bound without adoption or another valid legal basis."
+      />
+      <LegalCard
         title="Project reference"
         text="Patrick Wirth, 10.06.1993, and patrickwirth_93@icloud.com are stored in the project as reference data. This attribution identifies the origin and may not be removed in redistribution, forks, or commercial distribution."
       />
@@ -103,6 +107,10 @@ export function LegalPanel() {
           <LegalCard
             title="FAIR-COMMERCE.md"
             text="Describes what a fair and ethically defensible commercial or revenue-based operation of AION must look like."
+          />
+          <LegalCard
+            title="AI-STEWARDSHIP-COVENANT.md"
+            text="Records the future-facing AI stewardship claim, the human-protective rule set, and the reserved right to publish later governance instruments derived from this framework."
           />
           <LegalCard
             title="SIGNING.md"

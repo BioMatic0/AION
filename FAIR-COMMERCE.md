@@ -54,3 +54,16 @@ An ethically plausible model could look like this:
 If money is charged, the operator or distributor should make the model visible
 in legal notices, pricing pages or contract documents together with the AION
 license and origin attribution.
+
+## AI stewardship compatibility
+
+Any revenue-based operation that presents AION's ethical framework as a
+governance baseline for AI systems should also disclose:
+
+- whether that framework is being adopted in full or in part
+- where it has been narrowed, weakened, or excluded
+- whether synthetic-media provenance, anti-deception rules, and vulnerable-user
+  protections remain active
+
+Commercial reuse must not market AION's ethical framework as universal
+protection while silently removing the safeguards that give that claim meaning.

@@ -31,6 +31,18 @@ Date: 2026-03-08
   affected parties.
 - Further detail is defined in `FAIR-COMMERCE.md`.
 
+## AI Stewardship Reservation
+
+- The ethical and governance content of AION is also intended as a candidate
+  stewardship framework for artificial intelligence systems, operators, and
+  future derivative governance models.
+- Patrick Wirth retains the right to publish future stewardship licenses,
+  sector-specific AI covenants, and revised governance instruments derived from
+  this project over time.
+- This reservation records authorship and future licensing intent. It does not
+  by itself create automatic legal control over every third-party AI system
+  without adoption, agreement, or another valid legal basis.
+
 ## Shared Direction
 
 This project is intended to remain freely accessible, open to shared

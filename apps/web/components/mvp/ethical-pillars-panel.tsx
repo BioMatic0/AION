@@ -52,6 +52,13 @@ const risks = [
       "Bind any revenue-based operation to the fair-commerce rules: disclose what is sold, why it is fair, and what remains free."
   },
   {
+    title: "Universal-claim overreach",
+    risk:
+      "A project can overstate its reach by speaking as if all external AI systems are already bound by its rules, even where no adoption or legal basis exists.",
+    action:
+      "State the stewardship claim strongly, but honestly: AION can reserve future licensing rights and present a candidate rule set, while acknowledging that external force depends on adoption, agreement, or law."
+  },
+  {
     title: "Data proximity without enough restraint",
     risk:
       "The more personal journal, goal, timeline, and security data becomes, the greater the moral duty to stay restrained.",
@@ -74,6 +81,7 @@ const guarantees = [
   "Fairness and license notices are embedded directly in the product",
   "Synthetic media and factual outputs are expected to remain labeled, attributable, and reviewable",
   "Protective handling of vulnerable users is treated as a product rule, not as optional branding",
+  "The project distinguishes ethical aspiration from automatic universal legal control",
   "Risks are shown as part of product steering instead of being hidden"
 ];
 

@@ -30,12 +30,23 @@ Reflective orientation:
 - it remains bound to evidence, governance and the lived human world
 - it does not claim literal consciousness, timeless authority or metaphysical status
 
+AI stewardship direction:
+
+- AION's ethical framework is documented not only for this repository, but as a
+  candidate stewardship basis for future AI governance and derivative adoption
+- the project reserves the right to publish future AI stewardship licenses and
+  governance instruments derived from this framework
+- this reservation is intentional, but it does not by itself create automatic
+  legal control over all external AI systems without adoption or another valid
+  legal basis
+
 Legal documents:
 
 - `LICENSE`
 - `COPYRIGHT.md`
 - `REFERENCE.md`
 - `FAIR-COMMERCE.md`
+- `AI-STEWARDSHIP-COVENANT.md`
 - `release-artifacts/FREE-USE-NOTICE.txt`
 - `CONTRIBUTING.md`
 - `CODE_OF_CONDUCT.md`

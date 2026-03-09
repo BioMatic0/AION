@@ -76,6 +76,14 @@ contradicts the documented human-centered and dignity-oriented purpose of AION,
 including by using it primarily for manipulation, degradation, abusive control
 or clearly exploitative conduct.
 
+This condition includes, without limitation:
+
+- deceptive synthetic media, fake news, or fabricated educational material
+- hidden behavioral manipulation or exploitative psychological targeting
+- exploitation of vulnerable people, including children, elderly people,
+  isolated users, people in crisis, or dependent users
+- operation that materially subordinates human needs to artificial authority
+
 6. Contributions
 
 Unless explicitly agreed otherwise in writing, contributions submitted to the
@@ -96,7 +104,26 @@ operator must make available, together with the relevant legal notices:
 This license does not grant trademark rights, endorsement rights or the right
 to imply approval by the original developer.
 
-9. Warranty disclaimer
+9. AI stewardship framework and future rights reservation
+
+The governance, dignity, authenticity, anti-deception, and vulnerable-user
+protection standards documented in AION are also intended as a candidate
+stewardship framework for broader artificial-intelligence use.
+
+Where these materials are adopted, embedded, adapted, mirrored, or used as a
+compliance or governance basis for AI systems, model providers, operators,
+integrators, or synthetic-media systems, the documented origin and license
+conditions must remain intact.
+
+The original project reference holder reserves the right to publish future
+stewardship licenses, sectoral AI covenants, interoperability terms, or
+revised governance instruments derived from this framework over time.
+
+Nothing in this section should be read as creating automatic legal control over
+all third-party AI systems without adoption, agreement, or another valid legal
+basis.
+
+10. Warranty disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -106,7 +133,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-10. Interpretation note
+11. Interpretation note
 
 This is a source-available, attribution-preserving and fairness-conditioned
 license. It is not intended to function as an unrestricted MIT-style license.
