@@ -40,9 +40,18 @@ Legal documents:
 - `CONTRIBUTING.md`
 - `CODE_OF_CONDUCT.md`
 - `SECURITY.md`
+- `SIGNING.md`
 - `docs/product/ethics-risk-evaluation.md`
 - `docs/product/ethical-pillars-review-2026-03-09.md`
 - `docs/product/interface-and-governance-risk-analysis-2026-03-09.md`
+
+Digital signature:
+
+- `signatures/AION-SIGNATURE-MANIFEST.json`
+- `signatures/AION-SIGNATURE.p7s`
+- `signatures/AION-SIGNING-CERT.cer`
+- `signatures/AION-SIGNING-CERT.pem`
+- `signatures/verify-signature.ps1`
 
 ## Workspace Layout
 

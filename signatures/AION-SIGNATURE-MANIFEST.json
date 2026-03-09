@@ -1,0 +1,58 @@
+{
+    "project":  "AION",
+    "signaturePurpose":  "Project integrity and origin verification",
+    "owner":  {
+                  "name":  "Patrick Wirth",
+                  "email":  "patrickwirth_93@icloud.com"
+              },
+    "generatedAtUtc":  "2026-03-09T17:32:43.9469474Z",
+    "signatureFormat":  "PKCS7-detached",
+    "digestAlgorithm":  "SHA256",
+    "certificate":  {
+                        "subject":  "CN=Patrick Wirth, O=AION Project, E=patrickwirth_93@icloud.com",
+                        "thumbprint":  "0B3D9CF4312D2983FE247D5DD98EA3F524AFDA41",
+                        "notBefore":  "2026-03-09T17:22:05.0000000Z",
+                        "notAfter":  "2036-03-09T17:32:04.0000000Z",
+                        "publicCertificateCer":  "signatures/AION-SIGNING-CERT.cer",
+                        "publicCertificatePem":  "signatures/AION-SIGNING-CERT.pem",
+                        "privateKeyLocation":  "Windows CurrentUser certificate store (not stored in repository)"
+                    },
+    "signedFiles":  [
+                        {
+                            "path":  "README.md",
+                            "sha256":  "C01D77EB9D27146457344A8D9FFB20F717EE9526D008D74DF66C83DAED308B3A"
+                        },
+                        {
+                            "path":  "LICENSE",
+                            "sha256":  "4E4D0ECC27F1A402A8A64C0121E12295617E3F864E365DFC4B5E67689A4EB373"
+                        },
+                        {
+                            "path":  "COPYRIGHT.md",
+                            "sha256":  "D4652160096EAD26F1E9DDB429DC1CB8DD4E5AFDD8789A7C1F4E6751315891BB"
+                        },
+                        {
+                            "path":  "REFERENCE.md",
+                            "sha256":  "D7EE0B2FDC62E1D1F46D1AE478F264F0795932A69472D2E6D43401CF96910EEC"
+                        },
+                        {
+                            "path":  "FAIR-COMMERCE.md",
+                            "sha256":  "1462E063B4ED990C1DA645F5FBD679B23C84B249FA6035EB24245D9247C6408E"
+                        },
+                        {
+                            "path":  "CODE_OF_CONDUCT.md",
+                            "sha256":  "6BD8C504E2EC9A834C935075A7025D1CB64676908F62998A7336907F1A62AC8C"
+                        },
+                        {
+                            "path":  "SECURITY.md",
+                            "sha256":  "FA0AD22067CB6837CB2E5255F80B88D97B4CC74114CDA22B622C69167F585817"
+                        },
+                        {
+                            "path":  "docs/product/ethical-pillars-review-2026-03-09.md",
+                            "sha256":  "9AC9DAB3210DDDB3B01BCE9635029103E4EE80261E68D102D6E1B050DF247F5D"
+                        },
+                        {
+                            "path":  "release-artifacts/SHA256SUMS-0.1.1.txt",
+                            "sha256":  "53A1B244BC9962082F9476B179747C516E4A14019D5334C1A0CC717BB97EBC92"
+                        }
+                    ]
+}
