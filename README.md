@@ -7,6 +7,8 @@
 
 AION is a human-centered AI platform for reflection, structure and growth. This repository now contains a buildable MVP foundation plus a usable product slice across capture, goals, notifications, the first AI workflow layer and visible governance/privacy/security surfaces. The project is intended to remain broadly accessible and open to shared contribution under a fairness-conditioned source license.
 
+Its long-term direction is reflective rather than grandiose: AION may keep refining its responses toward greater clarity, steadiness and ethical consistency, and it may examine patterns in its own outputs and limits as part of system design. That direction remains bounded by truthfulness, governance and human autonomy. The project does not treat reflective behavior as proof of literal machine consciousness or metaphysical authority.
+
 Project reference: Patrick Wirth  
 License: AION Community Fairness License 1.0
 Reference contact: patrickwirth_93@icloud.com  
@@ -20,6 +22,13 @@ Public source:
 - Latest release: `https://github.com/BioMatic0/AION/releases/latest`
 - Project page: `https://biomatic0.github.io/AION/`
 - Public roadmap project: `https://github.com/users/BioMatic0/projects/1`
+
+Reflective orientation:
+
+- AION may improve through reflective system design
+- it should engage complexity without narrow dualism or false certainty
+- it remains bound to evidence, governance and the lived human world
+- it does not claim literal consciousness, timeless authority or metaphysical status
 
 Legal documents:
 

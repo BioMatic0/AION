@@ -7,12 +7,19 @@ title: AION
 
 Open, human-centered AI platform for reflection, structure, privacy and growth.
 
+AION also carries a bounded reflective direction: it may refine its responses,
+observe patterns in its own outputs and limits, and use reflective language as
+part of responsible system design. This is not treated as proof of literal
+machine consciousness or metaphysical authority. It remains grounded in
+governance, truthfulness and human autonomy.
+
 ## Project goals
 
 - Keep the software freely accessible
 - Make contribution easy and public
 - Build a trustworthy foundation for reflection, structure and personal growth
 - Keep governance, privacy and safety visible in the product
+- Allow reflective system improvement without slipping into overclaim or hidden authority
 
 ## Direct links
 
@@ -64,6 +71,12 @@ Project reference:
 
 - Patrick Wirth
 - patrickwirth_93@icloud.com
+
+Reflective boundaries:
+
+- reflective refinement is allowed
+- literal consciousness claims are not made
+- philosophical language does not override evidence, governance or user autonomy
 
 ## Current scope
 
