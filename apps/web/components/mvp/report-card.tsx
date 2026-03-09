@@ -7,22 +7,22 @@ interface ReportCardProps {
 }
 
 const evidenceLabels: Record<Report["evidenceLabel"], string> = {
-  factual: "faktisch",
-  inferred: "abgeleitet",
-  speculative: "spekulativ",
-  symbolic: "symbolisch",
-  uncertain: "unsicher"
+  factual: "factual",
+  inferred: "inferred",
+  speculative: "speculative",
+  symbolic: "symbolic",
+  uncertain: "uncertain"
 };
 
 const modeLabels: Record<Report["mode"], string> = {
   standard: "Standard",
-  speed: "Schnell",
-  thinking: "Vertiefung",
-  expert: "Experte",
-  mirror: "Spiegel",
-  growth: "Wachstum",
-  "quantum-lens": "Quantenlinse",
-  "deep-search": "Tiefensuche"
+  speed: "Speed",
+  thinking: "Thinking",
+  expert: "Expert",
+  mirror: "Mirror",
+  growth: "Growth",
+  "quantum-lens": "Quantum lens",
+  "deep-search": "Deep search"
 };
 
 export function ReportCard({ report }: ReportCardProps) {
@@ -36,18 +36,18 @@ export function ReportCard({ report }: ReportCardProps) {
         <div className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-xs text-slate">{evidenceLabels[report.evidenceLabel]}</div>
       </div>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Beobachtung</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.observation}</p></div>
-        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Psychodynamik</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.psychology}</p></div>
-        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Archetyp</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.archetype}</p></div>
-        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Schattenpruefung</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.shadowCheck}</p></div>
+        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Observation</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.observation}</p></div>
+        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Psychodynamics</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.psychology}</p></div>
+        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Archetype</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.archetype}</p></div>
+        <div className="rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Shadow check</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.shadowCheck}</p></div>
       </div>
-      <div className="mt-4 rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Entwicklungsimpuls</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.developmentHint}</p></div>
-      <div className="mt-4 rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Verbindung im Verlauf</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.timelineConnection}</p></div>
+      <div className="mt-4 rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Development hint</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.developmentHint}</p></div>
+      <div className="mt-4 rounded-3xl border border-mist bg-mist/35 p-5"><div className="text-xs uppercase tracking-[0.22em] text-moss">Timeline connection</div><p className="mt-3 text-sm leading-7 text-slate/80">{report.timelineConnection}</p></div>
       {"disconfirmingView" in report ? (
-        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Spiegelherausforderung</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.disconfirmingView}</p><p className="mt-3 text-sm font-semibold text-mist">{report.mirrorQuestion}</p></div>
+        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Mirror challenge</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.disconfirmingView}</p><p className="mt-3 text-sm font-semibold text-mist">{report.mirrorQuestion}</p></div>
       ) : null}
       {"stateDescription" in report ? (
-        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Quantenlinse</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.stateDescription}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.collapsePattern}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.hiddenOption}</p><p className="mt-3 text-sm font-semibold text-mist">{report.fieldQuestion}</p></div>
+        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Quantum lens</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.stateDescription}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.collapsePattern}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.hiddenOption}</p><p className="mt-3 text-sm font-semibold text-mist">{report.fieldQuestion}</p></div>
       ) : null}
       <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate/65">
         {report.extractedConcepts.map((concept) => (

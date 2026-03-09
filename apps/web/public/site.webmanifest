@@ -1,8 +1,8 @@
 {
   "name": "AION",
   "short_name": "AION",
-  "description": "Menschenzentrierte KI-Plattform fuer Reflexion, Struktur und Entwicklung.",
-  "lang": "de-DE",
+  "description": "Human-centered AI platform for reflection, structure, and development.",
+  "lang": "en",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f6f1e7",

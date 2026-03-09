@@ -71,7 +71,7 @@ export function AuthScreen({ mode }: AuthScreenProps) {
       });
 
       if (!result.ok || !result.data) {
-        setError(result.error ?? "Die Anmeldung konnte nicht abgeschlossen werden.");
+        setError(result.error ?? "The sign-in could not be completed.");
         return;
       }
 
@@ -87,35 +87,35 @@ export function AuthScreen({ mode }: AuthScreenProps) {
           <div className="space-y-6">
             <p className="font-body text-sm uppercase tracking-[0.32em] text-moss">{brand.name}</p>
             <h1 className="max-w-3xl font-display text-5xl leading-tight sm:text-6xl">
-              {isRegister ? "Ein offenes Konto fuer deinen AION-Arbeitsbereich." : "Anmeldung fuer deinen geschuetzten AION-Arbeitsbereich."}
+              {isRegister ? "An open account for your AION workspace." : "Sign in to your protected AION workspace."}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate/80">
               {isRegister
-                ? "Lege ein eigenes Konto an, damit Journal, Ziele, Notizen, Datenschutz und KI-Ausgaben sauber deinem Nutzerprofil zugeordnet werden."
-                : "Melde dich mit deinem Konto an, damit deine Daten, Sitzungen und Auswertungen nur in deinem persoenlichen Kontext geladen werden."}
+                ? "Create your own account so journal entries, goals, notes, privacy settings, and AI outputs stay assigned to your user profile."
+                : "Sign in with your account so your data, sessions, and reports are loaded only within your personal context."}
             </p>
             <div className="rounded-[28px] bg-slate p-6 text-mist">
-              <h2 className="font-display text-2xl text-ink">Warum dieser Schritt jetzt wichtig ist</h2>
+              <h2 className="font-display text-2xl text-ink">Why this step matters now</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-slate/80">
-                <li>Eigene Sitzungen statt eines geteilten lokalen Standardnutzers</li>
-                <li>Journal, Tagebuch, Ziele und Notizen werden pro Nutzer getrennt geladen</li>
-                <li>Datenschutz- und Sicherheitsbereich spiegeln nur deinen eigenen Verlauf</li>
+                <li>Your own sessions instead of a shared local default user</li>
+                <li>Journal, diary, goals, and notes are loaded separately for each user</li>
+                <li>Privacy and security views reflect only your own history</li>
               </ul>
             </div>
           </div>
           <div className="rounded-[28px] bg-white/90 p-6 shadow-panel ring-1 ring-moss/10">
             <div className="space-y-2">
               <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">
-                {isRegister ? "Registrierung" : "Anmeldung"}
+                {isRegister ? "Register" : "Sign in"}
               </p>
               <h2 className="font-display text-3xl text-ink">
-                {isRegister ? "Konto erstellen" : "Anmelden"}
+                {isRegister ? "Create account" : "Sign in"}
               </h2>
             </div>
             <div className="mt-6 space-y-4">
               {isRegister ? (
                 <label className="block">
-                  <span className="mb-2 block text-sm font-semibold text-slate">Anzeigename</span>
+                  <span className="mb-2 block text-sm font-semibold text-slate">Display name</span>
                   <input
                     value={displayName}
                     onChange={(event) => setDisplayName(event.target.value)}
@@ -125,7 +125,7 @@ export function AuthScreen({ mode }: AuthScreenProps) {
                 </label>
               ) : null}
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">E-Mail</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Email</span>
                 <input
                   type="email"
                   value={email}
@@ -135,13 +135,13 @@ export function AuthScreen({ mode }: AuthScreenProps) {
                 />
               </label>
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">Passwort</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Password</span>
                 <input
                   type="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   className="w-full rounded-2xl border border-moss/20 px-4 py-3 text-sm outline-none transition focus:border-moss/50"
-                  placeholder="Mindestens 12 Zeichen"
+                  placeholder="At least 12 characters"
                 />
               </label>
               {error ? <div className="rounded-2xl border border-ember/20 bg-ember/10 px-4 py-3 text-sm text-ink">{error}</div> : null}
@@ -156,22 +156,22 @@ export function AuthScreen({ mode }: AuthScreenProps) {
                 }
                 className="w-full rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate disabled:cursor-not-allowed disabled:bg-slate/70"
               >
-                {isPending ? "Bitte warten..." : isRegister ? "Konto erstellen" : "Anmelden"}
+                {isPending ? "Please wait..." : isRegister ? "Create account" : "Sign in"}
               </button>
             </div>
             <div className="mt-6 text-sm text-slate/80">
               {isRegister ? (
                 <p>
-                  Bereits registriert?{" "}
+                  Already registered?{" "}
                   <Link href="/login" className="font-semibold text-moss hover:text-ink">
-                    Zur Anmeldung
+                    Back to sign in
                   </Link>
                 </p>
               ) : (
                 <p>
-                  Noch kein Konto?{" "}
+                  No account yet?{" "}
                   <Link href="/register" className="font-semibold text-moss hover:text-ink">
-                    Jetzt registrieren
+                    Register now
                   </Link>
                 </p>
               )}

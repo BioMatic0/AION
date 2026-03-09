@@ -4,16 +4,16 @@ import { groupMeta, groupedSections } from "../lib/navigation";
 
 const pillars = [
   {
-    title: "Reflexion mit Struktur",
-    description: "Journal, Tagebuch, Ziele und Notizen bilden den alltagstauglichen Kern von AION."
+    title: "Structured Reflection",
+    description: "Journal, diary, goals, and notes form the practical core of AION."
   },
   {
-    title: "KI mit Bindung",
-    description: "Governance, Ethik-Routing und Vorfalltransparenz halten die Plattform menschenzentriert."
+    title: "Bounded AI",
+    description: "Governance, ethics routing, and incident transparency keep the platform human-centered."
   },
   {
-    title: "Modularer Ausbau",
-    description: "Recherche, Sprache, Medien und weitere Bereiche sind von Anfang an sauber in der Architektur vorgesehen."
+    title: "Modular Expansion",
+    description: "Research, voice, media, and later areas are built into the architecture from the start."
   }
 ];
 
@@ -29,38 +29,38 @@ export default function MarketingPage() {
         <section className="grid gap-10 rounded-[36px] border border-white/10 bg-white/90 p-8 shadow-panel lg:grid-cols-[1.4fr_0.9fr] lg:p-12">
           <div className="space-y-6">
             <p className="font-body text-sm uppercase tracking-[0.32em] text-moss">{brand.name}</p>
-            <h1 className="max-w-4xl font-display text-5xl leading-tight sm:text-6xl">Die professionelle Arbeitsoberflaeche fuer Erkenntnis, Steuerung und verantwortungsvoll eingesetzte KI.</h1>
+            <h1 className="max-w-4xl font-display text-5xl leading-tight sm:text-6xl">The professional workspace for insight, coordination, and responsibly applied AI.</h1>
             <p className="max-w-3xl text-lg leading-8 text-slate/80">
-              AION verbindet Journal, Analyse, Wachstum, Governance, Datenschutz und Rechtliches in einer hellen, gut lesbaren und produktionsnahen Arbeitsumgebung.
+              AION brings together journaling, analysis, growth, governance, privacy, and legal context in a bright, readable, production-minded environment.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/login" className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate">
-                Anmelden
+                Sign in
               </Link>
               <Link href="/register" className="rounded-full border border-ink/20 bg-white/90 px-6 py-3 text-sm font-semibold text-ink transition hover:border-ink/40">
-                Konto erstellen
+                Create account
               </Link>
               <Link href="/impressum" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Impressum
               </Link>
               <Link href="/ethik" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
-                Ethik und Risiken
+                Ethics and risks
               </Link>
-              <span className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm text-slate">Patrick Wirth / Fairness-Lizenz / offen fuer Mitgestaltung</span>
+              <span className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm text-slate">Patrick Wirth / Fairness license / open to collaboration</span>
             </div>
           </div>
           <div className="rounded-[28px] bg-slate p-6 text-mist">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Status</p>
             <div className="mt-4 space-y-5">
               <div>
-                <h2 className="font-display text-2xl text-ink">Die technische Aufbauphase laeuft.</h2>
-                <p className="mt-2 text-sm leading-6 text-slate/80">Dieses Repository enthaelt das Monorepo-Fundament mit Web, API, Worker, Paketen, Infrastruktur und einem Governance-Startpunkt.</p>
+                <h2 className="font-display text-2xl text-ink">The technical build-out is underway.</h2>
+                <p className="mt-2 text-sm leading-6 text-slate/80">This repository contains the monorepo foundation with web, API, worker, shared packages, infrastructure, and an initial governance layer.</p>
               </div>
               <ul className="space-y-3 text-sm leading-6 text-slate/80">
-                <li>Web-App Shell mit den AION-Hauptbereichen</li>
-                <li>NestJS API mit Auth-, Journal-, Sicherheits- und Governance-Basis</li>
-                <li>Prisma-Schema fuer den ersten Datenkern</li>
-                <li>Dokumentation fuer Architektur, MVP und Vorfallreaktion</li>
+                <li>Web app shell with the main AION work areas</li>
+                <li>NestJS API with auth, journal, security, and governance foundations</li>
+                <li>Prisma schema for the first persistent data core</li>
+                <li>Documentation for architecture, MVP scope, and incident response</li>
               </ul>
             </div>
           </div>

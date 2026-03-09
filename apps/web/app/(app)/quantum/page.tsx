@@ -5,10 +5,10 @@ export default function QuantumPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Quantenlinse"
-        title="Quantenlinse als klar deklarierter Denkmodus"
-        description="Die Quantenlinse bleibt ein strukturierender Perspektivwechsel. Die Seite liefert jetzt echte Ausgaben mit Zustandsraum, Kollapsmuster und Feldfrage, ohne falsche Tatsachen zu behaupten."
-        badge="Symbolischer Modus"
+        eyebrow="Quantum lens"
+        title="Quantum lens as an explicitly declared thinking mode"
+        description="The quantum lens remains a structuring change of perspective. The page now returns real outputs with state space, collapse pattern, and field question without making false factual claims."
+        badge="Symbolic mode"
       />
       <QuantumWorkspace />
     </section>

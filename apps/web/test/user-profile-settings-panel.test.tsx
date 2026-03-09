@@ -23,7 +23,7 @@ describe("UserProfileSettingsPanel", () => {
             enabled: false,
             availableMethods: ["authenticator", "email", "sms"],
             readiness: "scaffold",
-            note: "Die 2FA-Vorstruktur ist vorbereitet."
+            note: "The 2FA scaffold is ready."
           }
         }
       },
@@ -42,20 +42,20 @@ describe("UserProfileSettingsPanel", () => {
     const user = userEvent.setup();
     render(<UserProfileSettingsPanel />);
 
-    await screen.findByText("Profil und Kontoschutz sind direkt mit der API verbunden.");
+    await screen.findByText("Profile and account protection are connected directly to the API.");
 
-    await user.clear(screen.getByLabelText("Anzeigename"));
-    await user.type(screen.getByLabelText("Anzeigename"), "Patrick Wirth 2");
-    await user.clear(screen.getByLabelText("E-Mail"));
-    await user.type(screen.getByLabelText("E-Mail"), "patrick2@example.com");
-    await user.click(screen.getByRole("button", { name: "Profil speichern" }));
+    await user.clear(screen.getByLabelText("Display name"));
+    await user.type(screen.getByLabelText("Display name"), "Patrick Wirth 2");
+    await user.clear(screen.getByLabelText("Email"));
+    await user.type(screen.getByLabelText("Email"), "patrick2@example.com");
+    await user.click(screen.getByRole("button", { name: "Save profile" }));
 
     await waitFor(() => {
-      expect(screen.getByText("Benutzerprofil wurde gespeichert.")).toBeInTheDocument();
+      expect(screen.getByText("User profile was saved.")).toBeInTheDocument();
     });
 
-    expect(screen.getByLabelText("Anzeigename")).toHaveValue("Patrick Wirth 2");
-    expect(screen.getByLabelText("E-Mail")).toHaveValue("patrick2@example.com");
+    expect(screen.getByLabelText("Display name")).toHaveValue("Patrick Wirth 2");
+    expect(screen.getByLabelText("Email")).toHaveValue("patrick2@example.com");
     expect(fetchMock.mock.calls[1]?.[0]).toBe("http://localhost:4000/users/profile");
     expect(fetchMock.mock.calls[1]?.[1]).toMatchObject({
       method: "PATCH"

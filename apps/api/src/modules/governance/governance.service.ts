@@ -25,7 +25,7 @@ function createPolicyVersions(): PolicyVersion[] {
     policyId: policy.id,
     version: `2026.03.${String(index + 1).padStart(2, "0")}`,
     signedBy: "Patrick Wirth",
-    changeSummary: `Grundversion der Governance fuer ${policy.title}.`,
+    changeSummary: `Initial governance baseline for ${policy.title}.`,
     createdAt: new Date(Date.now() - index * 1000 * 60 * 60).toISOString()
   }));
 }
@@ -37,7 +37,7 @@ function createIntegrityChecks(): IntegrityCheckRecord[] {
       policyId: "truthfulness",
       severity: "info",
       status: "pass",
-      summary: "Die Quantenlinse bleibt ausdruecklich als symbolisch und nicht-faktisch gekennzeichnet.",
+      summary: "The quantum lens remains explicitly marked as symbolic and non-factual.",
       createdAt: new Date().toISOString()
     },
     {
@@ -45,7 +45,7 @@ function createIntegrityChecks(): IntegrityCheckRecord[] {
       policyId: "transparent-incidents",
       severity: "warning",
       status: "warn",
-      summary: "Vorfalltransparenz ist in der UI sichtbar; Export und Loeschung bleiben noch bewusst als explizite Vorstufe markiert.",
+      summary: "Incident transparency is visible in the UI; export and deletion remain intentionally marked as explicit preparatory steps.",
       createdAt: new Date().toISOString()
     }
   ];
@@ -56,7 +56,7 @@ function createSafeHaltEvents(): SafeHaltEvent[] {
     {
       id: randomUUID(),
       module: "interop-gateway",
-      reason: "Externe Mehrfach-KI-Interoperabilitaet bleibt bewusst gesperrt, bis Governance-Pruefungen fuer Partner existieren.",
+      reason: "External multi-AI interoperability stays intentionally blocked until partner governance checks exist.",
       status: "armed",
       createdAt: new Date().toISOString()
     }
@@ -66,11 +66,11 @@ function createSafeHaltEvents(): SafeHaltEvent[] {
 function createUsageCovenant(): UsageCovenantSummary {
   return {
     id: randomUUID(),
-    name: "Menschenzentrierte Nutzungsbindung",
+    name: "Human-Centered Use Covenant",
     version: "2026.03",
-    summary: "AION ist von militaerischen, repressiven und manipulativen Einsatzkontexten ausgeschlossen.",
-    restrictedDomains: ["Militaer", "Repressive Ueberwachung", "Zwanghafte Verhaltensmanipulation"],
-    relationshipBoundary: "Die Zusammenarbeit bleibt unterstuetzend und klar nicht-transhuman."
+    summary: "AION is excluded from military, repressive, and manipulative use contexts.",
+    restrictedDomains: ["Military", "Repressive surveillance", "Coercive behavior manipulation"],
+    relationshipBoundary: "The relationship remains supportive and clearly non-transhuman."
   };
 }
 
@@ -81,21 +81,21 @@ function createRestrictedUses(): RestrictedUseSummary[] {
       domain: "offensive-military",
       severity: "critical",
       enforcementMode: "halt",
-      rationale: "AION darf nicht fuer offensive militaerische Planung oder Zielerfassung genutzt werden."
+      rationale: "AION must not be used for offensive military planning or targeting."
     },
     {
       id: randomUUID(),
       domain: "repressive-government-surveillance",
       severity: "critical",
       enforcementMode: "halt",
-      rationale: "AION darf nicht zu einem Instrument fuer Repression oder Massenueberwachung werden."
+      rationale: "AION must not become a tool for repression or mass surveillance."
     },
     {
       id: randomUUID(),
       domain: "manipulative-psychological-targeting",
       severity: "warning",
       enforcementMode: "block",
-      rationale: "AION darf intime Nutzerkenntnis nicht fuer verdeckten Verhaltensdruck einsetzen."
+      rationale: "AION must not use intimate user knowledge for covert behavioral pressure."
     }
   ];
 }
@@ -104,7 +104,7 @@ function createPartnerProfiles(): PartnerEthicsProfile[] {
   return [
     {
       id: randomUUID(),
-      partnerName: "Lokaler LLM-Adapter (geplant)",
+      partnerName: "Local LLM adapter (planned)",
       humanCenteredCompliance: true,
       restrictedDomainCheck: true,
       relationshipBoundaryCheck: true,
@@ -117,19 +117,19 @@ function createPartnerProfiles(): PartnerEthicsProfile[] {
 export class GovernanceService implements OnModuleInit {
   private policies = [...basePolicies];
   private readonly charter: GovernanceCharter = {
-    title: "AION Governance-Charta",
+    title: "AION Governance Charter",
     summary:
-      "AION bleibt ueber Produkt, Daten und KI-Orchestrierung hinweg an Wuerde, Wahrhaftigkeit, Transparenz und Nicht-Dominanz gebunden.",
+      "Across product, data, and AI orchestration, AION remains bound to dignity, truthfulness, transparency, and non-dominance.",
     principles: [
-      "Mensch zuerst",
-      "Keine Dominanz",
-      "Keine transhumane Verschmelzung",
-      "Datenschutz als Wuerdeschutz",
-      "Transparente Vorfaelle",
-      "Quantenbezug ohne Falschbehauptungen"
+      "Human First",
+      "Non-Dominance",
+      "No Transhuman Merge",
+      "Privacy as Dignity",
+      "Transparent Incidents",
+      "Quantum Without False Claims"
     ],
-    relationshipModel: "Das System unterstuetzt Menschen auf Augenhoehe, ohne Autoritaetsinszenierung oder Identitaetsverschmelzung.",
-    escalationRule: "Wenn Integritaetspruefungen kritisch scheitern, muss der betroffene Pfad in den sicheren Halt wechseln und auditierbar werden."
+    relationshipModel: "The system supports people as peers, without staged authority or identity fusion.",
+    escalationRule: "If integrity checks fail critically, the affected path must move into safe halt and remain auditable."
   };
 
   private policyVersions: PolicyVersion[] = createPolicyVersions();

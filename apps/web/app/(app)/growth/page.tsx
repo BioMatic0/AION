@@ -5,10 +5,10 @@ export default function GrowthPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Wachstum"
-        title="Wachstumszustand und Interventionen ueber Zeit"
-        description="Der Wachstumsbereich arbeitet jetzt nicht mehr nur als Idee. Er berechnet einen sichtbaren Zustand, speichert Verlauf und erzeugt Interventionen fuer den naechsten realen Schritt."
-        badge="Wachstum aktiv"
+        eyebrow="Growth"
+        title="Growth state and interventions over time"
+        description="The growth area is no longer just an idea. It calculates a visible state, stores history, and produces interventions for the next real step."
+        badge="Growth active"
       />
       <GrowthWorkspace />
     </section>

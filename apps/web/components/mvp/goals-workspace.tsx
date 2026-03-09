@@ -25,9 +25,9 @@ const emptyGoalsResponse: GoalsResponse = {
 
 function formatMilestoneStatus(status: GoalSummary["milestones"][number]["status"]) {
   const map: Record<GoalSummary["milestones"][number]["status"], string> = {
-    pending: "Ausstehend",
-    in_progress: "In Bearbeitung",
-    completed: "Abgeschlossen"
+    pending: "Pending",
+    in_progress: "In progress",
+    completed: "Completed"
   };
 
   return map[status];
@@ -49,14 +49,14 @@ export function GoalsWorkspace() {
     if (result.ok && result.data) {
       setData(result.data);
       if (!options?.silentSuccess) {
-        setStatus("Ziele sind live mit der API verbunden.");
+        setStatus("Goals are connected live to the API.");
       }
       setError(null);
     } else {
       if (!options?.silentSuccess) {
         setStatus(null);
       }
-      setError(result.error ?? "Ziele konnten nicht geladen werden.");
+      setError(result.error ?? "Goals could not be loaded.");
     }
 
     setIsLoading(false);
@@ -89,9 +89,9 @@ export function GoalsWorkspace() {
     if (result.ok && result.data) {
       setForm(initialForm);
       await loadGoals({ silentSuccess: true });
-      setStatus("Ziel wurde angelegt.");
+      setStatus("Goal was created.");
     } else {
-      setError(result.error ?? "Ziel konnte nicht angelegt werden.");
+      setError(result.error ?? "Goal could not be created.");
     }
 
     setIsSubmitting(false);
@@ -109,44 +109,44 @@ export function GoalsWorkspace() {
 
     if (result.ok && result.data) {
       await loadGoals({ silentSuccess: true });
-      setStatus(`Ziel "${goal.title}" wurde als erreicht markiert.`);
+      setStatus(`Goal "${goal.title}" was marked as achieved.`);
     } else {
-      setError(result.error ?? `Ziel "${goal.title}" konnte nicht aktualisiert werden.`);
+      setError(result.error ?? `Goal "${goal.title}" could not be updated.`);
     }
 
     setActiveGoalId(null);
   }
 
   const columns: Array<{ title: string; status: GoalSummary["status"] }> = [
-    { title: "Offen", status: "open" },
-    { title: "Aktiv", status: "active" },
-    { title: "Erreicht", status: "achieved" }
+    { title: "Open", status: "open" },
+    { title: "Active", status: "active" },
+    { title: "Achieved", status: "achieved" }
   ];
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-4">
-        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Gesamt</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.total}</div></div>
-        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Aktiv</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.active}</div></div>
-        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Abgeschlossen</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.completed}</div></div>
-        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Durchschnitt</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.averageProgress}%</div></div>
+        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Total</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.total}</div></div>
+        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Active</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.active}</div></div>
+        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Completed</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.completed}</div></div>
+        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Average</div><div className="mt-3 text-3xl font-semibold text-ink">{data.stats.averageProgress}%</div></div>
       </div>
       <div className="grid gap-6 xl:grid-cols-[0.75fr_1.25fr]">
         <form onSubmit={handleSubmit} className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Ziel anlegen</p>
-          <h2 className="mt-2 font-display text-3xl text-ink">Neues Ziel</h2>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Create goal</p>
+          <h2 className="mt-2 font-display text-3xl text-ink">New goal</h2>
           <div className="mt-6 space-y-3">
             {status ? <StatusNotice message={status} variant="success" /> : null}
             {error ? <StatusNotice message={error} variant="error" /> : null}
           </div>
           <div className="mt-6 grid gap-4">
-            <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Titel" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
-            <textarea className="min-h-32 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="Was soll wirklich erreicht werden?" value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} required />
+            <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Title" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
+            <textarea className="min-h-32 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="What should really be achieved?" value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} required />
             <div className="grid gap-4 md:grid-cols-2">
-              <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Lebensbereich" value={form.lifeArea} onChange={(event) => setForm((current) => ({ ...current, lifeArea: event.target.value }))} required />
+              <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Life area" value={form.lifeArea} onChange={(event) => setForm((current) => ({ ...current, lifeArea: event.target.value }))} required />
               <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" type="date" value={form.dueDate} onChange={(event) => setForm((current) => ({ ...current, dueDate: event.target.value }))} />
             </div>
-            <button type="submit" disabled={isSubmitting} className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Legt an..." : "Ziel anlegen"}</button>
+            <button type="submit" disabled={isSubmitting} className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Creating..." : "Create goal"}</button>
           </div>
         </form>
         <div className="grid gap-4 lg:grid-cols-3">
@@ -159,8 +159,8 @@ export function GoalsWorkspace() {
                 </div>
               </div>
               <div className="mt-6 space-y-4">
-                {isLoading ? <StatusNotice message="Ziele werden geladen..." /> : null}
-                {!isLoading && data.items.filter((goal) => goal.status === column.status).length === 0 ? <StatusNotice message={`Noch keine Ziele im Status ${column.title}.`} /> : null}
+                {isLoading ? <StatusNotice message="Goals are loading..." /> : null}
+                {!isLoading && data.items.filter((goal) => goal.status === column.status).length === 0 ? <StatusNotice message={`No goals are in the ${column.title} state yet.`} /> : null}
                 {data.items
                   .filter((goal) => goal.status === column.status)
                   .map((goal) => (
@@ -171,7 +171,7 @@ export function GoalsWorkspace() {
                         <div className="h-2 rounded-full bg-ember" style={{ width: `${goal.progressPercent}%` }} />
                       </div>
                       <div className="mt-3 flex items-center justify-between gap-3 text-xs text-slate/65">
-                        <span>{goal.progressPercent}% Fortschritt</span>
+                        <span>{goal.progressPercent}% progress</span>
                         {goal.status !== "achieved" ? (
                           <button
                             type="button"
@@ -179,7 +179,7 @@ export function GoalsWorkspace() {
                             disabled={activeGoalId === goal.id}
                             className="rounded-full bg-white px-3 py-1 text-slate transition hover:bg-mist disabled:cursor-not-allowed disabled:opacity-60"
                           >
-                            {activeGoalId === goal.id ? "Aktualisiert..." : "Als erreicht markieren"}
+                            {activeGoalId === goal.id ? "Updating..." : "Mark as achieved"}
                           </button>
                         ) : null}
                       </div>

@@ -38,14 +38,14 @@ export class UsersController {
   async updateProfile(@CurrentUserId() userId: string, @Body() dto: UpdateProfileDto) {
     const updated = await this.usersService.updateProfile(userId, dto);
 
-    await this.securityService.recordEvent(userId, "profile.updated", "info", "Das Benutzerprofil wurde aktualisiert.");
+    await this.securityService.recordEvent(userId, "profile.updated", "info", "The user profile was updated.");
     await this.auditService.record({
       category: "users",
       action: "profile.updated",
       resource: userId,
       actorType: "user",
       actorId: userId,
-      detail: `Profil aktualisiert: ${updated.displayName} <${updated.email}>`
+      detail: `Profile updated: ${updated.displayName} <${updated.email}>`
     });
 
     return this.usersService.sanitizeProfile(updated);
@@ -59,7 +59,7 @@ export class UsersController {
       userId,
       "password.changed",
       "warning",
-      "Das Kontopasswort wurde erfolgreich geaendert."
+      "The account password was changed successfully."
     );
     await this.auditService.record({
       category: "users",
@@ -67,7 +67,7 @@ export class UsersController {
       resource: userId,
       actorType: "user",
       actorId: userId,
-      detail: "Das Kontopasswort wurde aktualisiert."
+      detail: "The account password was updated."
     });
 
     return {
@@ -92,7 +92,7 @@ export class UsersController {
         phoneHint: user.twoFactorPhoneHint,
         availableMethods: ["authenticator", "email", "sms"] as TwoFactorMethod[],
         readiness: "scaffold" as const,
-        note: "Die 2FA-Vorstruktur ist vorbereitet. Echte Challenge-Pruefung folgt im naechsten Sicherheitsausbau."
+        note: "The 2FA scaffold is ready. Real challenge verification will follow in the next security expansion."
       }
     };
   }
@@ -106,8 +106,8 @@ export class UsersController {
       "two-factor.updated",
       dto.enabled ? "info" : "warning",
       dto.enabled
-        ? `Die 2FA-Vorstruktur wurde auf ${dto.method ?? "unbekannt"} gesetzt.`
-        : "Die 2FA-Vorstruktur wurde deaktiviert."
+        ? `The 2FA scaffold was set to ${dto.method ?? "unknown"}.`
+        : "The 2FA scaffold was disabled."
     );
     await this.auditService.record({
       category: "users",
@@ -116,8 +116,8 @@ export class UsersController {
       actorType: "user",
       actorId: userId,
       detail: dto.enabled
-        ? `2FA-Vorstruktur aktiviert (${dto.method ?? "keine Methode"}).`
-        : "2FA-Vorstruktur deaktiviert."
+        ? `2FA scaffold enabled (${dto.method ?? "no method"}).`
+        : "2FA scaffold disabled."
     });
 
     return {
@@ -129,7 +129,7 @@ export class UsersController {
         phoneHint: updated.twoFactorPhoneHint,
         availableMethods: ["authenticator", "email", "sms"] as TwoFactorMethod[],
         readiness: "scaffold" as const,
-        note: "Die 2FA-Vorstruktur ist gespeichert. Die Verifikationsschritte werden spaeter aktiv geschaltet."
+        note: "The 2FA scaffold is stored. Verification steps will be enabled later."
       }
     };
   }

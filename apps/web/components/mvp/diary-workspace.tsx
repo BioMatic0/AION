@@ -41,17 +41,17 @@ export function DiaryWorkspace() {
     if (entriesResult.ok && entriesResult.data) {
       setEntries(entriesResult.data);
     } else {
-      failures.push(entriesResult.error ?? "Tagebucheintraege konnten nicht geladen werden.");
+      failures.push(entriesResult.error ?? "Diary entries could not be loaded.");
     }
 
     if (promptsResult.ok && promptsResult.data) {
       setPrompts(promptsResult.data);
     } else {
-      failures.push(promptsResult.error ?? "Tagebuchimpulse konnten nicht geladen werden.");
+      failures.push(promptsResult.error ?? "Diary prompts could not be loaded.");
     }
 
     setError(failures.length > 0 ? failures.join(" ") : null);
-    setStatus(failures.length === 0 ? "Das Tagebuch ist live mit API-Daten verbunden." : null);
+    setStatus(failures.length === 0 ? "The diary is connected to live API data." : null);
     setIsLoading(false);
   }
 
@@ -78,9 +78,9 @@ export function DiaryWorkspace() {
     if (result.ok && result.data) {
       setEntries((current) => [result.data as DiaryEntrySummary, ...current]);
       setForm(initialForm);
-      setStatus("Tagebucheintrag wurde gespeichert.");
+      setStatus("Diary entry was saved.");
     } else {
-      setError(result.error ?? "Tagebucheintrag konnte nicht gespeichert werden.");
+      setError(result.error ?? "Diary entry could not be saved.");
     }
 
     setIsSubmitting(false);
@@ -93,9 +93,9 @@ export function DiaryWorkspace() {
     const result = await apiRequest<PreparedSummary>("/diary/summary");
     if (result.ok && result.data) {
       setSummary(result.data);
-      setStatus("Tageszusammenfassung wurde vorbereitet.");
+      setStatus("Daily summary was prepared.");
     } else {
-      setError(result.error ?? "Tageszusammenfassung konnte nicht vorbereitet werden.");
+      setError(result.error ?? "Daily summary could not be prepared.");
     }
 
     setIsPreparingSummary(false);
@@ -106,8 +106,8 @@ export function DiaryWorkspace() {
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Tagesreflexion</p>
-            <h2 className="mt-2 font-display text-3xl text-ink">Gefuehrte Tagesansicht</h2>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Daily reflection</p>
+            <h2 className="mt-2 font-display text-3xl text-ink">Guided daily view</h2>
           </div>
           <button
             type="button"
@@ -115,16 +115,16 @@ export function DiaryWorkspace() {
             disabled={isPreparingSummary}
             className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-2 text-sm text-slate disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isPreparingSummary ? "Bereitet vor..." : "Tageszusammenfassung vorbereiten"}
+            {isPreparingSummary ? "Preparing..." : "Prepare daily summary"}
           </button>
         </div>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
-          {isLoading ? <StatusNotice message="Tagebuchdaten werden geladen..." /> : null}
+          {isLoading ? <StatusNotice message="Diary data is loading..." /> : null}
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3">
-          {prompts.length === 0 && !isLoading ? <StatusNotice message="Noch keine Tagebuchimpulse vorhanden." /> : null}
+          {prompts.length === 0 && !isLoading ? <StatusNotice message="No diary prompts are available yet." /> : null}
           {prompts.map((prompt) => (
             <div key={prompt.id} className="rounded-2xl border border-mist bg-mist/35 p-4">
               <div className="text-xs uppercase tracking-[0.22em] text-moss">{prompt.promptType}</div>
@@ -134,37 +134,37 @@ export function DiaryWorkspace() {
         </div>
         {summary ? (
           <div className="mt-6 rounded-3xl bg-slate p-5 text-mist">
-            <div className="text-xs uppercase tracking-[0.22em] text-mist/60">Vorbereitete Zusammenfassung</div>
-            <p className="mt-3 text-sm leading-7 text-mist/80">Letzter Fokus: {summary.latestEntryTitle ?? "noch kein Eintrag"}</p>
-            <p className="mt-2 text-xs text-mist/60">Generiert: {new Date(summary.generatedAt).toLocaleString("de-DE")}</p>
+            <div className="text-xs uppercase tracking-[0.22em] text-mist/60">Prepared summary</div>
+            <p className="mt-3 text-sm leading-7 text-mist/80">Latest focus: {summary.latestEntryTitle ?? "no entry yet"}</p>
+            <p className="mt-2 text-xs text-mist/60">Generated: {new Date(summary.generatedAt).toLocaleString("en-GB")}</p>
           </div>
         ) : null}
       </article>
       <form onSubmit={handleSubmit} className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Erfassung</p>
-        <h2 className="mt-2 font-display text-3xl text-ink">Neuer Tagebucheintrag</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Capture</p>
+        <h2 className="mt-2 font-display text-3xl text-ink">New diary entry</h2>
         <div className="mt-6 grid gap-4">
-          <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Titel" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
+          <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Title" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} required />
           <div className="grid gap-4 md:grid-cols-2">
             <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" type="date" value={form.entryDate} onChange={(event) => setForm((current) => ({ ...current, entryDate: event.target.value }))} required />
-            <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Stimmung" value={form.mood} onChange={(event) => setForm((current) => ({ ...current, mood: event.target.value }))} required />
+            <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Mood" value={form.mood} onChange={(event) => setForm((current) => ({ ...current, mood: event.target.value }))} required />
           </div>
-          <textarea className="min-h-40 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="Was hat den Tag getragen?" value={form.content} onChange={(event) => setForm((current) => ({ ...current, content: event.target.value }))} required />
-          <button type="submit" disabled={isSubmitting} className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Speichert..." : "Tagebuch speichern"}</button>
+          <textarea className="min-h-40 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="What carried the day?" value={form.content} onChange={(event) => setForm((current) => ({ ...current, content: event.target.value }))} required />
+          <button type="submit" disabled={isSubmitting} className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Saving..." : "Save diary entry"}</button>
         </div>
       </form>
       <article className="rounded-[28px] bg-white p-8 shadow-panel xl:col-span-2">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Zeitverlauf</p>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Timeline</p>
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          {!isLoading && entries.length === 0 ? <StatusNotice message="Noch keine Tagebucheintraege vorhanden." /> : null}
+          {!isLoading && entries.length === 0 ? <StatusNotice message="No diary entries are available yet." /> : null}
           {entries.map((entry) => (
             <div key={entry.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
               <div className="flex items-center justify-between gap-4">
                 <h3 className="text-lg font-semibold text-ink">{entry.title}</h3>
-                <span className="text-xs text-slate/60">{new Date(entry.entryDate).toLocaleDateString("de-DE")}</span>
+                <span className="text-xs text-slate/60">{new Date(entry.entryDate).toLocaleDateString("en-GB")}</span>
               </div>
               <p className="mt-3 text-sm leading-7 text-slate/80">{entry.content}</p>
-              <div className="mt-4 text-xs text-moss">Stimmung: {entry.mood}</div>
+              <div className="mt-4 text-xs text-moss">Mood: {entry.mood}</div>
             </div>
           ))}
         </div>

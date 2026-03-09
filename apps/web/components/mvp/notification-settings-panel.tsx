@@ -19,32 +19,32 @@ const defaultPreferences: NotificationPreference = {
 };
 
 const weekdayOptions = [
-  { value: "monday", label: "Montag" },
-  { value: "tuesday", label: "Dienstag" },
-  { value: "wednesday", label: "Mittwoch" },
-  { value: "thursday", label: "Donnerstag" },
-  { value: "friday", label: "Freitag" },
-  { value: "saturday", label: "Samstag" },
-  { value: "sunday", label: "Sonntag" }
+  { value: "monday", label: "Monday" },
+  { value: "tuesday", label: "Tuesday" },
+  { value: "wednesday", label: "Wednesday" },
+  { value: "thursday", label: "Thursday" },
+  { value: "friday", label: "Friday" },
+  { value: "saturday", label: "Saturday" },
+  { value: "sunday", label: "Sunday" }
 ];
 
 function formatJobType(value: NotificationJobRecord["jobType"]) {
-  return value === "growth" ? "Wachstum" : "Ziel";
+  return value === "growth" ? "Growth" : "Goal";
 }
 
 function formatJobStatus(value: NotificationJobRecord["status"]) {
-  return value === "scheduled" ? "Geplant" : "Pausiert";
+  return value === "scheduled" ? "Scheduled" : "Paused";
 }
 
 function formatChannel(value: NotificationHistoryItem["channel"]) {
-  return value === "email" ? "E-Mail" : "In-App";
+  return value === "email" ? "Email" : "In-app";
 }
 
 function formatNotificationStatus(value: NotificationHistoryItem["status"]) {
   const map: Record<NotificationHistoryItem["status"], string> = {
-    queued: "In Warteschlange",
-    sent: "Versendet",
-    failed: "Fehlgeschlagen"
+    queued: "Queued",
+    sent: "Sent",
+    failed: "Failed"
   };
 
   return map[value];
@@ -74,24 +74,24 @@ export function NotificationSettingsPanel() {
     if (preferencesResult.ok && preferencesResult.data) {
       setPreferences(preferencesResult.data);
     } else {
-      failures.push(preferencesResult.error ?? "Benachrichtigungs-Praeferenzen konnten nicht geladen werden.");
+      failures.push(preferencesResult.error ?? "Notification preferences could not be loaded.");
     }
 
     if (historyResult.ok && historyResult.data) {
       setHistory(historyResult.data);
     } else {
-      failures.push(historyResult.error ?? "Benachrichtigungsverlauf konnte nicht geladen werden.");
+      failures.push(historyResult.error ?? "Notification history could not be loaded.");
     }
 
     if (jobsResult.ok && jobsResult.data) {
       setJobs(jobsResult.data);
     } else {
-      failures.push(jobsResult.error ?? "Benachrichtigungsjobs konnten nicht geladen werden.");
+      failures.push(jobsResult.error ?? "Notification jobs could not be loaded.");
     }
 
     setError(failures.length > 0 ? failures.join(" ") : null);
     if (!options?.silentSuccess) {
-      setStatus(failures.length === 0 ? "Benachrichtigungen sind direkt mit der API verbunden." : null);
+      setStatus(failures.length === 0 ? "Notifications are connected directly to the API." : null);
     }
     setIsLoading(false);
   }
@@ -113,9 +113,9 @@ export function NotificationSettingsPanel() {
     if (result.ok && result.data) {
       setPreferences(result.data);
       await loadNotificationData({ silentSuccess: true });
-      setStatus("Die Benachrichtigungs-Praeferenzen wurden gespeichert.");
+      setStatus("Notification preferences were saved.");
     } else {
-      setError(result.error ?? "Benachrichtigungs-Praeferenzen konnten nicht gespeichert werden.");
+      setError(result.error ?? "Notification preferences could not be saved.");
     }
 
     setIsSaving(false);
@@ -132,9 +132,9 @@ export function NotificationSettingsPanel() {
 
     if (result.ok && result.data) {
       setHistory((current) => [result.data as NotificationHistoryItem, ...current]);
-      setStatus("Die Benachrichtigungsvorschau wurde erzeugt.");
+      setStatus("Notification preview was generated.");
     } else {
-      setError(result.error ?? "Benachrichtigungsvorschau konnte nicht erzeugt werden.");
+      setError(result.error ?? "Notification preview could not be generated.");
     }
 
     setIsPreviewing(false);
@@ -143,16 +143,16 @@ export function NotificationSettingsPanel() {
   return (
     <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Benachrichtigungen</p>
-        <h2 className="mt-2 font-display text-3xl text-ink">Entwicklungsimpulse steuern</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Notifications</p>
+        <h2 className="mt-2 font-display text-3xl text-ink">Control growth prompts</h2>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
-          {isLoading ? <StatusNotice message="Benachrichtigungsdaten werden geladen..." /> : null}
+          {isLoading ? <StatusNotice message="Notification data is loading..." /> : null}
         </div>
         <div className="mt-6 space-y-4 text-sm text-slate/85">
           <label className="flex items-center justify-between rounded-2xl border border-mist bg-mist/35 px-4 py-3">
-            <span>Entwicklungsimpulse</span>
+            <span>Growth prompts</span>
             <input
               type="checkbox"
               checked={preferences.developmentEnabled}
@@ -165,7 +165,7 @@ export function NotificationSettingsPanel() {
             />
           </label>
           <label className="flex items-center justify-between rounded-2xl border border-mist bg-mist/35 px-4 py-3">
-            <span>Zielerinnerungen</span>
+            <span>Goal reminders</span>
             <input
               type="checkbox"
               checked={preferences.goalRemindersEnabled}
@@ -179,7 +179,7 @@ export function NotificationSettingsPanel() {
           </label>
           <div className="grid gap-4 md:grid-cols-2">
             <select
-              aria-label="Benachrichtigungsfrequenz"
+              aria-label="Notification frequency"
               className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
               value={preferences.frequency}
               onChange={(event) =>
@@ -189,12 +189,12 @@ export function NotificationSettingsPanel() {
                 }))
               }
             >
-              <option value="daily">Taeglich</option>
-              <option value="every_2_days">Alle 2 Tage</option>
-              <option value="weekly">Woechentlich</option>
+              <option value="daily">Daily</option>
+              <option value="every_2_days">Every 2 days</option>
+              <option value="weekly">Weekly</option>
             </select>
             <select
-              aria-label="Tonfall"
+              aria-label="Tone"
               className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
               value={preferences.tone}
               onChange={(event) =>
@@ -204,15 +204,15 @@ export function NotificationSettingsPanel() {
                 }))
               }
             >
-              <option value="motivational">Motivierend</option>
-              <option value="reflective">Reflektierend</option>
-              <option value="mixed">Gemischt</option>
+              <option value="motivational">Motivational</option>
+              <option value="reflective">Reflective</option>
+              <option value="mixed">Mixed</option>
             </select>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <input
-              aria-label="Bevorzugte Uhrzeit"
-              placeholder="Uhrzeit"
+              aria-label="Preferred time"
+              placeholder="Time"
               className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
               type="time"
               value={preferences.preferredTime}
@@ -224,7 +224,7 @@ export function NotificationSettingsPanel() {
               }
             />
             <select
-              aria-label="Bevorzugter Wochentag"
+              aria-label="Preferred weekday"
               className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
               value={preferences.preferredWeekday}
               onChange={(event) =>
@@ -248,7 +248,7 @@ export function NotificationSettingsPanel() {
               disabled={isSaving}
               className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSaving ? "Wird gespeichert..." : "Praeferenzen speichern"}
+              {isSaving ? "Saving..." : "Save preferences"}
             </button>
             <button
               type="button"
@@ -256,27 +256,27 @@ export function NotificationSettingsPanel() {
               disabled={isPreviewing}
               className="rounded-2xl border border-moss/20 bg-moss/5 px-5 py-3 text-sm font-semibold text-slate disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isPreviewing ? "Wird erzeugt..." : "Vorschau erzeugen"}
+              {isPreviewing ? "Generating..." : "Generate preview"}
             </button>
           </div>
         </div>
       </article>
       <div className="space-y-6">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Geplante Jobs</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Scheduled jobs</p>
           <div className="mt-6 space-y-3">
-            {!isLoading && jobs.length === 0 ? <StatusNotice message="Aktuell keine geplanten Jobs vorhanden." /> : null}
+            {!isLoading && jobs.length === 0 ? <StatusNotice message="There are currently no scheduled jobs." /> : null}
             {jobs.map((job) => (
               <div key={job.id} className="rounded-2xl border border-mist bg-mist/35 px-4 py-3 text-sm text-slate/80">
-                {formatJobType(job.jobType)} {" - "} {new Date(job.scheduledFor).toLocaleString("de-DE")} {" - "} {formatJobStatus(job.status)}
+                {formatJobType(job.jobType)} {" - "} {new Date(job.scheduledFor).toLocaleString("en-GB")} {" - "} {formatJobStatus(job.status)}
               </div>
             ))}
           </div>
         </article>
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verlauf</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">History</p>
           <div className="mt-6 space-y-4">
-            {!isLoading && history.length === 0 ? <StatusNotice message="Noch kein Benachrichtigungsverlauf vorhanden." /> : null}
+            {!isLoading && history.length === 0 ? <StatusNotice message="No notification history is available yet." /> : null}
             {history.map((item) => (
               <div key={item.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
                 <div className="flex items-center justify-between gap-4">
@@ -285,7 +285,7 @@ export function NotificationSettingsPanel() {
                 </div>
                 <p className="mt-3 text-sm leading-7 text-slate/80">{item.message}</p>
                 <div className="mt-3 text-xs text-slate/60">
-                  {new Date(item.deliveredAt).toLocaleString("de-DE")} {" - "} {formatNotificationStatus(item.status)}
+                  {new Date(item.deliveredAt).toLocaleString("en-GB")} {" - "} {formatNotificationStatus(item.status)}
                 </div>
               </div>
             ))}

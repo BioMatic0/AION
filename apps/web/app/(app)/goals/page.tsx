@@ -5,10 +5,10 @@ export default function GoalsPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Ziele"
-        title="Ziele, Fortschritt und sichtbare Umsetzung"
-        description="Der Zielbereich ist jetzt als echter MVP-Bereich umgesetzt: Statusmodell, Fortschrittswerte, Meilensteine und API-geeignete Aktionen statt reiner Platzhalter."
-        badge="MVP-Kern"
+        eyebrow="Goals"
+        title="Goals, progress, and visible execution"
+        description="The goals area is now implemented as a real MVP surface with status model, progress values, milestones, and API-ready actions instead of placeholders."
+        badge="MVP core"
       />
       <GoalsWorkspace />
     </section>

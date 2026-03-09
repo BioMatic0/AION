@@ -5,10 +5,10 @@ export default function SecurityPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Sicherheit"
-        title="Sitzungen und Sicherheitsereignisse bleiben sichtbar"
-        description="Die Sicherheitsansicht bindet die Sitzungs- und Ereignislage in die UI ein. Damit bleibt die Plattform auf Nutzerebene transparent statt nur intern protokolliert."
-        badge="Sichtbarkeit aktiv"
+        eyebrow="Security"
+        title="Sessions and security events stay visible"
+        description="The security view brings session and event state into the UI so the platform stays transparent for users instead of being logged only internally."
+        badge="Visibility active"
       />
       <SecurityOverviewPanel />
     </section>

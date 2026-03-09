@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AION",
-  description: "Menschenzentrierte KI-Plattform fuer Reflexion, Struktur und Entwicklung.",
+  description: "Human-centered AI platform for reflection, structure, and development.",
   applicationName: "AION",
   creator: "Patrick Wirth",
   publisher: "Patrick Wirth",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

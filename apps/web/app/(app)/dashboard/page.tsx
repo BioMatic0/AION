@@ -6,9 +6,9 @@ export default function DashboardPage() {
     <section className="space-y-6">
       <SectionHeader
         eyebrow="Dashboard"
-        title="AION laeuft jetzt als echtes MVP-Fundament"
-        description="Dieses Dashboard zieht seine Kernzahlen direkt aus der API und zeigt den aktuellen Laufzeitstand von AION statt blosser Demo-Zustaende."
-        badge="API aktiv"
+        title="AION now runs on a real MVP foundation"
+        description="This dashboard pulls its core metrics directly from the API and shows AION's actual runtime state instead of demo placeholders."
+        badge="API active"
       />
       <DashboardOverview />
     </section>

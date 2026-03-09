@@ -7,10 +7,10 @@ import { StatusNotice } from "./status-notice";
 
 function formatEnforcementMode(value: GovernanceOverview["policies"][number]["enforcementMode"]) {
   const map: Record<GovernanceOverview["policies"][number]["enforcementMode"], string> = {
-    log: "Protokoll",
-    warn: "Warnung",
-    block: "Blockieren",
-    halt: "Sicherer Halt"
+    log: "Log",
+    warn: "Warning",
+    block: "Block",
+    halt: "Safe halt"
   };
 
   return map[value];
@@ -18,17 +18,17 @@ function formatEnforcementMode(value: GovernanceOverview["policies"][number]["en
 
 function formatIntegrityStatus(value: GovernanceOverview["integrityChecks"][number]["status"]) {
   const map: Record<GovernanceOverview["integrityChecks"][number]["status"], string> = {
-    pass: "Bestanden",
-    warn: "Warnung",
-    block: "Blockiert",
-    halt: "Sicherer Halt"
+    pass: "Passed",
+    warn: "Warning",
+    block: "Blocked",
+    halt: "Safe halt"
   };
 
   return map[value];
 }
 
 function formatSafeHaltStatus(value: GovernanceOverview["safeHaltEvents"][number]["status"]) {
-  return value === "armed" ? "Aktiviert" : "Geloest";
+  return value === "armed" ? "Armed" : "Released";
 }
 
 export function GovernanceCenterPanel() {
@@ -45,14 +45,14 @@ export function GovernanceCenterPanel() {
     if (result.ok && result.data) {
       setOverview(result.data);
       if (!options?.silentSuccess) {
-        setStatus("Die Governance-Uebersicht wird live aus der API geladen.");
+        setStatus("The governance overview is loading live from the API.");
       }
       setError(null);
     } else {
       if (!options?.silentSuccess) {
         setStatus(null);
       }
-      setError(result.error ?? "Governance-Uebersicht konnte nicht geladen werden.");
+      setError(result.error ?? "The governance overview could not be loaded.");
     }
 
     setIsLoading(false);
@@ -73,9 +73,9 @@ export function GovernanceCenterPanel() {
 
     if (result.ok && result.data) {
       await loadOverview({ silentSuccess: true });
-      setStatus("Die Integritaetspruefung wurde ausgefuehrt.");
+      setStatus("The integrity sweep was executed.");
     } else {
-      setError(result.error ?? "Integritaetspruefung konnte nicht ausgefuehrt werden.");
+      setError(result.error ?? "The integrity sweep could not be executed.");
     }
 
     setIsSweeping(false);
@@ -84,7 +84,7 @@ export function GovernanceCenterPanel() {
   if (!overview) {
     return (
       <div className="space-y-3">
-        {isLoading ? <StatusNotice message="Governance-Uebersicht wird geladen..." /> : null}
+        {isLoading ? <StatusNotice message="Governance overview is loading..." /> : null}
         {error ? <StatusNotice message={error} variant="error" /> : null}
       </div>
     );
@@ -95,7 +95,7 @@ export function GovernanceCenterPanel() {
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Governance-Charta</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Governance charter</p>
             <h2 className="mt-3 font-display text-3xl text-ink">{overview.charter.title}</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate/80">{overview.charter.summary}</p>
           </div>
@@ -105,7 +105,7 @@ export function GovernanceCenterPanel() {
             disabled={isSweeping}
             className="rounded-full border border-moss/20 bg-moss px-5 py-3 text-sm font-semibold text-white transition hover:bg-moss/90 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSweeping ? "Pruefung laeuft..." : "Integritaetspruefung ausfuehren"}
+            {isSweeping ? "Running..." : "Run integrity sweep"}
           </button>
         </div>
         <div className="mt-6 space-y-3">
@@ -121,11 +121,11 @@ export function GovernanceCenterPanel() {
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <div className="rounded-3xl border border-mist bg-mist/35 p-5">
-            <p className="text-xs uppercase tracking-[0.24em] text-slate/55">Beziehungsmodell</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-slate/55">Relationship model</p>
             <p className="mt-3 text-sm leading-7 text-slate/80">{overview.charter.relationshipModel}</p>
           </div>
           <div className="rounded-3xl border border-mist bg-mist/35 p-5">
-            <p className="text-xs uppercase tracking-[0.24em] text-slate/55">Eskalationsregel</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-slate/55">Escalation rule</p>
             <p className="mt-3 text-sm leading-7 text-slate/80">{overview.charter.escalationRule}</p>
           </div>
         </div>
@@ -133,7 +133,7 @@ export function GovernanceCenterPanel() {
 
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Richtlinien</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Policies</p>
           <div className="mt-6 space-y-4">
             {overview.policies.map((policy) => (
               <div key={policy.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -148,7 +148,7 @@ export function GovernanceCenterPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Integritaetspruefungen</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Integrity checks</p>
           <div className="mt-6 space-y-4">
             {overview.integrityChecks.map((check) => (
               <div key={check.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -157,7 +157,7 @@ export function GovernanceCenterPanel() {
                   <span className="text-xs text-slate/60">{formatIntegrityStatus(check.status)}</span>
                 </div>
                 <p className="mt-3 text-sm leading-7 text-slate/80">{check.summary}</p>
-                <div className="mt-3 text-xs text-slate/60">{new Date(check.createdAt).toLocaleString("de-DE")}</div>
+                <div className="mt-3 text-xs text-slate/60">{new Date(check.createdAt).toLocaleString("en-GB")}</div>
               </div>
             ))}
           </div>
@@ -166,7 +166,7 @@ export function GovernanceCenterPanel() {
 
       <div className="grid gap-6 xl:grid-cols-3">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Eingeschraenkte Nutzung</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Restricted use</p>
           <div className="mt-6 space-y-4">
             {overview.restrictedUses.map((item) => (
               <div key={item.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -178,7 +178,7 @@ export function GovernanceCenterPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Sicherer Halt</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Safe halt</p>
           <div className="mt-6 space-y-4">
             {overview.safeHaltEvents.map((event) => (
               <div key={event.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -191,13 +191,13 @@ export function GovernanceCenterPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Audit-Vorschau</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Audit preview</p>
           <div className="mt-6 space-y-4">
             {overview.auditTrailPreview.map((entry) => (
               <div key={entry.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
                 <h3 className="text-base font-semibold text-ink">{entry.action}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate/80">{entry.detail}</p>
-                <div className="mt-3 text-xs text-slate/60">{new Date(entry.createdAt).toLocaleString("de-DE")}</div>
+                <div className="mt-3 text-xs text-slate/60">{new Date(entry.createdAt).toLocaleString("en-GB")}</div>
               </div>
             ))}
           </div>

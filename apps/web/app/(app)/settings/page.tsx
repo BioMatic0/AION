@@ -6,10 +6,10 @@ export default function SettingsPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Einstellungen"
-        title="Agent, Benachrichtigungen und Steuerlogik an einem Ort"
-        description="Die Einstellungen bleiben die Steuerzentrale des MVP. Profil, Passwortwechsel, 2FA-Vorstruktur und Benachrichtigungslogik sind hier zusammengezogen; weitere Agentenprofile folgen spaeter."
-        badge="Steuerzentrale"
+        eyebrow="Settings"
+        title="Agent, notifications, and control logic in one place"
+        description="Settings remain the control center of the MVP. Profile, password change, 2FA scaffold, and notification logic are consolidated here; more agent profiles will follow later."
+        badge="Control center"
       />
       <UserProfileSettingsPanel />
       <NotificationSettingsPanel />

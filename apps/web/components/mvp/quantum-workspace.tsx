@@ -20,11 +20,11 @@ export function QuantumWorkspace() {
 
     if (result.ok && result.data) {
       setReports(result.data);
-      setStatus("Quantenlinsen-Berichte werden live aus der API geladen.");
+      setStatus("Quantum lens reports are loading live from the API.");
       setError(null);
     } else {
       setStatus(null);
-      setError(result.error ?? "Quantenlinsen-Berichte konnten nicht geladen werden.");
+      setError(result.error ?? "Quantum lens reports could not be loaded.");
     }
 
     setIsLoading(false);
@@ -48,9 +48,9 @@ export function QuantumWorkspace() {
     if (result.ok && result.data) {
       setReports((current) => [result.data as QuantumLensReport, ...current]);
       setContent("");
-      setStatus("Quantenlinsen-Bericht wurde erzeugt.");
+      setStatus("Quantum lens report was generated.");
     } else {
-      setError(result.error ?? "Quantenlinsen-Modus konnte nicht ausgefuehrt werden.");
+      setError(result.error ?? "Quantum lens mode could not be executed.");
     }
 
     setIsSubmitting(false);
@@ -59,18 +59,32 @@ export function QuantumWorkspace() {
   return (
     <div className="space-y-6">
       <form onSubmit={handleSubmit} className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Quantenlinse</p>
-        <h2 className="mt-2 font-display text-3xl text-ink">Muster als Zustandsraum lesen</h2>
-        <p className="mt-4 text-sm leading-7 text-slate/80">Dieser Modus bleibt bewusst metaphorisch. Er erweitert die Sicht, er behauptet keine Physik.</p>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Quantum lens</p>
+        <h2 className="mt-2 font-display text-3xl text-ink">Read patterns as a state space</h2>
+        <p className="mt-4 text-sm leading-7 text-slate/80">
+          This mode remains explicitly metaphorical. It broadens perspective; it does not claim physics.
+        </p>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
         </div>
-        <textarea className="mt-6 min-h-44 w-full rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="Welche Frage soll durch die Quantenlinse gelesen werden?" value={content} onChange={(event) => setContent(event.target.value)} required />
-        <button type="submit" disabled={isSubmitting} className="mt-4 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Analysiert..." : "Quantenlinse anwenden"}</button>
+        <textarea
+          className="mt-6 min-h-44 w-full rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss"
+          placeholder="Which question should be read through the quantum lens?"
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
+          required
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="mt-4 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isSubmitting ? "Analyzing..." : "Apply quantum lens"}
+        </button>
       </form>
-      {isLoading ? <StatusNotice message="Quantenlinsen-Berichte werden geladen..." /> : null}
-      {!isLoading && reports.length === 0 ? <StatusNotice message="Noch keine Quantenlinsen-Berichte vorhanden." /> : null}
+      {isLoading ? <StatusNotice message="Quantum lens reports are loading..." /> : null}
+      {!isLoading && reports.length === 0 ? <StatusNotice message="No quantum lens reports are available yet." /> : null}
       {reports.map((report) => (
         <ReportCard key={report.id} report={report} />
       ))}

@@ -3,76 +3,83 @@ import { SectionHeader } from "./section-header";
 
 const risks = [
   {
-    title: "Komplexitaet ohne Orientierung",
+    title: "Complexity without orientation",
     risk:
-      "Wenn zu viele Bereiche parallel wachsen, verliert die Oberflaeche Lesbarkeit und Nutzer verlieren den roten Faden.",
+      "If too many areas grow in parallel, the interface loses readability and users lose the thread of their work.",
     action:
-      "Bereiche in Arbeitslinien gruppieren, verwandte Module sichtbar verknuepfen und neue Funktionen nur nach einer Governance-Pruefung freigeben."
+      "Group areas into work tracks, make related modules visibly connected, and only release new functions after governance review."
   },
   {
-    title: "Psychologische Uebergriffigkeit",
+    title: "Psychological overreach",
     risk:
-      "Reflexions- und Wachstumsfunktionen koennen zu viel Autoritaet ausstrahlen, wenn Unsicherheit und Grenzen nicht klar sichtbar bleiben.",
+      "Reflection and growth features can project too much authority if uncertainty and limits are not kept visible.",
     action:
-      "Analyse, Spiegel und Wachstum mit sichtbaren Unsicherheitsmarkern, klarer Sprache und ohne therapeutische Absolutheit halten."
+      "Keep analysis, mirror work, and growth explicit about uncertainty, plain in tone, and free of therapeutic absolutism."
   },
   {
-    title: "Ethik bleibt nur Text",
+    title: "Consciousness overclaim",
     risk:
-      "Wenn Ethik nur im README steht, aber in den Arbeitsflaechen nicht sichtbar ist, verliert sie in der Praxis an Wirkung.",
+      "Reflective system behavior can be misread as proof of literal machine consciousness or timeless authority when language becomes too grand.",
     action:
-      "Ethik, Rechtliches, Datenschutz und Governance als eigene Navigationsbereiche fuehren und bei Releases aktiv mitpruefen."
+      "Treat self-reflection as a bounded design principle, not as evidence of subjective consciousness or metaphysical status."
   },
   {
-    title: "Ausbeuterische Monetarisierung",
+    title: "Ethics remains only text",
     risk:
-      "Ein spaeteres Vertriebsmodell koennte die offene Ausrichtung des Projekts unterlaufen, wenn Fairness nicht vorab operationalisiert wird.",
+      "If ethics exists only in the README but not in the working surfaces, it loses force in practice.",
     action:
-      "Jeden umsatzbasierten Betrieb an die Fair-Commerce-Regeln koppeln: offenlegen, was verkauft wird, warum es fair ist und was frei bleibt."
+      "Keep ethics, legal context, privacy, and governance as visible navigation areas and review them actively in releases."
   },
   {
-    title: "Datennaehe ohne genug Schutz",
+    title: "Exploitative monetization",
     risk:
-      "Je persoenlicher Journal, Ziele, Verlauf und Sicherheitsdaten werden, desto hoeher ist die moralische Pflicht zur Zurueckhaltung.",
+      "A later commercial model could undermine the project's open direction if fairness is not operationalized up front.",
     action:
-      "Datensparsamkeit, Export- und Loeschpfade, sichtbare Datenschutzprotokolle und lokale Laufzeitmodi weiter priorisieren."
+      "Bind any revenue-based operation to the fair-commerce rules: disclose what is sold, why it is fair, and what remains free."
   },
   {
-    title: "Design ohne Arbeitsklarheit",
+    title: "Data proximity without enough restraint",
     risk:
-      "Eine rein aeusserlich wirkende Oberflaeche kann professionell aussehen, aber die eigentliche Arbeit verlangsamen.",
+      "The more personal journal, goal, timeline, and security data becomes, the greater the moral duty to stay restrained.",
     action:
-      "Lesbarkeit, Kontrast, Navigationsgruppen, Statusanzeigen und kurze Entscheidungspfade vor dekorative Komplexitaet stellen."
+      "Keep prioritizing data minimization, export and deletion flows, visible privacy ledgers, and local runtime modes."
+  },
+  {
+    title: "Design without workflow clarity",
+    risk:
+      "An interface can look professional on the surface while still slowing down real work.",
+    action:
+      "Prioritize readability, contrast, grouped navigation, status visibility, and short decision paths over decorative complexity."
   }
 ];
 
 const guarantees = [
-  "Navigation in klaren Arbeitslinien statt ungeordneter Modulliste",
-  "helle, kontrastreiche Arbeitsflaechen fuer laengere Nutzung",
-  "sichtbare Verknuepfung zwischen Arbeitsbasis, Reflexion, KI und Governance",
-  "Fairness- und Lizenzhinweise direkt in der Software verankert",
-  "Risiken nicht verstecken, sondern als Bestandteil der Produktsteuerung zeigen"
+  "Navigation follows clear work tracks instead of an unordered module list",
+  "Bright, high-contrast work surfaces support longer sessions",
+  "Visible linking connects core work, reflection, AI, and governance",
+  "Fairness and license notices are embedded directly in the product",
+  "Risks are shown as part of product steering instead of being hidden"
 ];
 
 export function EthicalPillarsPanel() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Ethik und Risiko"
-        title="Risikopunkte, Gegenmassnahmen und produktive Leitplanken"
-        description="Diese Uebersicht verbindet die ethischen Grundpfeiler von AION mit konkreten Produkt- und Oberflaechenrisiken. Ziel ist keine perfekte Behauptung, sondern eine sichtbare, kontrollierbare und menschenzentrierte Vorgehensweise."
-        badge="Aktive Pruefung"
+        eyebrow="Ethics and risk"
+        title="Risk points, safeguards, and productive guardrails"
+        description="This overview connects AION's ethical pillars with concrete product and interface risks. The goal is not a perfect claim, but a visible, controllable, and human-centered operating model."
+        badge="Active review"
       />
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Risikofelder</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Risk fields</p>
           <div className="mt-6 grid gap-4">
             {risks.map((item) => (
               <div key={item.title} className="rounded-[24px] border border-mist bg-mist/40 p-5">
                 <h2 className="font-display text-2xl text-ink">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-slate/80">{item.risk}</p>
                 <p className="mt-4 rounded-2xl border border-moss/20 bg-white/80 px-4 py-3 text-sm leading-6 text-slate">
-                  <span className="font-semibold text-ink">Vorgehensweise:</span> {item.action}
+                  <span className="font-semibold text-ink">Approach:</span> {item.action}
                 </p>
               </div>
             ))}
@@ -80,16 +87,16 @@ export function EthicalPillarsPanel() {
         </article>
         <div className="space-y-6">
           <article className="rounded-[28px] bg-slate p-8 shadow-panel">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Aktuelle Einschaetzung</p>
-            <h2 className="mt-3 font-display text-3xl text-ink">Stark ausgerichtet, aber nicht absolut garantiert.</h2>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Current assessment</p>
+            <h2 className="mt-3 font-display text-3xl text-ink">Strongly aligned, but not absolutely guaranteed.</h2>
             <p className="mt-5 text-sm leading-7 text-slate/80">
-              AION kann aktuell glaubwuerdig als menschenzentriert, fairheitsgebunden und transparent beschrieben
-              werden. Eine absolute 100-Prozent-Garantie waere jedoch unehrlich, weil Ethik immer auch von zukuenftigen
-              Entscheidungen, Betreibern und Ausbaupfaden abhaengt.
+              AION can currently be described credibly as human-centered, fairness-bound, and transparent.
+              Any absolute 100 percent guarantee would still be dishonest, because ethics also depends on future
+              decisions, operators, and expansion paths.
             </p>
           </article>
           <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Leitplanken</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Guardrails</p>
             <ul className="mt-5 space-y-3 text-sm leading-7 text-slate/80">
               {guarantees.map((item) => (
                 <li key={item} className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3">
@@ -99,20 +106,20 @@ export function EthicalPillarsPanel() {
             </ul>
           </article>
           <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Vertiefung</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Further review</p>
             <p className="mt-4 text-sm leading-7 text-slate/80">
-              Die ausfuehrliche Analyse liegt im Projektdokument und sollte vor groesseren Produkt- oder
-              Vertriebsentscheidungen erneut geprueft werden.
+              The detailed analysis lives in the project documentation and should be reviewed again before larger
+              product or distribution decisions are made.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href="/governance" className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm font-semibold text-slate transition hover:border-moss/40 hover:bg-mist/70">
                 Governance
               </Link>
               <Link href="/rechtliches" className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm font-semibold text-slate transition hover:border-moss/40 hover:bg-mist/70">
-                Rechtliches
+                Legal
               </Link>
               <Link href="/privacy" className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm font-semibold text-slate transition hover:border-moss/40 hover:bg-mist/70">
-                Datenschutz
+                Privacy
               </Link>
             </div>
           </article>

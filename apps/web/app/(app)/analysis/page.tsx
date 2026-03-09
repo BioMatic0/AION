@@ -5,10 +5,10 @@ export default function AnalysisPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Analyse"
-        title="Mehrschichtige Analyse mit Memory-Anbindung"
-        description="Die Analyse erzeugt jetzt echte Berichte aus Eingabetexten und koppelt sie direkt an das vorhandene Systemgedaechtnis, statt nur den Bereich zu reservieren."
-        badge="KI-Modul aktiv"
+        eyebrow="Analysis"
+        title="Multi-layer analysis with memory integration"
+        description="Analysis now generates real reports from input text and links them directly to the existing system memory instead of merely reserving the area."
+        badge="AI module active"
       />
       <AnalysisWorkspace />
     </section>

@@ -23,7 +23,7 @@ function createDefaultSessions(): SecuritySessionSummary[] {
     {
       id: randomUUID(),
       userId: LOCAL_USER_ID,
-      label: "Primaeres Arbeitsgeraet",
+      label: "Primary work device",
       createdAt: now,
       lastSeenAt: now,
       revokedAt: null
@@ -39,7 +39,7 @@ function createDefaultEvents(): SecurityEventSummary[] {
       type: "session.opened",
       severity: "info",
       createdAt: new Date().toISOString(),
-      summary: "Die erste lokale Entwicklungssitzung fuer AION wurde geoeffnet."
+      summary: "The first local development session for AION was opened."
     }
   ];
 }
@@ -54,9 +54,9 @@ function createDefaultIncidents(): SecurityIncidentSummary[] {
       status: "investigating",
       detectedAt: new Date().toISOString(),
       summary:
-        "Eine simulierte Regel fuer auffaellige Anmeldungen ist aktiv, damit das Vorfallcenter einen sichtbaren Zustand hat.",
+        "A simulated rule for suspicious sign-in patterns is active so the incident center has a visible state.",
       recommendedAction:
-        "Pruefe die Geraeteliste, widerrufe unbekannte Sitzungen und rotiere bei Bedarf Geheimnisse."
+        "Review the device list, revoke unknown sessions, and rotate secrets if needed."
     }
   ];
 }
@@ -67,10 +67,10 @@ function createDefaultNotifications(): IncidentNotificationSummary[] {
       id: randomUUID(),
       incidentType: "suspicious-login-pattern",
       severity: "warning",
-      title: "Sicherheitswarnung sichtbar",
+      title: "Security warning visible",
       description:
-        "Die lokale Entwicklungsumgebung zeigt einen simulierten Vorfallpfad fuer Nutzertransparenz.",
-      recommendedAction: "Pruefe Sessions und bestaetige, ob die Aktivitaet erwartet war.",
+        "The local development environment exposes a simulated incident path for user transparency.",
+      recommendedAction: "Review sessions and confirm whether the activity was expected.",
       deliveredVia: ["email", "in-app"],
       deliveredAt: new Date().toISOString()
     }

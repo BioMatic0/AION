@@ -32,8 +32,8 @@ function createDefaultHistory(): NotificationHistoryItem[] {
       id: randomUUID(),
       notificationType: "growth",
       channel: "email",
-      title: "Entwicklungsimpuls",
-      message: "Heute brauchst du keinen neuen Plan, sondern einen klaren kleinen Schritt.",
+      title: "Growth prompt",
+      message: "Today you do not need a new plan; you need one clear small step.",
       deliveredAt: new Date().toISOString(),
       status: "sent"
     }
@@ -308,7 +308,7 @@ export class NotificationsService implements OnModuleInit {
         resource: "notification-preferences",
         actorType: "user",
         actorId: userId,
-        detail: `Die Benachrichtigungspraeferenzen wurden auf ${next.frequency} / ${next.tone} aktualisiert.`
+        detail: `Notification preferences were updated to ${next.frequency} / ${next.tone}.`
       });
       return next;
     }
@@ -326,7 +326,7 @@ export class NotificationsService implements OnModuleInit {
       resource: "notification-preferences",
       actorType: "user",
       actorId: userId,
-      detail: `Die Benachrichtigungspraeferenzen wurden auf ${this.preferences.frequency} / ${this.preferences.tone} aktualisiert.`
+      detail: `Notification preferences were updated to ${this.preferences.frequency} / ${this.preferences.tone}.`
     });
 
     return this.preferences;
@@ -415,13 +415,13 @@ export class NotificationsService implements OnModuleInit {
       id: randomUUID(),
       notificationType: preferences.goalRemindersEnabled ? "goal" : "growth",
       channel: "in-app",
-      title: preferences.goalRemindersEnabled ? "Ziel-Erinnerung" : "Entwicklungsimpuls",
+      title: preferences.goalRemindersEnabled ? "Goal reminder" : "Growth prompt",
       message:
         preferences.tone === "motivational"
-          ? "Bleib in Bewegung. Ein echter kleiner Schritt reicht fuer heute."
+          ? "Keep moving. One real small step is enough for today."
           : preferences.tone === "reflective"
-            ? "Welcher offene Punkt verlangt heute nach Klarheit statt Aufschub?"
-            : "Heute gilt: klar schauen, klein handeln, dranbleiben.",
+            ? "Which open point needs clarity today instead of delay?"
+            : "Today the rule is: look clearly, act small, stay with it.",
       deliveredAt: new Date().toISOString(),
       status: "queued"
     };
@@ -449,7 +449,7 @@ export class NotificationsService implements OnModuleInit {
       resource: preview.id,
       actorType: "system",
       actorId: "notification-engine",
-      detail: `Die Benachrichtigungsvorschau "${preview.title}" wurde erzeugt.`
+      detail: `The notification preview "${preview.title}" was generated.`
     });
     return preview;
   }

@@ -5,10 +5,10 @@ export default function PrivacyPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Datenschutz"
-        title="Datenschutz sichtbar statt nur behauptet"
-        description="Der Datenschutzbereich zeigt bereits die zentralen Produktlinien fuer Datensichtbarkeit, Loeschpfade und Wahrhaftigkeit im Umgang mit quanteninspirierten Modellen."
-        badge="Datenschutz ab Werk"
+        eyebrow="Privacy"
+        title="Privacy made visible instead of merely claimed"
+        description="The privacy area already shows the core product lines for data visibility, deletion paths, and truthfulness in handling quantum-inspired models."
+        badge="Privacy by design"
       />
       <PrivacyLedgerPanel />
     </section>

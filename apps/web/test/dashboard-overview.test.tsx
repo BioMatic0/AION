@@ -87,10 +87,10 @@ describe("DashboardOverview", () => {
 
     render(<DashboardOverview />);
 
-    expect(screen.getByText("Dashboard-Zahlen werden geladen...")).toBeInTheDocument();
+    expect(screen.getByText("Dashboard metrics are loading...")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText("Dashboard zeigt Live-Zahlen aus der API.")).toBeInTheDocument();
+      expect(screen.getByText("Dashboard is showing live values from the API.")).toBeInTheDocument();
     });
 
     expect(document.querySelector('a[href="/journal"]')).toHaveTextContent("2");

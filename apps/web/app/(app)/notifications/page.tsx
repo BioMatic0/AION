@@ -5,10 +5,10 @@ export default function NotificationsPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Benachrichtigungen"
-        title="Motivation und Zielerinnerungen mit Zustimmungslogik"
-        description="Die Benachrichtigungsschicht ist als konfigurierbarer MVP-Bereich umgesetzt: Praeferenzen, Vorschau, Jobs und Verlauf laufen direkt ueber die API."
-        badge="Opt-in aktiv"
+        eyebrow="Notifications"
+        title="Motivation and goal reminders with consent logic"
+        description="The notification layer is implemented as a configurable MVP area: preferences, preview, jobs, and history run directly through the API."
+        badge="Opt-in active"
       />
       <NotificationSettingsPanel />
     </section>

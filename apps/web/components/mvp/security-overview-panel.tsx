@@ -8,8 +8,8 @@ import { StatusNotice } from "./status-notice";
 function formatSeverity(value: SecurityCenterOverview["events"][number]["severity"]) {
   const map: Record<SecurityCenterOverview["events"][number]["severity"], string> = {
     info: "Info",
-    warning: "Warnung",
-    critical: "Kritisch"
+    warning: "Warning",
+    critical: "Critical"
   };
 
   return map[value];
@@ -17,9 +17,9 @@ function formatSeverity(value: SecurityCenterOverview["events"][number]["severit
 
 function formatIncidentStatus(value: SecurityCenterOverview["incidents"][number]["status"]) {
   const map: Record<SecurityCenterOverview["incidents"][number]["status"], string> = {
-    open: "Offen",
-    investigating: "In Pruefung",
-    resolved: "Geloest"
+    open: "Open",
+    investigating: "Investigating",
+    resolved: "Resolved"
   };
 
   return map[value];
@@ -39,14 +39,14 @@ export function SecurityOverviewPanel() {
     if (result.ok && result.data) {
       setOverview(result.data);
       if (!options?.silentSuccess) {
-        setStatus("Sicherheitscenter wird live aus der API geladen.");
+        setStatus("Security center is loading live from the API.");
       }
       setError(null);
     } else {
       if (!options?.silentSuccess) {
         setStatus(null);
       }
-      setError(result.error ?? "Sicherheitscenter konnte nicht geladen werden.");
+      setError(result.error ?? "Security center could not be loaded.");
     }
 
     setIsLoading(false);
@@ -67,9 +67,9 @@ export function SecurityOverviewPanel() {
 
     if (result.ok && result.data) {
       await loadOverview({ silentSuccess: true });
-      setStatus("Vorfall wurde simuliert und in die Sicherheitsuebersicht uebernommen.");
+      setStatus("The incident was simulated and added to the security overview.");
     } else {
-      setError(result.error ?? "Vorfall konnte nicht simuliert werden.");
+      setError(result.error ?? "The incident could not be simulated.");
     }
 
     setIsSimulating(false);
@@ -78,7 +78,7 @@ export function SecurityOverviewPanel() {
   if (!overview) {
     return (
       <div className="space-y-3">
-        {isLoading ? <StatusNotice message="Sicherheitscenter wird geladen..." /> : null}
+        {isLoading ? <StatusNotice message="Security center is loading..." /> : null}
         {error ? <StatusNotice message={error} variant="error" /> : null}
       </div>
     );
@@ -89,10 +89,10 @@ export function SecurityOverviewPanel() {
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Sicherheitscenter</p>
-            <h2 className="mt-3 font-display text-3xl text-ink">Sitzungen, Vorfaelle und Nutzerwarnungen</h2>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Security center</p>
+            <h2 className="mt-3 font-display text-3xl text-ink">Sessions, incidents, and user alerts</h2>
             <p className="mt-4 text-sm leading-7 text-slate/80">
-              Fremdzugriffe, Sicherheitsereignisse und Vorfallmeldungen bleiben in AION sichtbar, statt nur im Hintergrund zu existieren.
+              External access, security events, and incident notifications remain visible inside AION instead of existing only in the background.
             </p>
           </div>
           <button
@@ -101,7 +101,7 @@ export function SecurityOverviewPanel() {
             disabled={isSimulating}
             className="rounded-full border border-moss/20 bg-moss px-5 py-3 text-sm font-semibold text-white transition hover:bg-moss/90 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSimulating ? "Simuliert..." : "Vorfall simulieren"}
+            {isSimulating ? "Simulating..." : "Simulate incident"}
           </button>
         </div>
         <div className="mt-6 space-y-3">
@@ -112,23 +112,23 @@ export function SecurityOverviewPanel() {
 
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Sitzungen</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Sessions</p>
           <div className="mt-6 space-y-4">
             {overview.sessions.map((session) => (
               <div key={session.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
                 <div className="flex items-center justify-between gap-4">
                   <h3 className="text-lg font-semibold text-ink">{session.label}</h3>
-                  <span className="text-xs text-slate/60">{session.revokedAt ? "widerrufen" : "aktiv"}</span>
+                  <span className="text-xs text-slate/60">{session.revokedAt ? "revoked" : "active"}</span>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-slate/75">Erstellt: {new Date(session.createdAt).toLocaleString("de-DE")}</p>
-                <p className="mt-1 text-sm leading-7 text-slate/75">Zuletzt gesehen: {new Date(session.lastSeenAt).toLocaleString("de-DE")}</p>
+                <p className="mt-3 text-sm leading-7 text-slate/75">Created: {new Date(session.createdAt).toLocaleString("en-GB")}</p>
+                <p className="mt-1 text-sm leading-7 text-slate/75">Last seen: {new Date(session.lastSeenAt).toLocaleString("en-GB")}</p>
               </div>
             ))}
           </div>
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Aktuelle Ereignisse</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Current events</p>
           <div className="mt-6 space-y-4">
             {overview.events.map((event) => (
               <div key={event.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -137,7 +137,7 @@ export function SecurityOverviewPanel() {
                   <span className="text-xs text-slate/60">{formatSeverity(event.severity)}</span>
                 </div>
                 <p className="mt-3 text-sm leading-7 text-slate/80">{event.summary}</p>
-                <div className="mt-3 text-xs text-slate/60">{new Date(event.createdAt).toLocaleString("de-DE")}</div>
+                <div className="mt-3 text-xs text-slate/60">{new Date(event.createdAt).toLocaleString("en-GB")}</div>
               </div>
             ))}
           </div>
@@ -146,7 +146,7 @@ export function SecurityOverviewPanel() {
 
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Vorfaelle</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Incidents</p>
           <div className="mt-6 space-y-4">
             {overview.incidents.map((incident) => (
               <div key={incident.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -162,7 +162,7 @@ export function SecurityOverviewPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Benachrichtigungen</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Notifications</p>
           <div className="mt-6 space-y-4">
             {overview.notifications.map((notification) => (
               <div key={notification.id} className="rounded-3xl border border-mist bg-mist/35 p-5">

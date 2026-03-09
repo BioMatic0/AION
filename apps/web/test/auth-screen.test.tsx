@@ -86,9 +86,9 @@ describe("AuthScreen", () => {
     const user = userEvent.setup();
     render(<AuthScreen mode="login" />);
 
-    await user.type(screen.getByLabelText("E-Mail"), "patrick@example.com");
-    await user.type(screen.getByLabelText("Passwort"), "123456789012");
-    await user.click(screen.getByRole("button", { name: "Anmelden" }));
+    await user.type(screen.getByLabelText("Email"), "patrick@example.com");
+    await user.type(screen.getByLabelText("Password"), "123456789012");
+    await user.click(screen.getByRole("button", { name: "Sign in" }));
 
     await waitFor(() => {
       expect(navigationState.router.replace).toHaveBeenCalledWith("/dashboard");

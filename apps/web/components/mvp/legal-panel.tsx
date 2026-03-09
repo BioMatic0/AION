@@ -7,7 +7,7 @@ function LegalCard({
 }) {
   return (
     <article className="rounded-[24px] border border-mist bg-white p-6 shadow-panel">
-      <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Rechtsstatus</p>
+      <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Legal status</p>
       <h2 className="mt-3 font-display text-2xl text-ink">{title}</h2>
       <p className="mt-4 text-sm leading-7 text-slate/80">{text}</p>
     </article>
@@ -18,52 +18,52 @@ export function LegalPanel() {
   return (
     <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Rechtliches</p>
-        <h1 className="mt-3 font-display text-4xl text-ink">Lizenz, Referenz und offene Mitgestaltung</h1>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Legal</p>
+        <h1 className="mt-3 font-display text-4xl text-ink">License, reference, and open collaboration</h1>
         <p className="mt-6 max-w-3xl text-base leading-8 text-slate/80">
-          AION wird im aktuellen Projektstand als frei zugaengliches und gemeinschaftlich mitgestaltbares
-          Projekt gefuehrt. Der Projektursprung ist im Projekt dokumentiert, waehrend Quellcode und Builds
-          unter einer fairnessgebundenen Quelllizenz zur gemeinsamen Weiterentwicklung bereitstehen.
+          In its current state, AION is maintained as a freely accessible and collaboratively stewarded project.
+          The project origin is documented inside the repository, while source code and builds are provided for
+          shared development under a fairness-bound source license.
         </p>
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">Kurzfassung</p>
-        <h2 className="mt-3 font-display text-3xl">AION ist offen zugaenglich, fair ausgerichtet und offen fuer Mitgestaltung.</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">Summary</p>
+        <h2 className="mt-3 font-display text-3xl">AION is openly accessible, fairness-oriented, and open to contribution.</h2>
         <p className="mt-5 text-sm leading-7 text-mist/80">
-          Referenz und urspruenglicher Projektbezug bleiben bei Patrick Wirth. Nutzung, Veraenderung,
-          Weitergabe und gemeinschaftliche Weiterentwicklung sind gemaess AION Community Fairness License 1.0
-          erlaubt, solange Ursprungsschutz und Fairnessbedingungen eingehalten werden.
+          Reference and original project attribution remain with Patrick Wirth. Use, modification, redistribution,
+          and collaborative development are allowed under the AION Community Fairness License 1.0 as long as origin
+          protection and fairness conditions are respected.
         </p>
         <p className="mt-4 text-xs leading-6 text-mist/65">
-          Die Lizenz ist oeffentlich und kollaborativ ausgerichtet, aber nicht als unbeschraenkte MIT-Freigabe formuliert.
+          The license is public and collaboration-friendly, but it is not written as an unrestricted MIT-style grant.
         </p>
       </article>
       <LegalCard
-        title="Quellcode"
-        text="Der Repository-Inhalt steht unter der AION Community Fairness License 1.0. Er darf genutzt, kopiert, veraendert, veroeffentlicht und gemeinschaftlich weiterentwickelt werden, solange die Ursprungs- und Lizenzhinweise erhalten bleiben."
+        title="Source code"
+        text="The repository content is released under the AION Community Fairness License 1.0. It may be used, copied, modified, published, and collaboratively developed as long as origin and license notices remain intact."
       />
       <LegalCard
-        title="Build-Dateien"
-        text="Windows-Builds und andere Release-Artefakte sind fuer eine breite Nutzung und Weitergabe gedacht. Ein umsatzbasierter Betrieb ist nur mit einem fairen, plausiblen und nicht ausbeuterischen Modell zulaessig."
+        title="Build artifacts"
+        text="Windows builds and other release artifacts are intended for broad use and redistribution. Revenue-based operation is only acceptable with a fair, plausible, and non-exploitative model."
       />
       <LegalCard
-        title="Projektbezug"
-        text="Als Referenz sind Patrick Wirth, 10.06.1993 und patrickwirth_93@icloud.com im Projekt hinterlegt. Dieser Bezug benennt den Ursprung und darf bei Weitergabe, Forks oder Vertrieb nicht entfernt werden."
+        title="Project reference"
+        text="Patrick Wirth, 10.06.1993, and patrickwirth_93@icloud.com are stored in the project as reference data. This attribution identifies the origin and may not be removed in redistribution, forks, or commercial distribution."
       />
       <article className="rounded-[28px] bg-white p-8 shadow-panel lg:col-span-2">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Hinterlegte Dokumente</p>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Included documents</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <LegalCard
             title="LICENSE"
-            text="Regelt die Nutzung des Quellcodes unter der AION Community Fairness License 1.0."
+            text="Defines source code use under the AION Community Fairness License 1.0."
           />
           <LegalCard
             title="COPYRIGHT.md und REFERENCE.md"
-            text="Fassen Referenzdaten, Projektbezug und den gemeinsamen Leitgedanken fuer eine offene Zukunft zusammen."
+            text="Summarize reference data, project attribution, and the shared guiding idea for an open future."
           />
           <LegalCard
             title="FAIR-COMMERCE.md"
-            text="Beschreibt, wie ein fairer und ethisch vertretbarer Vertrieb oder ein umsatzbasierter Betrieb von AION aussehen muss."
+            text="Describes what a fair and ethically defensible commercial or revenue-based operation of AION must look like."
           />
         </div>
       </article>

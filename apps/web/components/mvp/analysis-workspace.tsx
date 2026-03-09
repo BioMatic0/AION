@@ -33,11 +33,11 @@ export function AnalysisWorkspace() {
 
     if (result.ok && result.data) {
       setReports(result.data);
-      setStatus("Analyseberichte werden live aus der API geladen.");
+      setStatus("Analysis reports are loading live from the API.");
       setError(null);
     } else {
       setStatus(null);
-      setError(result.error ?? "Analyseberichte konnten nicht geladen werden.");
+      setError(result.error ?? "Analysis reports could not be loaded.");
     }
 
     setIsLoading(false);
@@ -73,15 +73,15 @@ export function AnalysisWorkspace() {
     if (reportResult.ok && reportResult.data) {
       setReports((current) => [reportResult.data as AnalysisReport, ...current]);
       setForm(initialForm);
-      setStatus("Analysebericht wurde erzeugt.");
+      setStatus("Analysis report was generated.");
     } else {
-      setError(reportResult.error ?? "Analyse konnte nicht ausgefuehrt werden.");
+      setError(reportResult.error ?? "Analysis could not be executed.");
     }
 
     if (searchResult.ok && searchResult.data) {
       setMemorySearch(searchResult.data);
     } else if (reportResult.ok) {
-      setError(searchResult.error ?? "Analyse wurde erzeugt, aber die Speichersuche ist fehlgeschlagen.");
+      setError(searchResult.error ?? "The analysis was generated, but memory search failed.");
     }
 
     setIsSubmitting(false);
@@ -90,21 +90,40 @@ export function AnalysisWorkspace() {
   return (
     <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
       <form onSubmit={handleSubmit} className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Analyse starten</p>
-        <h2 className="mt-2 font-display text-3xl text-ink">Beobachtung in Struktur uebersetzen</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Start analysis</p>
+        <h2 className="mt-2 font-display text-3xl text-ink">Translate observation into structure</h2>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
         </div>
         <div className="mt-6 grid gap-4">
-          <input className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss" placeholder="Titel oder Fallkontext" value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} />
-          <textarea className="min-h-56 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="Beschreibe den Fall so, dass Beobachtung und Interpretation sichtbar bleiben." value={form.content} onChange={(event) => setForm((current) => ({ ...current, content: event.target.value }))} required />
-          <button type="submit" disabled={isSubmitting} className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Analysiert..." : "Analyse ausfuehren"}</button>
+          <input
+            className="rounded-2xl border border-mist bg-mist/50 px-4 py-3 text-sm outline-none focus:border-moss"
+            placeholder="Title or case context"
+            value={form.title}
+            onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))}
+          />
+          <textarea
+            className="min-h-56 rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss"
+            placeholder="Describe the case in a way that keeps observation and interpretation visible."
+            value={form.content}
+            onChange={(event) => setForm((current) => ({ ...current, content: event.target.value }))}
+            required
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSubmitting ? "Analyzing..." : "Run analysis"}
+          </button>
         </div>
         <article className="mt-6 rounded-[28px] bg-slate p-6 text-mist">
-          <p className="text-xs uppercase tracking-[0.22em] text-mist/60">Speichersuche</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-mist/60">Memory search</p>
           <div className="mt-4 space-y-3">
-            {memorySearch.items.length === 0 ? <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-mist/75">Noch keine verknuepften Speicher-Treffer.</div> : null}
+            {memorySearch.items.length === 0 ? (
+              <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-mist/75">No linked memory matches yet.</div>
+            ) : null}
             {memorySearch.items.map((item) => (
               <div key={item.id} className="rounded-2xl bg-white/10 px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
@@ -118,8 +137,8 @@ export function AnalysisWorkspace() {
         </article>
       </form>
       <div className="space-y-6">
-        {isLoading ? <StatusNotice message="Analyseberichte werden geladen..." /> : null}
-        {!isLoading && reports.length === 0 ? <StatusNotice message="Noch keine Analyseberichte vorhanden." /> : null}
+        {isLoading ? <StatusNotice message="Analysis reports are loading..." /> : null}
+        {!isLoading && reports.length === 0 ? <StatusNotice message="No analysis reports are available yet." /> : null}
         {reports.map((report) => (
           <ReportCard key={report.id} report={report} />
         ))}

@@ -21,11 +21,11 @@ const navigation = [
   {
     href: "/journal",
     label: "Journal",
-    description: "Reflexion und Eintraege",
-    group: "Arbeitsbasis" as const,
-    status: "Aktiv",
-    nextStep: "Weiter ausbauen",
-    pillars: ["Eintraege", "Tags", "Kontext"],
+    description: "Reflection and entries",
+    group: "Core Workspace" as const,
+    status: "Active",
+    nextStep: "Expand further",
+    pillars: ["Entries", "Tags", "Context"],
     related: ["/diary", "/analysis"]
   }
 ];
@@ -49,7 +49,7 @@ describe("AppShell", () => {
 
     render(
       <AppShell navigation={navigation}>
-        <div>Inhalt</div>
+        <div>Content</div>
       </AppShell>
     );
 
@@ -96,7 +96,7 @@ describe("AppShell", () => {
       expect(screen.getByText("patrick@example.com")).toBeInTheDocument();
     });
 
-    await user.click(screen.getByRole("button", { name: "Abmelden" }));
+    await user.click(screen.getByRole("button", { name: "Sign out" }));
 
     await waitFor(() => {
       expect(navigationState.router.replace).toHaveBeenCalledWith("/login");

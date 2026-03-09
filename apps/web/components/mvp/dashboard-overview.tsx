@@ -37,16 +37,16 @@ export function DashboardOverview() {
       const failures: string[] = [];
 
       if (!journalResult.ok) {
-        failures.push(journalResult.error ?? "Journal konnte nicht geladen werden.");
+        failures.push(journalResult.error ?? "Journal could not be loaded.");
       }
       if (!diaryResult.ok) {
-        failures.push(diaryResult.error ?? "Tagebuch konnte nicht geladen werden.");
+        failures.push(diaryResult.error ?? "Diary could not be loaded.");
       }
       if (!notesResult.ok) {
-        failures.push(notesResult.error ?? "Notizen konnten nicht geladen werden.");
+        failures.push(notesResult.error ?? "Notes could not be loaded.");
       }
       if (!goalsResult.ok) {
-        failures.push(goalsResult.error ?? "Ziele konnten nicht geladen werden.");
+        failures.push(goalsResult.error ?? "Goals could not be loaded.");
       }
 
       setSnapshot({
@@ -57,7 +57,7 @@ export function DashboardOverview() {
       });
 
       setError(failures.length > 0 ? failures.join(" ") : null);
-      setStatus(failures.length === 0 ? "Dashboard zeigt Live-Zahlen aus der API." : null);
+      setStatus(failures.length === 0 ? "Dashboard is showing live values from the API." : null);
       setIsLoading(false);
     })();
   }, []);
@@ -67,40 +67,40 @@ export function DashboardOverview() {
       title: "Journal",
       href: "/journal",
       value: snapshot.journalCount,
-      description: "Aktive Eintraege fuer Analyse und Spiegelung"
+      description: "Active entries for analysis and mirror work"
     },
     {
-      title: "Tagebuch",
+      title: "Diary",
       href: "/diary",
       value: snapshot.diaryCount,
-      description: "Taegliche Reflexionspunkte mit Prompt-Struktur"
+      description: "Daily reflection points with prompt structure"
     },
     {
-      title: "Notizen",
+      title: "Notes",
       href: "/notes",
       value: snapshot.notesCount,
-      description: "Lose Gedanken, die spaeter zu Systemwissen werden"
+      description: "Loose thoughts that can later become system knowledge"
     },
     {
-      title: "Ziele",
+      title: "Goals",
       href: "/goals",
       value: `${snapshot.averageGoalProgress}%`,
-      description: "Durchschnittlicher Fortschritt ueber aktive Ziele"
+      description: "Average progress across active goals"
     }
   ];
 
   return (
     <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Aktueller MVP-Stand</p>
-        <h2 className="mt-3 font-display text-3xl text-ink">Das System arbeitet jetzt auf einer echten Laufzeitbasis.</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Current MVP state</p>
+        <h2 className="mt-3 font-display text-3xl text-ink">The system now runs on a real runtime foundation.</h2>
         <p className="mt-4 text-base leading-8 text-slate/80">
-          Journal, Tagebuch, Notizen, Ziele und die Governance-Ansicht werden ueber die API geladen. Lokale Demo-Daten sind nicht mehr die Laufzeitquelle.
+          Journal, diary, notes, goals, and the governance view are loaded through the API. Local demo data is no longer the runtime source.
         </p>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
-          {isLoading ? <StatusNotice message="Dashboard-Zahlen werden geladen..." /> : null}
+          {isLoading ? <StatusNotice message="Dashboard metrics are loading..." /> : null}
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {cards.map((card) => (
@@ -118,20 +118,20 @@ export function DashboardOverview() {
         </div>
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verknuepfte Bereiche</p>
-        <h2 className="mt-3 font-display text-3xl text-ink">Arbeits-, KI- und Governance-Pfade greifen ineinander.</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Connected areas</p>
+        <h2 className="mt-3 font-display text-3xl text-ink">Work, AI, and governance paths are connected.</h2>
         <div className="mt-6 grid gap-4">
           <Link href="/analysis" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
-            <span className="block font-semibold text-ink">Analyse und Spiegel</span>
-            <span className="mt-1 block leading-6">Eintraege aus dem Journal und dem Tagebuch werden mit Analyse, Spiegel und Wachstum verbunden.</span>
+            <span className="block font-semibold text-ink">Analysis and mirror</span>
+            <span className="mt-1 block leading-6">Entries from the journal and diary connect directly to analysis, mirror work, and growth.</span>
           </Link>
           <Link href="/governance" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
-            <span className="block font-semibold text-ink">Governance und Ethik</span>
-            <span className="mt-1 block leading-6">Richtlinien, Rechtliches, Ethik und Datenschutz bleiben als eigenstaendige Steuerungsflaechen sichtbar.</span>
+            <span className="block font-semibold text-ink">Governance and ethics</span>
+            <span className="mt-1 block leading-6">Policies, legal context, ethics, and privacy remain visible as independent control surfaces.</span>
           </Link>
           <Link href="/ethik" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
-            <span className="block font-semibold text-ink">Risikoanalyse</span>
-            <span className="mt-1 block leading-6">Die Produktbereiche werden anhand konkreter Risiken, Schutzmassnahmen und naechster Schritte bewertet.</span>
+            <span className="block font-semibold text-ink">Risk analysis</span>
+            <span className="mt-1 block leading-6">Product areas are assessed through concrete risks, safeguards, and next-step planning.</span>
           </Link>
         </div>
       </article>

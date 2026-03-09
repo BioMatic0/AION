@@ -6,9 +6,9 @@ export default function GovernancePage() {
     <section className="space-y-6">
       <SectionHeader
         eyebrow="Governance"
-        title="Gebundene Intelligenz statt unsichtbarer Systemmacht"
-        description="Die Governance-Seite macht Charta, Policies, Integritaetschecks und Safe-Halt-Zustaende sichtbar. Damit bleibt AION nachvollziehbar statt nur gut gemeint."
-        badge="Charta aktiv"
+        title="Bounded intelligence instead of invisible system power"
+        description="The governance page makes the charter, policies, integrity checks, and safe-halt states visible so AION remains reviewable instead of merely well intentioned."
+        badge="Charter active"
       />
       <GovernanceCenterPanel />
     </section>

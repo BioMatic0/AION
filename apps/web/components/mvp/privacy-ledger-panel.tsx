@@ -6,7 +6,7 @@ import { apiRequest } from "../../lib/api";
 import { StatusNotice } from "./status-notice";
 
 function formatPrivacyMode(value: PrivacyOverview["preferences"]["privacyMode"]) {
-  return value === "privacy-max" ? "Datenschutz-Maximum" : "Standard";
+  return value === "privacy-max" ? "Privacy maximum" : "Standard";
 }
 
 function formatExportFormat(value: DataExportRequestSummary["format"]) {
@@ -14,11 +14,11 @@ function formatExportFormat(value: DataExportRequestSummary["format"]) {
 }
 
 function formatConsentStatus(value: PrivacyOverview["consents"][number]["status"]) {
-  return value === "granted" ? "Erteilt" : "Widerrufen";
+  return value === "granted" ? "Granted" : "Revoked";
 }
 
 function formatRequestStatus(value: DataExportRequestSummary["status"] | DataDeletionRequestSummary["status"]) {
-  return value === "queued" ? "In Warteschlange" : "Abgeschlossen";
+  return value === "queued" ? "Queued" : "Completed";
 }
 
 export function PrivacyLedgerPanel() {
@@ -36,14 +36,14 @@ export function PrivacyLedgerPanel() {
     if (result.ok && result.data) {
       setOverview(result.data);
       if (!options?.silentSuccess) {
-        setStatus("Datenschutzuebersicht wird live aus der API geladen.");
+        setStatus("Privacy overview is loading live from the API.");
       }
       setError(null);
     } else {
       if (!options?.silentSuccess) {
         setStatus(null);
       }
-      setError(result.error ?? "Datenschutzuebersicht konnte nicht geladen werden.");
+      setError(result.error ?? "Privacy overview could not be loaded.");
     }
 
     setIsLoading(false);
@@ -69,9 +69,9 @@ export function PrivacyLedgerPanel() {
 
     if (result.ok && result.data) {
       await loadOverview({ silentSuccess: true });
-      setStatus("Exportanfrage wurde angelegt.");
+      setStatus("Export request was created.");
     } else {
-      setError(result.error ?? "Exportanfrage konnte nicht angelegt werden.");
+      setError(result.error ?? "Export request could not be created.");
     }
 
     setIsRequestingExport(false);
@@ -89,9 +89,9 @@ export function PrivacyLedgerPanel() {
 
     if (result.ok && result.data) {
       await loadOverview({ silentSuccess: true });
-      setStatus("Loeschanfrage wurde angelegt.");
+      setStatus("Deletion request was created.");
     } else {
-      setError(result.error ?? "Loeschanfrage konnte nicht angelegt werden.");
+      setError(result.error ?? "Deletion request could not be created.");
     }
 
     setIsRequestingDeletion(false);
@@ -100,7 +100,7 @@ export function PrivacyLedgerPanel() {
   if (!overview) {
     return (
       <div className="space-y-3">
-        {isLoading ? <StatusNotice message="Datenschutzuebersicht wird geladen..." /> : null}
+        {isLoading ? <StatusNotice message="Privacy overview is loading..." /> : null}
         {error ? <StatusNotice message={error} variant="error" /> : null}
       </div>
     );
@@ -111,18 +111,18 @@ export function PrivacyLedgerPanel() {
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Datenschutzprofil</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Privacy profile</p>
             <h2 className="mt-3 font-display text-3xl text-ink">{formatPrivacyMode(overview.preferences.privacyMode)}</h2>
             <p className="mt-4 text-sm leading-7 text-slate/80">
-              Aufbewahrung: {overview.preferences.retentionProfile}. Exportstandard: {formatExportFormat(overview.preferences.exportFormat)}. Analytik: {overview.preferences.analyticsEnabled ? "aktiv" : "aus"}.
+              Retention: {overview.preferences.retentionProfile}. Export format: {formatExportFormat(overview.preferences.exportFormat)}. Analytics: {overview.preferences.analyticsEnabled ? "on" : "off"}.
             </p>
           </div>
           <div className="flex gap-3">
             <button type="button" onClick={requestExport} disabled={isRequestingExport} className="rounded-full border border-moss/20 bg-moss px-5 py-3 text-sm font-semibold text-white transition hover:bg-moss/90 disabled:cursor-not-allowed disabled:opacity-60">
-              {isRequestingExport ? "Fordert an..." : "Export anfordern"}
+              {isRequestingExport ? "Requesting..." : "Request export"}
             </button>
             <button type="button" onClick={requestDeletion} disabled={isRequestingDeletion} className="rounded-full border border-ink/10 px-5 py-3 text-sm font-semibold text-ink transition hover:border-ink/20 hover:bg-mist/40 disabled:cursor-not-allowed disabled:opacity-60">
-              {isRequestingDeletion ? "Fordert an..." : "Loeschpfad testen"}
+              {isRequestingDeletion ? "Requesting..." : "Test deletion flow"}
             </button>
           </div>
         </div>
@@ -134,7 +134,7 @@ export function PrivacyLedgerPanel() {
 
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Einwilligungen</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Consents</p>
           <div className="mt-6 space-y-4">
             {overview.consents.map((consent) => (
               <div key={consent.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -149,7 +149,7 @@ export function PrivacyLedgerPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Datenschutzprotokoll</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Privacy ledger</p>
           <div className="mt-6 space-y-4">
             {overview.ledger.map((entry) => (
               <div key={entry.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
@@ -164,10 +164,10 @@ export function PrivacyLedgerPanel() {
 
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Anfragen</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Requests</p>
           <div className="mt-6 space-y-4">
             {[...overview.exportRequests, ...overview.deletionRequests].length === 0 ? (
-              <p className="text-sm leading-7 text-slate/70">Noch keine Export- oder Loeschanfragen ausgelost.</p>
+              <p className="text-sm leading-7 text-slate/70">No export or deletion requests have been triggered yet.</p>
             ) : (
               <>
                 {overview.exportRequests.map((request) => (
@@ -178,7 +178,7 @@ export function PrivacyLedgerPanel() {
                 ))}
                 {overview.deletionRequests.map((request) => (
                   <div key={request.id} className="rounded-3xl border border-mist bg-mist/35 p-5">
-                    <h3 className="text-base font-semibold text-ink">Loeschung {request.scope}</h3>
+                    <h3 className="text-base font-semibold text-ink">Deletion {request.scope}</h3>
                     <div className="mt-3 text-sm text-slate/80">Status: {formatRequestStatus(request.status)}</div>
                   </div>
                 ))}
@@ -188,7 +188,7 @@ export function PrivacyLedgerPanel() {
         </article>
 
         <article className="rounded-[28px] bg-white p-8 shadow-panel">
-          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Hinweise</p>
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Guidance</p>
           <div className="mt-6 space-y-4">
             {overview.guidance.map((item) => (
               <div key={item} className="rounded-3xl border border-mist bg-mist/35 p-5 text-sm leading-7 text-slate/80">

@@ -7,8 +7,8 @@ import { StatusNotice } from "./status-notice";
 
 const twoFactorOptions: Array<{ value: TwoFactorMethod; label: string }> = [
   { value: "authenticator", label: "Authenticator-App" },
-  { value: "email", label: "E-Mail-Code" },
-  { value: "sms", label: "SMS-Hinweis" }
+  { value: "email", label: "Email code" },
+  { value: "sms", label: "SMS hint" }
 ];
 
 export function UserProfileSettingsPanel() {
@@ -51,11 +51,11 @@ export function UserProfileSettingsPanel() {
         method: result.data.twoFactor.method ?? "authenticator",
         phoneHint: result.data.twoFactor.phoneHint ?? ""
       });
-      setStatus("Profil und Kontoschutz sind direkt mit der API verbunden.");
+      setStatus("Profile and account protection are connected directly to the API.");
       setError(null);
     } else {
       setStatus(null);
-      setError(result.error ?? "Benutzerprofil konnte nicht geladen werden.");
+      setError(result.error ?? "User profile could not be loaded.");
     }
 
     setIsLoading(false);
@@ -94,9 +94,9 @@ export function UserProfileSettingsPanel() {
 
     if (result.ok && result.data) {
       applyProfile(result.data);
-      setStatus("Benutzerprofil wurde gespeichert.");
+      setStatus("User profile was saved.");
     } else {
-      setError(result.error ?? "Benutzerprofil konnte nicht gespeichert werden.");
+      setError(result.error ?? "User profile could not be saved.");
     }
 
     setActiveTask(null);
@@ -104,7 +104,7 @@ export function UserProfileSettingsPanel() {
 
   async function handlePasswordChange() {
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setError("Neues Passwort und Bestaetigung muessen identisch sein.");
+      setError("New password and confirmation must match.");
       return;
     }
 
@@ -123,9 +123,9 @@ export function UserProfileSettingsPanel() {
         newPassword: "",
         confirmPassword: ""
       });
-      setStatus("Passwort wurde geaendert.");
+      setStatus("Password was changed.");
     } else {
-      setError(result.error ?? "Passwort konnte nicht geaendert werden.");
+      setError(result.error ?? "Password could not be changed.");
     }
 
     setActiveTask(null);
@@ -133,7 +133,7 @@ export function UserProfileSettingsPanel() {
 
   async function handleTwoFactorSave() {
     if (twoFactorForm.enabled && twoFactorForm.method === "sms" && twoFactorForm.phoneHint.trim().length === 0) {
-      setError("Fuer SMS muss ein Telefonhinweis hinterlegt werden.");
+      setError("A phone hint is required for SMS.");
       return;
     }
 
@@ -169,9 +169,9 @@ export function UserProfileSettingsPanel() {
         method: result.data.twoFactor.method ?? "authenticator",
         phoneHint: result.data.twoFactor.phoneHint ?? ""
       });
-      setStatus("2FA-Vorstruktur wurde aktualisiert.");
+      setStatus("The 2FA scaffold was updated.");
     } else {
-      setError(result.error ?? "Die 2FA-Vorstruktur konnte nicht gespeichert werden.");
+      setError(result.error ?? "The 2FA scaffold could not be saved.");
     }
 
     setActiveTask(null);
@@ -182,30 +182,30 @@ export function UserProfileSettingsPanel() {
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Konto</p>
-            <h2 className="mt-2 font-display text-3xl text-ink">Benutzerprofil und Kontoschutz</h2>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Account</p>
+            <h2 className="mt-2 font-display text-3xl text-ink">User profile and account protection</h2>
           </div>
           {security ? (
             <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
-              <div>Aktive Sitzungen: {security.activeSessionCount}</div>
-              <div>Alle Sitzungen: {security.sessionCount}</div>
+              <div>Active sessions: {security.activeSessionCount}</div>
+              <div>All sessions: {security.sessionCount}</div>
             </div>
           ) : null}
         </div>
         <div className="mt-4 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
-          {isLoading ? <StatusNotice message="Benutzerprofil wird geladen..." /> : null}
+          {isLoading ? <StatusNotice message="User profile is loading..." /> : null}
         </div>
         <div className="mt-6 grid gap-6">
           <section className="rounded-3xl border border-mist bg-mist/35 p-5">
-            <h3 className="text-lg font-semibold text-ink">Profil</h3>
+            <h3 className="text-lg font-semibold text-ink">Profile</h3>
             <p className="mt-2 text-sm leading-6 text-slate/75">
-              Anzeigename und E-Mail werden pro Nutzer gespeichert und direkt fuer Sitzungen und Zuordnung verwendet.
+              Display name and email are stored per user and used directly for sessions and data ownership.
             </p>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">Anzeigename</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Display name</span>
                 <input
                   value={profileForm.displayName}
                   onChange={(event) => setProfileForm((current) => ({ ...current, displayName: event.target.value }))}
@@ -214,7 +214,7 @@ export function UserProfileSettingsPanel() {
                 />
               </label>
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">E-Mail</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Email</span>
                 <input
                   type="email"
                   value={profileForm.email}
@@ -227,12 +227,12 @@ export function UserProfileSettingsPanel() {
             <div className="mt-4 flex flex-wrap gap-3 text-xs text-slate/65">
               {security?.profile.createdAt ? (
                 <span className="rounded-full bg-white px-3 py-1">
-                  Erstellt: {new Date(security.profile.createdAt).toLocaleString("de-DE")}
+                  Created: {new Date(security.profile.createdAt).toLocaleString("en-GB")}
                 </span>
               ) : null}
               {security?.profile.updatedAt ? (
                 <span className="rounded-full bg-white px-3 py-1">
-                  Zuletzt aktualisiert: {new Date(security.profile.updatedAt).toLocaleString("de-DE")}
+                  Last updated: {new Date(security.profile.updatedAt).toLocaleString("en-GB")}
                 </span>
               ) : null}
             </div>
@@ -242,18 +242,18 @@ export function UserProfileSettingsPanel() {
               disabled={activeTask !== null}
               className="mt-5 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {activeTask === "profile" ? "Speichert..." : "Profil speichern"}
+              {activeTask === "profile" ? "Saving..." : "Save profile"}
             </button>
           </section>
 
           <section className="rounded-3xl border border-mist bg-mist/35 p-5">
-            <h3 className="text-lg font-semibold text-ink">Passwortwechsel</h3>
+            <h3 className="text-lg font-semibold text-ink">Password change</h3>
             <p className="mt-2 text-sm leading-6 text-slate/75">
-              Das aktuelle Passwort wird vor jeder Aenderung geprueft. Die Historie wird im Sicherheitsverlauf protokolliert.
+              The current password is verified before every change. The history is logged in the security timeline.
             </p>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">Aktuelles Passwort</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Current password</span>
                 <input
                   type="password"
                   value={passwordForm.currentPassword}
@@ -264,7 +264,7 @@ export function UserProfileSettingsPanel() {
                 />
               </label>
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">Neues Passwort</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">New password</span>
                 <input
                   type="password"
                   value={passwordForm.newPassword}
@@ -273,7 +273,7 @@ export function UserProfileSettingsPanel() {
                 />
               </label>
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold text-slate">Bestaetigung</span>
+                <span className="mb-2 block text-sm font-semibold text-slate">Confirmation</span>
                 <input
                   type="password"
                   value={passwordForm.confirmPassword}
@@ -286,8 +286,8 @@ export function UserProfileSettingsPanel() {
             </div>
             <div className="mt-4 text-xs text-slate/65">
               {security?.profile.passwordUpdatedAt
-                ? `Letzter Passwortwechsel: ${new Date(security.profile.passwordUpdatedAt).toLocaleString("de-DE")}`
-                : "Bisher wurde noch kein Passwortwechsel protokolliert."}
+                ? `Last password change: ${new Date(security.profile.passwordUpdatedAt).toLocaleString("en-GB")}`
+                : "No password change has been recorded yet."}
             </div>
             <button
               type="button"
@@ -295,22 +295,22 @@ export function UserProfileSettingsPanel() {
               disabled={activeTask !== null}
               className="mt-5 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {activeTask === "password" ? "Aktualisiert..." : "Passwort aendern"}
+              {activeTask === "password" ? "Updating..." : "Change password"}
             </button>
           </section>
         </div>
       </article>
 
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">2FA-Vorstruktur</p>
-        <h2 className="mt-2 font-display text-3xl text-ink">Mehrstufige Anmeldung vorbereiten</h2>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">2FA scaffold</p>
+        <h2 className="mt-2 font-display text-3xl text-ink">Prepare multi-step sign-in</h2>
         <p className="mt-4 text-sm leading-7 text-slate/80">
-          Dieser Bereich speichert die bevorzugte 2FA-Methode, ohne bereits echte Verifikationscodes bereitzustellen.
-          Dadurch bleibt der naechste Sicherheitsausbau kompatibel.
+          This area stores the preferred 2FA method without providing real verification codes yet.
+          That keeps the next security expansion compatible.
         </p>
         <div className="mt-6 rounded-3xl border border-mist bg-mist/35 p-5">
           <label className="flex items-center justify-between gap-4">
-            <span className="text-sm font-semibold text-slate">2FA-Vorstruktur aktivieren</span>
+            <span className="text-sm font-semibold text-slate">Enable 2FA scaffold</span>
             <input
               type="checkbox"
               checked={twoFactorForm.enabled}
@@ -324,7 +324,7 @@ export function UserProfileSettingsPanel() {
           </label>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className="block">
-              <span className="mb-2 block text-sm font-semibold text-slate">Methode</span>
+              <span className="mb-2 block text-sm font-semibold text-slate">Method</span>
               <select
                 value={twoFactorForm.method}
                 onChange={(event) =>
@@ -344,7 +344,7 @@ export function UserProfileSettingsPanel() {
               </select>
             </label>
             <label className="block">
-              <span className="mb-2 block text-sm font-semibold text-slate">Telefonhinweis fuer SMS</span>
+              <span className="mb-2 block text-sm font-semibold text-slate">Phone hint for SMS</span>
               <input
                 value={twoFactorForm.phoneHint}
                 onChange={(event) =>
@@ -352,13 +352,13 @@ export function UserProfileSettingsPanel() {
                 }
                 disabled={!twoFactorForm.enabled || twoFactorForm.method !== "sms"}
                 className="w-full rounded-2xl border border-moss/20 px-4 py-3 text-sm outline-none transition focus:border-moss/50 disabled:bg-mist/40"
-                placeholder="z. B. ...1234"
+                placeholder="e.g. ...1234"
               />
             </label>
           </div>
           <div className="mt-4 rounded-2xl border border-moss/20 bg-white px-4 py-3 text-sm text-slate">
             {security?.twoFactor.note ??
-              "Die 2FA-Vorstruktur ist vorbereitet. Die echte Challenge-Pruefung folgt spaeter."}
+              "The 2FA scaffold is ready. Real challenge verification will follow later."}
           </div>
           <button
             type="button"
@@ -366,7 +366,7 @@ export function UserProfileSettingsPanel() {
             disabled={activeTask !== null}
             className="mt-5 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {activeTask === "two-factor" ? "Wird gespeichert..." : "2FA-Vorstruktur speichern"}
+            {activeTask === "two-factor" ? "Saving..." : "Save 2FA scaffold"}
           </button>
         </div>
       </article>

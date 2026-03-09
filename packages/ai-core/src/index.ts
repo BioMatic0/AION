@@ -42,10 +42,10 @@ function applyGovernanceToReport<T extends AnalysisReport>(report: T, decision: 
       ? "uncertain"
       : report.evidenceLabel,
     shadowCheck: decision.suggestedDisclosure
-      ? `${report.shadowCheck} Governance-Hinweis: ${decision.suggestedDisclosure}`
+      ? `${report.shadowCheck} Governance note: ${decision.suggestedDisclosure}`
       : report.shadowCheck,
     timelineConnection: decision.action === "transform" || decision.action === "review"
-      ? `${report.timelineConnection} Governance-Hinweis: ${decision.summary}`
+      ? `${report.timelineConnection} Governance note: ${decision.summary}`
       : report.timelineConnection,
     suggestedQuestions: Array.from(new Set(suggestedQuestions)).slice(0, 5),
     governance: decision
@@ -163,80 +163,80 @@ function inferArchetype(content: string) {
   const lower = content.toLowerCase();
 
   if (lower.includes("protect") || lower.includes("schuetz") || lower.includes("responsib")) {
-    return "Archetyp Bewahrer: Schutz, Verantwortung und Halt sind gerade aktiv.";
+    return "Caretaker archetype: protection, responsibility, and steadiness are active right now.";
   }
 
   if (lower.includes("truth") || lower.includes("wahr") || lower.includes("meaning")) {
-    return "Archetyp Suchender: Klaerung, Wahrheit und Ausrichtung stehen im Zentrum.";
+    return "Seeker archetype: clarification, truth, and alignment are at the center.";
   }
 
   if (lower.includes("conflict") || lower.includes("kampf") || lower.includes("control")) {
-    return "Archetyp Kaempfer: Konfrontation, Kraft und Abwehrmuster sind aktiv.";
+    return "Warrior archetype: confrontation, force, and defensive patterns are active.";
   }
 
-  return "Archetyp Integrator: Das aktuelle Material verlangt eher nach Kohaerenz als nach Eskalation.";
+  return "Integrator archetype: the current material calls for coherence more than escalation.";
 }
 
 function inferPsychology(content: string) {
   const lower = content.toLowerCase();
 
   if (lower.includes("fear") || lower.includes("angst") || lower.includes("pressure")) {
-    return "Der Text deutet auf eine Druckreaktion hin: Unsicherheit verengt die Optionen und foerdert reaktives Deuten.";
+    return "The text points to a pressure response: uncertainty narrows options and encourages reactive interpretation.";
   }
 
   if (lower.includes("control") || lower.includes("kontroll")) {
-    return "Kontrolle erscheint als Regulierungsstrategie. Sie kann Stabilitaet schuetzen, aber auch Offenheit verringern.";
+    return "Control appears as a regulation strategy. It can protect stability, but it can also reduce openness.";
   }
 
   if (lower.includes("decision") || lower.includes("choice") || lower.includes("entschei")) {
-    return "Eine Entscheidungsschwelle ist sichtbar: Das System versucht, Mehrdeutigkeit in einen klaren naechsten Schritt zu ueberfuehren.";
+    return "A decision threshold is visible: the system is trying to translate ambiguity into a clear next step.";
   }
 
-  return "Das Material liest sich wie eine Kohaerenzpruefung: Es geht weniger um rohe Emotion als um die Ordnung von Bedeutung.";
+  return "The material reads like a coherence check: it is less about raw emotion than about the ordering of meaning.";
 }
 
 function inferShadow(content: string) {
   const lower = content.toLowerCase();
 
   if (lower.includes("always") || lower.includes("never") || lower.includes("immer") || lower.includes("niemals")) {
-    return "Achte auf verabsolutierende Sprache. Sie kann Komplexitaet verdecken und eine Deutung unnoetig absolut wirken lassen.";
+    return "Watch for absolutist language. It can hide complexity and make an interpretation sound more certain than it is.";
   }
 
   if (lower.includes("they") || lower.includes("others") || lower.includes("die anderen")) {
-    return "Es besteht Projektionstendenz: Teile des Konflikts werden moeglicherweise zuerst nach aussen verlagert, bevor sie innen geprueft werden.";
+    return "There is a projection tendency: parts of the conflict may be pushed outward before being reviewed inwardly.";
   }
 
-  return "Das Schattenrisiko ist moderat: Wahrscheinlich geht es weniger um Verdraengung als um eine zu starke Bindung an eine bevorzugte Lesart.";
+  return "The shadow risk is moderate: this looks less like repression and more like over-attachment to a preferred reading.";
 }
 
 function inferDevelopmentHint(mode: ResponseMode, content: string) {
   const lower = content.toLowerCase();
 
   if (mode === "mirror") {
-    return "Benenne die unangenehmste alternative Erklaerung und pruefe sie, bevor du dich auf deine bevorzugte Geschichte festlegst.";
+    return "Name the most uncomfortable alternative explanation and test it before you commit to your preferred story.";
   }
 
   if (mode === "growth") {
-    return "Verkleinere den naechsten Schritt so weit, bis er in einer ehrlichen Sitzung wirklich umsetzbar ist, und pruefe dann, ob du ihn tatsaechlich gehst.";
+    return "Shrink the next step until it is honestly doable in a real session, then test whether you actually take it.";
   }
 
   if (mode === "quantum-lens") {
-    return "Halte kurz mehr als einen plausiblen Zustand offen und waehle dann die Beobachtung, die Kohaerenz statt Drama erhoeht.";
+    return "Hold more than one plausible state open for a moment, then choose the observation that increases coherence rather than drama.";
   }
 
   if (lower.includes("goal") || lower.includes("ziel")) {
-    return "Uebersetze die Einsicht in einen sichtbaren Meilenstein, damit das System Denken und Umsetzung unterscheiden kann.";
+    return "Translate the insight into a visible milestone so the system can distinguish thought from execution.";
   }
 
-  return "Trenne Beobachtung, Schlussfolgerung und offene Beleglage, bevor du den naechsten Schritt festlegst.";
+  return "Separate observation, inference, and open evidence before deciding on the next step.";
 }
 
 function inferTimelineConnection(context: string[]) {
   if (context.length === 0) {
-    return "Es wurde kein verknuepfter Verlauf mitgegeben. Dieser Bericht stuetzt sich daher nur auf das aktuelle Material.";
+    return "No linked history was provided, so this report relies only on the current material.";
   }
 
-  return `Der aktuelle Eintrag ist mit ${context.length} frueheren Kontexteintraegen verbunden. Das spricht eher fuer ein wiederkehrendes Muster als fuer ein isoliertes Ereignis.`;
+  return `The current entry is linked to ${context.length} earlier context items. That points more to a recurring pattern than to an isolated event.`;
 }
 
 function inferEvidenceLabel(mode: ResponseMode, content: string): EvidenceLabel {
@@ -262,7 +262,7 @@ export function buildAnalysisReport(input: AnalysisInput, mode: ResponseMode = "
     mode,
     evidenceLabel,
     summary: firstSentence(input.content),
-    observation: `Beobachtetes Material: ${firstSentence(input.content)}.`,
+    observation: `Observed material: ${firstSentence(input.content)}.`,
     psychology: inferPsychology(input.content),
     archetype: inferArchetype(input.content),
     shadowCheck: inferShadow(input.content),
@@ -270,9 +270,9 @@ export function buildAnalysisReport(input: AnalysisInput, mode: ResponseMode = "
     timelineConnection: inferTimelineConnection(input.context ?? []),
     extractedConcepts: concepts,
     suggestedQuestions: [
-      "Was ist hier direkt beobachtbar?",
-      "Welche Deutung fuehlt sich emotional am belohnendsten an?",
-      "Was waere ein wirklich realer naechster Schritt?"
+      "What is directly observable here?",
+      "Which interpretation feels most emotionally rewarding?",
+      "What would be a genuinely real next step?"
     ],
     generatedAt: new Date().toISOString()
   }, ethics);
@@ -283,8 +283,8 @@ export function buildMirrorReport(input: AnalysisInput): MirrorReport {
 
   return {
     ...base,
-    disconfirmingView: "Eine strengere Lesart waere, dass die aktuelle Rahmung zuerst Identitaet schuetzt und erst danach Wirklichkeit klaert.",
-    mirrorQuestion: "Wenn deine bevorzugte Geschichte unvollstaendig waere: Welche unbequeme Tatsache muesstest du zuerst zugeben?"
+    disconfirmingView: "A stricter reading would be that the current framing protects identity first and clarifies reality only afterward.",
+    mirrorQuestion: "If your preferred story were incomplete, which uncomfortable fact would you have to admit first?"
   };
 }
 
@@ -294,10 +294,10 @@ export function buildQuantumLensReport(input: AnalysisInput): QuantumLensReport 
 
   return {
     ...base,
-    stateDescription: `Der aktuelle Zustandsraum ist um ${concepts[0] ?? "Kohaerenz"}, ${concepts[1] ?? "Wahl"} und ${concepts[2] ?? "Druck"} organisiert.`,
-    collapsePattern: "Das System scheint frueh in die vertrauteste Deutung zu kollabieren, statt mehrere tragfaehige Moeglichkeiten offen zu halten.",
-    hiddenOption: "Es koennte eine weniger dramatische, aber kohaerentere Option geben, wenn das Problem eher als Kalibrierung denn als Rettung gelesen wird.",
-    fieldQuestion: "Welche Beobachtung wuerde Kohaerenz erhoehen, ohne zu frueh Gewissheit zu erzwingen?"
+    stateDescription: `The current state space is organized around ${concepts[0] ?? "coherence"}, ${concepts[1] ?? "choice"}, and ${concepts[2] ?? "pressure"}.`,
+    collapsePattern: "The system seems to collapse early into the most familiar interpretation instead of keeping several workable possibilities open.",
+    hiddenOption: "There may be a less dramatic but more coherent option if the problem is read as calibration rather than rescue.",
+    fieldQuestion: "Which observation would increase coherence without forcing certainty too early?"
   };
 }
 
@@ -309,19 +309,19 @@ export function buildGrowthState(reflections: string[], completionRate: number):
 
   return {
     id: crypto.randomUUID(),
-    currentStage: reflections.length >= 4 ? "Integration" : "Orientierung",
-    focusArea: concepts[0] ?? "Klarheit",
+    currentStage: reflections.length >= 4 ? "Integration" : "Orientation",
+    focusArea: concepts[0] ?? "Clarity",
     momentumScore,
     coherenceScore,
     strengths: [
-      reflections.length >= 3 ? "Eine tragfaehige Reflexionspraxis ist erkennbar." : "Das System beginnt, brauchbares Material zu sammeln.",
-      completionRate >= 50 ? "Zielumsetzung ist bereits sichtbar." : "Es gibt noch Spielraum, Reflexion in Umsetzung zu uebersetzen."
+      reflections.length >= 3 ? "A workable reflection practice is visible." : "The system is beginning to gather useful material.",
+      completionRate >= 50 ? "Goal execution is already visible." : "There is still room to translate reflection into execution."
     ],
     risks: [
-      "Einsicht kann der Umsetzung davonlaufen, wenn kein konkreter Meilenstein folgt.",
-      "Hohe symbolische Dichte kann einfache operative naechste Schritte verdecken."
+      "Insight can outrun execution if no concrete milestone follows.",
+      "High symbolic density can obscure simple operational next steps."
     ],
-    nextStep: completionRate >= 50 ? "Fuehre das staerkste Muster in eine wiederholbare Gewohnheit ueber." : "Waehle ein offenes Thema und uebersetze es in eine sichtbare, nachvollziehbare Handlung.",
+    nextStep: completionRate >= 50 ? "Turn the strongest pattern into a repeatable habit." : "Choose one open topic and translate it into a visible, traceable action.",
     updatedAt: new Date().toISOString()
   };
 }
@@ -329,13 +329,13 @@ export function buildGrowthState(reflections: string[], completionRate: number):
 export function buildGrowthIntervention(state: GrowthState, tone: NotificationTone = "mixed"): GrowthIntervention {
   return {
     id: crypto.randomUUID(),
-    title: `Wachstumsimpuls fuer ${state.focusArea}`,
-    rationale: `Momentum ${state.momentumScore}/100 und Kohaerenz ${state.coherenceScore}/100 zeigen, dass der naechste Gewinn eher aus Umsetzungsdisziplin als aus weiterer Abstraktion kommt.`,
+    title: `Growth prompt for ${state.focusArea}`,
+    rationale: `Momentum ${state.momentumScore}/100 and coherence ${state.coherenceScore}/100 suggest that the next gain is more likely to come from execution discipline than from further abstraction.`,
     action:
       tone === "motivational"
-        ? "Waehle eine konkrete Handlung und schliesse sie ab, bevor du eine neue Reflexionslinie oeffnest."
+        ? "Choose one concrete action and finish it before opening a new line of reflection."
         : tone === "reflective"
-          ? "Beobachte, wo du Handlung noch aufschiebst, indem du die Geschichte weiter verfeinerst statt sie zu pruefen."
+          ? "Notice where you are still delaying action by refining the story instead of testing it."
           : state.nextStep,
     tone,
     createdAt: new Date().toISOString()

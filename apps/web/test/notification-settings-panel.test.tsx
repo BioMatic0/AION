@@ -23,7 +23,7 @@ describe("NotificationSettingsPanel", () => {
             id: "history-1",
             notificationType: "growth",
             channel: "email",
-            title: "Wachstumsimpuls",
+            title: "Growth prompt",
             message: "Klarheit vor Tempo.",
             deliveredAt: "2026-03-08T08:30:00.000Z",
             status: "sent"
@@ -66,7 +66,7 @@ describe("NotificationSettingsPanel", () => {
             id: "history-1",
             notificationType: "growth",
             channel: "email",
-            title: "Wachstumsimpuls",
+            title: "Growth prompt",
             message: "Klarheit vor Tempo.",
             deliveredAt: "2026-03-08T08:30:00.000Z",
             status: "sent"
@@ -88,21 +88,21 @@ describe("NotificationSettingsPanel", () => {
     const user = userEvent.setup();
     render(<NotificationSettingsPanel />);
 
-    await screen.findByText("Benachrichtigungen sind direkt mit der API verbunden.");
+    await screen.findByText("Notifications are connected directly to the API.");
 
-    await user.selectOptions(screen.getByLabelText("Benachrichtigungsfrequenz"), "weekly");
-    await user.selectOptions(screen.getByLabelText("Tonfall"), "reflective");
-    await user.clear(screen.getByLabelText("Bevorzugte Uhrzeit"));
-    await user.type(screen.getByLabelText("Bevorzugte Uhrzeit"), "09:15");
-    await user.selectOptions(screen.getByLabelText("Bevorzugter Wochentag"), "friday");
-    await user.click(screen.getByRole("button", { name: "Praeferenzen speichern" }));
+    await user.selectOptions(screen.getByLabelText("Notification frequency"), "weekly");
+    await user.selectOptions(screen.getByLabelText("Tone"), "reflective");
+    await user.clear(screen.getByLabelText("Preferred time"));
+    await user.type(screen.getByLabelText("Preferred time"), "09:15");
+    await user.selectOptions(screen.getByLabelText("Preferred weekday"), "friday");
+    await user.click(screen.getByRole("button", { name: "Save preferences" }));
 
     await waitFor(() => {
-      expect(screen.getByText("Die Benachrichtigungs-Praeferenzen wurden gespeichert.")).toBeInTheDocument();
+      expect(screen.getByText("Notification preferences were saved.")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Geplante Jobs").closest("article")).toHaveTextContent("Wachstum -");
-    expect(screen.getByText("Geplante Jobs").closest("article")).toHaveTextContent("Geplant");
+    expect(screen.getByText("Scheduled jobs").closest("article")).toHaveTextContent("Growth -");
+    expect(screen.getByText("Scheduled jobs").closest("article")).toHaveTextContent("Scheduled");
     expect(fetchMock).toHaveBeenCalledTimes(7);
     expect(fetchMock.mock.calls[3]?.[1]).toMatchObject({
       method: "PUT"

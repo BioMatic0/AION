@@ -6,9 +6,9 @@ export default function JournalPage() {
     <section className="space-y-6">
       <SectionHeader
         eyebrow="Journal"
-        title="Freie Eintraege mit echter Erfassungsflaeche"
-        description="Der Journal-Bereich schreibt und liest jetzt direkt gegen die API. Fehler bleiben sichtbar, statt lokal mit Scheinzustand kaschiert zu werden."
-        badge="Live-Bereich"
+        title="Free-form entries with a real capture surface"
+        description="The journal area now writes to and reads from the API directly. Errors stay visible instead of being hidden behind local placeholder state."
+        badge="Live area"
       />
       <JournalWorkspace />
     </section>

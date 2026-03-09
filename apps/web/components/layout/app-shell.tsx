@@ -63,10 +63,10 @@ export function AppShell({ children, navigation }: AppShellProps) {
         <div className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center">
           <div className="w-full rounded-[32px] bg-white/90 p-10 text-center shadow-panel">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{brand.name}</p>
-            <h1 className="mt-4 font-display text-4xl">Sitzung wird geprueft</h1>
+            <h1 className="mt-4 font-display text-4xl">Checking session</h1>
             <p className="mt-4 text-sm leading-7 text-slate/80">
-              Der Arbeitsbereich wird nur mit gueltiger Anmeldung geoeffnet. Falls keine Sitzung vorhanden ist,
-              wirst du direkt zur Anmeldung weitergeleitet.
+              The workspace only opens with a valid sign-in. If no session is present, you will be redirected
+              to the sign-in screen automatically.
             </p>
           </div>
         </div>
@@ -82,15 +82,15 @@ export function AppShell({ children, navigation }: AppShellProps) {
         <aside className="hidden w-96 shrink-0 rounded-[32px] border border-white/10 bg-white/90 p-6 text-mist shadow-panel lg:block">
           <div className="space-y-3 border-b border-white/10 pb-6">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{brand.name}</p>
-            <h1 className="font-display text-3xl leading-tight text-ink">Arbeitsraum fuer Struktur, Reflexion und verantwortliche KI.</h1>
+            <h1 className="font-display text-3xl leading-tight text-ink">Workspace for structure, reflection, and accountable AI.</h1>
             <p className="font-body text-sm leading-6 text-slate/80">
-              Ein heller, klarer Arbeitsraum fuer produktive Nutzung, sichtbare Governance und nachvollziehbare Entscheidungen.
+              A bright, clear workspace for productive use, visible governance, and traceable decisions.
             </p>
           </div>
           <div className="mt-6 rounded-[24px] border border-moss/20 bg-moss/5 p-5">
-            <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Aktive Linie</p>
-            <h2 className="mt-2 font-display text-2xl text-ink">{activeSection?.label ?? "Arbeitsbereich"}</h2>
-            <p className="mt-3 text-sm leading-6 text-slate/80">{activeSection?.description ?? "Wird aus der Navigation geladen."}</p>
+            <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Active track</p>
+            <h2 className="mt-2 font-display text-2xl text-ink">{activeSection?.label ?? "Workspace"}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate/80">{activeSection?.description ?? "Loaded from the navigation."}</p>
           </div>
           <nav className="mt-8 space-y-6">
             {Object.entries(groupMeta).map(([groupKey, meta]) => (
@@ -126,8 +126,8 @@ export function AppShell({ children, navigation }: AppShellProps) {
           <header className="rounded-[32px] border border-white/10 bg-white/90 px-6 py-5 shadow-panel backdrop-blur">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">AION Arbeitsoberflaeche</p>
-                <h2 className="font-display text-3xl text-ink">Verknuepfte Produktbereiche mit sichtbarer Verantwortung</h2>
+                <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">AION workspace</p>
+                <h2 className="font-display text-3xl text-ink">Connected product areas with visible accountability</h2>
               </div>
               <div className="flex flex-wrap items-center justify-end gap-3">
                 <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
@@ -135,7 +135,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
                   <div className="text-xs text-slate/75">{auth.user.email}</div>
                 </div>
                 <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
-                  Aktiver Bereich: <span className="font-semibold">{activeSection?.label ?? pathname}</span>
+                  Active area: <span className="font-semibold">{activeSection?.label ?? pathname}</span>
                 </div>
                 <button
                   type="button"
@@ -143,7 +143,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
                   disabled={logoutPending}
                   className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate disabled:cursor-not-allowed disabled:bg-slate/70"
                 >
-                  {logoutPending ? "Abmeldung laeuft..." : "Abmelden"}
+                  {logoutPending ? "Signing out..." : "Sign out"}
                 </button>
               </div>
             </div>
@@ -151,13 +151,13 @@ export function AppShell({ children, navigation }: AppShellProps) {
           <main className="flex-1">{children}</main>
           <footer className="rounded-[28px] border border-white/10 bg-white/90 px-6 py-4 text-sm text-slate shadow-panel">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p>Copyright (c) 2026 Patrick Wirth. Veroeffentlicht unter der AION Community Fairness License 1.0 und offen fuer eine gemeinsame Mitgestaltung.</p>
+              <p>Copyright (c) 2026 Patrick Wirth. Released under the AION Community Fairness License 1.0 and open to collaborative stewardship.</p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/ethik" className="font-semibold text-moss hover:text-ink">
-                  Ethik
+                  Ethics
                 </Link>
                 <Link href="/rechtliches" className="font-semibold text-moss hover:text-ink">
-                  Rechtliches
+                  Legal
                 </Link>
                 <Link href="/impressum" className="font-semibold text-moss hover:text-ink">
                   Impressum

@@ -5,10 +5,10 @@ export default function DiaryPage() {
   return (
     <section className="space-y-6">
       <SectionHeader
-        eyebrow="Tagebuch"
-        title="Gefuehrte Tagesreflexion mit Prompt-Schicht"
-        description="Das Tagebuch verbindet manuelle Eingabe, taegliche Impulsstruktur und vorbereitete Tageszusammenfassungen in einer Seite."
-        badge="MVP erweitert"
+        eyebrow="Diary"
+        title="Guided daily reflection with a prompt layer"
+        description="The diary combines manual input, daily prompt structure, and prepared daily summaries on one page."
+        badge="MVP expanded"
       />
       <DiaryWorkspace />
     </section>

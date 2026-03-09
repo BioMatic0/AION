@@ -36,8 +36,8 @@ function createDefaultLedger(): PrivacyLedgerEntry[] {
       id: randomUUID(),
       category: "journal-and-diary",
       storageScope: "postgres-and-application-cache",
-      retentionRule: "Bleibt erhalten, bis ein Nutzerexport oder Loeschworkflow die Daten entfernt.",
-      activeUsageSummary: "Wird fuer Kontinuitaet, Wachstumsauswertung und KI-Kontextabruf verwendet.",
+      retentionRule: "Remains stored until a user export or deletion workflow removes the data.",
+      activeUsageSummary: "Used for continuity, growth evaluation, and AI context retrieval.",
       userVisible: true,
       updatedAt: now
     },
@@ -45,8 +45,8 @@ function createDefaultLedger(): PrivacyLedgerEntry[] {
       id: randomUUID(),
       category: "security-and-incidents",
       storageScope: "security-center",
-      retentionRule: "Bleibt fuer Nachvollziehbarkeit und den Nutzerverlauf von Benachrichtigungen sichtbar.",
-      activeUsageSummary: "Wird genutzt, um auffaellige Zugriffe, Vorfallhinweise und Auditierbarkeit sichtbar zu machen.",
+      retentionRule: "Remains visible for traceability and the user's notification history.",
+      activeUsageSummary: "Used to keep unusual access, incident alerts, and auditability visible.",
       userVisible: true,
       updatedAt: now
     },
@@ -54,8 +54,8 @@ function createDefaultLedger(): PrivacyLedgerEntry[] {
       id: randomUUID(),
       category: "quantum-lens-output",
       storageScope: "analysis-layer",
-      retentionRule: "Wird als symbolische Interpretation gespeichert, niemals als physikalischer Faktenbeleg.",
-      activeUsageSummary: "Wird fuer reflektierende Antworten mit klarer Wahrhaftigkeitsgrenze genutzt.",
+      retentionRule: "Stored as symbolic interpretation, never as physical proof.",
+      activeUsageSummary: "Used for reflective responses with a clear truthfulness boundary.",
       userVisible: true,
       updatedAt: now
     }

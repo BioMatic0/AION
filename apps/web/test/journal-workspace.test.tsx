@@ -40,16 +40,16 @@ describe("JournalWorkspace", () => {
 
     await screen.findByText("Bestehender Eintrag");
 
-    await user.type(screen.getByPlaceholderText("Titel"), "Neuer Fokus");
-    await user.type(screen.getByPlaceholderText("Stimmung"), "ruhig");
+    await user.type(screen.getByPlaceholderText("Title"), "Neuer Fokus");
+    await user.type(screen.getByPlaceholderText("Mood"), "ruhig");
     await user.type(
-      screen.getByPlaceholderText("Was ist beobachtbar, was ist Deutung und was braucht spaeter die Spiegelung?"),
+      screen.getByPlaceholderText("What is observable, what is interpretation, and what may matter later for mirror work?"),
       "Sichtbar und klar."
     );
-    await user.click(screen.getByRole("button", { name: "Eintrag erfassen" }));
+    await user.click(screen.getByRole("button", { name: "Capture entry" }));
 
     await waitFor(() => {
-      expect(screen.getByText("Neuer Journal-Eintrag wurde gespeichert.")).toBeInTheDocument();
+      expect(screen.getByText("New journal entry was saved.")).toBeInTheDocument();
     });
 
     expect(screen.getByText("Neuer Fokus")).toBeInTheDocument();
