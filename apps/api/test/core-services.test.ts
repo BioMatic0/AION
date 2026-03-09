@@ -92,7 +92,12 @@ test("AnalysisService builds reports and quantum lens outputs", async () => {
   });
   const quantum = await service.runQuantumLens({
     content: "A quantum field image can help, but it does not prove the decision physically.",
-    context: ["coherence"]
+    context: ["coherence"],
+    manualPotentialTruth: {
+      hasBeen: 0.72,
+      canBe: 0.4,
+      tendsToBe: 0.22
+    }
   });
 
   assert.equal(analysis.mode, "thinking");

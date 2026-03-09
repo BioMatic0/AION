@@ -60,6 +60,20 @@ test("pure potential reading derives a stable quantum-lens interpretation", () =
   assert.ok(reading.potentialTruth.tendsToBe >= 0 && reading.potentialTruth.tendsToBe <= 1);
 });
 
+test("pure potential reading accepts a manual potential truth input", () => {
+  const reading = generatePurePotentialReading({
+    title: "Manual truth override",
+    content: "The question is already leaning toward manifest expression.",
+    manualPotentialTruth: {
+      hasBeen: 0.72,
+      canBe: 0.4,
+      tendsToBe: 0.22
+    }
+  });
+
+  assert.ok(reading.potentialTruth.hasBeen >= reading.potentialTruth.canBe);
+});
+
 test("evolveTruth shifts the selected state's truth profile and relaxes the others", () => {
   const engine = buildPurePotentialEngine("truth-evolution");
   const latent = engine.states.get("latent");

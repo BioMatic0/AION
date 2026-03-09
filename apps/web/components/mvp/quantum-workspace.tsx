@@ -9,6 +9,9 @@ import { StatusNotice } from "./status-notice";
 export function QuantumWorkspace() {
   const [reports, setReports] = useState<QuantumLensReport[]>([]);
   const [content, setContent] = useState("");
+  const [hasBeen, setHasBeen] = useState("0.72");
+  const [canBe, setCanBe] = useState("0.40");
+  const [tendsToBe, setTendsToBe] = useState("0.22");
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +45,15 @@ export function QuantumWorkspace() {
 
     const result = await apiRequest<QuantumLensReport>("/analysis/quantum-lens", {
       method: "POST",
-      body: JSON.stringify({ content, context: reports.slice(0, 2).map((report) => report.summary) })
+      body: JSON.stringify({
+        content,
+        context: reports.slice(0, 2).map((report) => report.summary),
+        manualPotentialTruth: {
+          hasBeen: Number(hasBeen),
+          canBe: Number(canBe),
+          tendsToBe: Number(tendsToBe)
+        }
+      })
     });
 
     if (result.ok && result.data) {
@@ -75,6 +86,35 @@ export function QuantumWorkspace() {
           onChange={(event) => setContent(event.target.value)}
           required
         />
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <label className="text-sm text-slate/80">
+            <span className="mb-2 block text-xs uppercase tracking-[0.2em] text-moss">Has been</span>
+            <input
+              className="w-full rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
+              inputMode="decimal"
+              value={hasBeen}
+              onChange={(event) => setHasBeen(event.target.value)}
+            />
+          </label>
+          <label className="text-sm text-slate/80">
+            <span className="mb-2 block text-xs uppercase tracking-[0.2em] text-moss">Can be</span>
+            <input
+              className="w-full rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
+              inputMode="decimal"
+              value={canBe}
+              onChange={(event) => setCanBe(event.target.value)}
+            />
+          </label>
+          <label className="text-sm text-slate/80">
+            <span className="mb-2 block text-xs uppercase tracking-[0.2em] text-moss">Tends to be</span>
+            <input
+              className="w-full rounded-2xl border border-mist bg-mist/50 px-4 py-3 outline-none focus:border-moss"
+              inputMode="decimal"
+              value={tendsToBe}
+              onChange={(event) => setTendsToBe(event.target.value)}
+            />
+          </label>
+        </div>
         <button
           type="submit"
           disabled={isSubmitting}

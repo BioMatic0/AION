@@ -407,6 +407,7 @@ export interface AnalysisInput {
   title?: string;
   content: string;
   context?: string[];
+  manualPotentialTruth?: PotentialTruth;
 }
 
 export interface AnalysisReport {

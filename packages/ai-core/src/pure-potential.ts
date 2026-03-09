@@ -802,9 +802,23 @@ export function createObservationContext(input: AnalysisInput) {
   });
 }
 
+function applyManualPotentialTruth(engine: UniversalQuantumPotentialEngine, manual?: PotentialTruthShape) {
+  if (!manual) {
+    return;
+  }
+
+  const dominantState = engine.states.get("manifest") ?? Array.from(engine.states.values())[0];
+  if (!dominantState) {
+    return;
+  }
+
+  dominantState.truth = new PotentialTruth(manual);
+}
+
 export function generatePurePotentialReading(input: AnalysisInput): PurePotentialReading {
   const seedInput = `${input.title ?? ""}::${input.content}::${(input.context ?? []).join("|")}`;
   const engine = buildPurePotentialEngine(seedInput);
+  applyManualPotentialTruth(engine, input.manualPotentialTruth);
   const context = createObservationContext(input);
   const measurement = engine.evolve(context, 1)[0];
   const pathWeights = engine.pathIntegralWeights();
