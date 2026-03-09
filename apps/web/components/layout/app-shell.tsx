@@ -153,6 +153,9 @@ export function AppShell({ children, navigation }: AppShellProps) {
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p>Copyright (c) 2026 Patrick Wirth. Released under the AION Community Fairness License 1.0 and open to collaborative stewardship.</p>
               <div className="flex flex-wrap gap-4">
+                <Link href="/contribute" className="font-semibold text-moss hover:text-ink">
+                  Contribute
+                </Link>
                 <Link href="/ethik" className="font-semibold text-moss hover:text-ink">
                   Ethics
                 </Link>

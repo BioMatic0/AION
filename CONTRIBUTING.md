@@ -29,6 +29,31 @@ The current project reference is:
 4. Update docs when behavior or structure changes.
 5. Open a pull request with a clear summary.
 
+## First contribution path
+
+If you are new to the project, start with one of these tracks:
+
+- public website and contributor onboarding polish
+- documentation, release notes, and onboarding flow improvements
+- UI consistency and small product-surface fixes
+- contained trust-hardening changes with clear verification
+
+Good first contributions should usually avoid broad refactors across unrelated modules.
+
+## Local setup
+
+1. Copy the environment file:
+   - `Copy-Item .env.example .env`
+2. Generate the Prisma client:
+   - `pnpm --filter @aion/api prisma:generate`
+3. Start the workspaces when needed:
+   - `pnpm dev`
+
+If PowerShell blocks the package-manager shim on your machine, use:
+
+- `pnpm.cmd`
+- `npm.cmd`
+
 ## Commit guidance
 
 - Write direct commit messages.
@@ -41,6 +66,22 @@ The current project reference is:
 - Why it changed
 - How it was verified
 - Any follow-up work or open risks
+
+## Verification baseline
+
+For most contribution paths, run at least:
+
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+
+For web-facing work:
+
+- `pnpm --filter @aion/web test`
+
+For API persistence and trust changes:
+
+- `pnpm --filter @aion/api verify:persistence`
 
 ## Licensing
 

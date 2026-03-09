@@ -91,7 +91,7 @@ export class AuditService implements OnModuleInit {
     await this.prisma.auditLog.create({
       data: {
         id: entry.id,
-        userId: entry.actorType === "user" ? LOCAL_USER_ID : null,
+        userId: entry.actorType === "user" ? entry.actorId ?? LOCAL_USER_ID : null,
         category: entry.category,
         action: entry.action,
         resource: entry.resource,

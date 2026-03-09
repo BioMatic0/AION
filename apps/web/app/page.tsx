@@ -52,6 +52,9 @@ export default function MarketingPage() {
               <Link href="/ethik" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Ethics and risks
               </Link>
+              <Link href="/contribute" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
+                Contribute
+              </Link>
               <span className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm text-slate">Patrick Wirth / Fairness license / open to collaboration</span>
             </div>
           </div>
@@ -78,6 +81,23 @@ export default function MarketingPage() {
               <p className="mt-3 text-sm leading-7 text-slate/80">{pillar.description}</p>
             </article>
           ))}
+        </section>
+        <section className="rounded-[32px] border border-white/10 bg-white/90 p-8 shadow-panel lg:p-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Contributor onboarding</p>
+              <h2 className="mt-3 font-display text-4xl text-ink">Public work needs a clear way in.</h2>
+              <p className="mt-5 text-sm leading-8 text-slate/80">
+                The public project now carries a dedicated contributor route with issue tracks, verification commands, and a practical first-step path for newcomers and returning collaborators.
+              </p>
+            </div>
+            <Link
+              href="/contribute"
+              className="inline-flex rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate"
+            >
+              Open contributor guide
+            </Link>
+          </div>
         </section>
         <section className="rounded-[32px] border border-white/10 bg-white/90 p-8 shadow-panel lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">

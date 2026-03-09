@@ -29,6 +29,7 @@ governance, truthfulness and human autonomy.
 - [Issues](https://github.com/BioMatic0/AION/issues)
 - [Public roadmap project](https://github.com/users/BioMatic0/projects/1)
 - [Roadmap](./roadmap.html)
+- [Contribute](./contribute.html)
 
 ## Current release downloads
 
