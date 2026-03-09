@@ -29,3 +29,23 @@ test("pure potential reading derives a stable quantum-lens interpretation", () =
   assert.ok(reading.potentialTruth.canBe >= 0 && reading.potentialTruth.canBe <= 1);
   assert.ok(reading.potentialTruth.tendsToBe >= 0 && reading.potentialTruth.tendsToBe <= 1);
 });
+
+test("evolveTruth shifts the selected state's truth profile and relaxes the others", () => {
+  const engine = buildPurePotentialEngine("truth-evolution");
+  const latent = engine.states.get("latent");
+  const manifest = engine.states.get("manifest");
+
+  assert.ok(latent);
+  assert.ok(manifest);
+
+  const beforeLatent = { ...latent!.truth };
+  const beforeManifest = { ...manifest!.truth };
+
+  engine.evolveTruth("latent");
+
+  assert.equal(latent!.truth.hasBeen, Number((beforeLatent.hasBeen + 0.35).toFixed(2)));
+  assert.equal(latent!.truth.canBe, Number(Math.max(0, beforeLatent.canBe - 0.1).toFixed(2)));
+  assert.equal(latent!.truth.tendsToBe, Number(Math.max(0, beforeLatent.tendsToBe - 0.15).toFixed(2)));
+  assert.equal(manifest!.truth.canBe, Number((beforeManifest.canBe + 0.03).toFixed(2)));
+  assert.equal(manifest!.truth.tendsToBe, Number(Math.max(0, beforeManifest.tendsToBe - 0.02).toFixed(2)));
+});

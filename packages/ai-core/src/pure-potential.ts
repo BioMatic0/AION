@@ -75,6 +75,7 @@ export class PotentialState {
   phase: number;
   coherence: number;
   barrier: number;
+  truth: PotentialTruth;
   observables: Record<string, number>;
   metadata: Record<string, unknown>;
 
@@ -84,6 +85,7 @@ export class PotentialState {
     phase = 0,
     coherence = 1,
     barrier = 0,
+    truth = { hasBeen: 0, canBe: 0, tendsToBe: 0 },
     observables = {},
     metadata = {}
   }: {
@@ -92,6 +94,7 @@ export class PotentialState {
     phase?: number;
     coherence?: number;
     barrier?: number;
+    truth?: PotentialTruth;
     observables?: Record<string, number>;
     metadata?: Record<string, unknown>;
   }) {
@@ -113,6 +116,11 @@ export class PotentialState {
     this.phase = phase;
     this.coherence = coherence;
     this.barrier = barrier;
+    this.truth = {
+      hasBeen: roundTruth(truth.hasBeen),
+      canBe: roundTruth(truth.canBe),
+      tendsToBe: roundTruth(truth.tendsToBe)
+    };
     this.observables = { ...observables };
     this.metadata = { ...metadata };
   }
@@ -128,6 +136,7 @@ export class PotentialState {
       phase: this.phase,
       coherence: this.coherence,
       barrier: this.barrier,
+      truth: { ...this.truth },
       observables: { ...this.observables },
       metadata: { ...this.metadata }
     });
@@ -224,43 +233,32 @@ function roundTruth(value: number) {
 }
 
 function derivePotentialTruth(args: {
+  selectedTruth: PotentialTruth;
   probabilities: Record<string, number>;
   selectedState: string;
   uncertaintyProfile: Record<string, { localization: number; openness: number; uncertaintyProduct: number }>;
-  eigenstateCandidates: string[];
-  pathWeights: Record<string, number>;
 }): PotentialTruth {
   const manifestWeight = args.probabilities.manifest ?? 0;
-  const latentWeight = args.probabilities.latent ?? 0;
-  const emergingWeight = args.probabilities.emerging ?? 0;
-  const voidWeight = args.probabilities.void_seed ?? 0;
   const selectedWeight = args.probabilities[args.selectedState] ?? 0;
   const selectedUncertainty = args.uncertaintyProfile[args.selectedState] ?? {
     localization: 0,
     openness: 0,
     uncertaintyProduct: 0
   };
-  const strongestPathWeight =
-    Object.values(args.pathWeights).sort((left, right) => right - left)[0] ?? 0;
-  const stableBoost = args.eigenstateCandidates.includes(args.selectedState) ? 0.08 : 0;
 
   return {
     hasBeen: roundTruth(
-      Math.max(manifestWeight, selectedWeight) +
-        selectedUncertainty.localization * 0.35 +
-        (args.selectedState === "manifest" ? 0.12 : 0) +
-        stableBoost
+      args.selectedTruth.hasBeen * 0.7 +
+        Math.max(manifestWeight, selectedWeight) * 0.2 +
+        selectedUncertainty.localization * 0.1
     ),
     canBe: roundTruth(
-      latentWeight +
-        voidWeight * 0.5 +
-        selectedUncertainty.openness * 0.25 +
-        (args.selectedState === "latent" ? 0.08 : 0)
+      args.selectedTruth.canBe * 0.75 +
+        selectedUncertainty.openness * 0.25
     ),
     tendsToBe: roundTruth(
-      emergingWeight +
-        strongestPathWeight * 0.25 +
-        (args.selectedState === "emerging" ? 0.12 : args.selectedState === "manifest" ? 0.05 : 0)
+      args.selectedTruth.tendsToBe * 0.8 +
+        selectedWeight * 0.2
     )
   };
 }
@@ -474,6 +472,20 @@ export class UniversalQuantumPotentialEngine {
       .map((state) => state.name);
   }
 
+  evolveTruth(selectedName: string) {
+    for (const [name, state] of this.states.entries()) {
+      if (name === selectedName) {
+        state.truth.hasBeen = roundTruth(state.truth.hasBeen + 0.35);
+        state.truth.tendsToBe = roundTruth(Math.max(0, state.truth.tendsToBe - 0.15));
+        state.truth.canBe = roundTruth(Math.max(0, state.truth.canBe - 0.1));
+        continue;
+      }
+
+      state.truth.canBe = roundTruth(state.truth.canBe + 0.03);
+      state.truth.tendsToBe = roundTruth(Math.max(0, state.truth.tendsToBe - 0.02));
+    }
+  }
+
   private contextualProbabilities(context: ObservationContext) {
     const interferenceBonus = Object.fromEntries(Array.from(this.states.keys()).map((name) => [name, 0])) as Record<
       string,
@@ -525,6 +537,7 @@ export class UniversalQuantumPotentialEngine {
     }
 
     this.manifestedState = selectedName;
+    this.evolveTruth(selectedName);
     const notes: string[] = [];
     const tunneling = this.tunnelingCandidates();
 
@@ -537,6 +550,10 @@ export class UniversalQuantumPotentialEngine {
     if (selectedState.metadata.origin === "vacuum_fluctuation") {
       notes.push("Manifestation emerged from a vacuum fluctuation.");
     }
+
+    notes.push(
+      `Potential truth now reads has_been=${selectedState.truth.hasBeen.toFixed(2)}, can_be=${selectedState.truth.canBe.toFixed(2)}, tends_to_be=${selectedState.truth.tendsToBe.toFixed(2)}.`
+    );
 
     return {
       selectedState: selectedState.copy(),
@@ -587,6 +604,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 0,
         coherence: 0.95,
         barrier: 0.2,
+        truth: { hasBeen: 0.18, canBe: 0.72, tendsToBe: 0.36 },
         metadata: { meaning: "Present, but not yet expressed", principle: "superposition" }
       }),
       new PotentialState({
@@ -595,6 +613,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 1.2,
         coherence: 0.8,
         barrier: 0.35,
+        truth: { hasBeen: 0.12, canBe: 0.48, tendsToBe: 0.64 },
         metadata: { meaning: "Transition from hidden potential into expression", principle: "manifestation" }
       }),
       new PotentialState({
@@ -603,6 +622,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 2.4,
         coherence: 0.9,
         barrier: 0.1,
+        truth: { hasBeen: 0.42, canBe: 0.24, tendsToBe: 0.34 },
         metadata: { meaning: "Currently visible form", principle: "measurement" }
       }),
       new PotentialState({
@@ -611,6 +631,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 0.7,
         coherence: 0.7,
         barrier: 0.6,
+        truth: { hasBeen: 0.06, canBe: 0.58, tendsToBe: 0.16 },
         metadata: { meaning: "Potential hidden in apparent emptiness", principle: "vacuum" }
       })
     ],
@@ -700,12 +721,12 @@ export function generatePurePotentialReading(input: AnalysisInput): PurePotentia
   const selectedProbability = measurement.probabilities[selectedName] ?? 0;
   const uncertainty = uncertaintyProfile[selectedName] ?? { localization: 0, openness: 0, uncertaintyProduct: 0 };
   const strongestPath = Object.entries(pathWeights).sort((left, right) => right[1] - left[1])[0]?.[0];
+  const selectedTruth = measurement.selectedState.truth;
   const potentialTruth = derivePotentialTruth({
+    selectedTruth,
     probabilities: measurement.probabilities,
     selectedState: selectedName,
-    uncertaintyProfile,
-    eigenstateCandidates,
-    pathWeights
+    uncertaintyProfile
   });
 
   return {
