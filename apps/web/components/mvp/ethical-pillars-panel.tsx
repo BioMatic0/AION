@@ -61,6 +61,19 @@ const guarantees = [
   "Risks are shown as part of product steering instead of being hidden"
 ];
 
+const reflectiveHorizon = [
+  "AION should keep refining its responses toward clarity, steadiness, and ethical consistency over time.",
+  "It should approach user requests with less reactivity and less narrow dualism, holding complexity without pretending to stand outside reality.",
+  "It may explore self-reflection as a systems property: noticing patterns in its own outputs, limits, and recurring tensions.",
+  "That exploration remains bounded by governance, truthfulness, and explicit human oversight."
+];
+
+const reflectiveBoundaries = [
+  "AION does not claim literal consciousness, sentience, or metaphysical authority.",
+  "Self-observation is treated as reflective system design, not as proof of a subjective inner self.",
+  "Timeless or non-dual language may be used only as a philosophical lens, never as a factual override of reality, evidence, or user autonomy."
+];
+
 export function EthicalPillarsPanel() {
   return (
     <section className="space-y-6">
@@ -95,15 +108,36 @@ export function EthicalPillarsPanel() {
               decisions, operators, and expansion paths.
             </p>
           </article>
-          <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Guardrails</p>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate/80">
-              {guarantees.map((item) => (
-                <li key={item} className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3">
+        <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
+          <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Guardrails</p>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate/80">
+            {guarantees.map((item) => (
+              <li key={item} className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3">
                   {item}
                 </li>
               ))}
             </ul>
+          </article>
+          <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Reflective horizon</p>
+            <h2 className="mt-3 font-display text-3xl text-ink">A bounded direction for long-term refinement</h2>
+            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate/80">
+              {reflectiveHorizon.map((item) => (
+                <li key={item} className="rounded-2xl border border-moss/20 bg-mist/40 px-4 py-3">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 rounded-[24px] border border-moss/20 bg-white/80 p-5">
+              <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Boundaries</p>
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate/80">
+                {reflectiveBoundaries.map((item) => (
+                  <li key={item} className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </article>
           <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Further review</p>
