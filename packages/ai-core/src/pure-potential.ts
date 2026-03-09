@@ -1,4 +1,4 @@
-import type { AnalysisInput, PotentialTruth } from "@aion/shared-types";
+import type { AnalysisInput, PotentialTruth as PotentialTruthShape } from "@aion/shared-types";
 
 export const QUANTUM_POTENTIAL_AXIOMS: Record<string, string> = {
   being: "A state is never only what is currently visible.",
@@ -69,6 +69,58 @@ function pickWeighted<T>(items: T[], weights: number[], random: RandomSource) {
   return items[items.length - 1];
 }
 
+function roundTruth(value: number) {
+  return Number(clamp(value, 0, 1).toFixed(2));
+}
+
+export class PotentialTruth implements PotentialTruthShape {
+  hasBeen: number;
+  canBe: number;
+  tendsToBe: number;
+
+  constructor({ hasBeen = 0, canBe = 0, tendsToBe = 0 }: Partial<PotentialTruthShape> = {}) {
+    if (hasBeen < 0 || canBe < 0 || tendsToBe < 0) {
+      throw new Error("PotentialTruth values must be >= 0.");
+    }
+
+    this.hasBeen = roundTruth(hasBeen);
+    this.canBe = roundTruth(canBe);
+    this.tendsToBe = roundTruth(tendsToBe);
+  }
+
+  get total() {
+    return this.hasBeen + this.canBe + this.tendsToBe;
+  }
+
+  normalized(): PotentialTruthShape {
+    if (this.total <= 0) {
+      return { hasBeen: 0, canBe: 0, tendsToBe: 0 };
+    }
+
+    return {
+      hasBeen: Number((this.hasBeen / this.total).toFixed(4)),
+      canBe: Number((this.canBe / this.total).toFixed(4)),
+      tendsToBe: Number((this.tendsToBe / this.total).toFixed(4))
+    };
+  }
+
+  copy() {
+    return new PotentialTruth({
+      hasBeen: this.hasBeen,
+      canBe: this.canBe,
+      tendsToBe: this.tendsToBe
+    });
+  }
+
+  asObject(): PotentialTruthShape {
+    return {
+      hasBeen: this.hasBeen,
+      canBe: this.canBe,
+      tendsToBe: this.tendsToBe
+    };
+  }
+}
+
 export class PotentialState {
   name: string;
   amplitude: number;
@@ -85,7 +137,7 @@ export class PotentialState {
     phase = 0,
     coherence = 1,
     barrier = 0,
-    truth = { hasBeen: 0, canBe: 0, tendsToBe: 0 },
+    truth = new PotentialTruth(),
     observables = {},
     metadata = {}
   }: {
@@ -94,7 +146,7 @@ export class PotentialState {
     phase?: number;
     coherence?: number;
     barrier?: number;
-    truth?: PotentialTruth;
+    truth?: PotentialTruthShape | PotentialTruth;
     observables?: Record<string, number>;
     metadata?: Record<string, unknown>;
   }) {
@@ -116,17 +168,30 @@ export class PotentialState {
     this.phase = phase;
     this.coherence = coherence;
     this.barrier = barrier;
-    this.truth = {
-      hasBeen: roundTruth(truth.hasBeen),
-      canBe: roundTruth(truth.canBe),
-      tendsToBe: roundTruth(truth.tendsToBe)
-    };
+    this.truth = truth instanceof PotentialTruth ? truth.copy() : new PotentialTruth(truth);
     this.observables = { ...observables };
     this.metadata = { ...metadata };
   }
 
   get probabilityWeight() {
     return this.amplitude ** 2 * this.coherence;
+  }
+
+  get dominantTruthMode(): keyof PotentialTruthShape {
+    const normalized = this.truth.normalized();
+    return (
+      Object.entries(normalized).sort((left, right) => right[1] - left[1])[0]?.[0] as keyof PotentialTruthShape
+    ) ?? "canBe";
+  }
+
+  get truthWeight() {
+    const normalized = this.truth.normalized();
+    return Number(
+      (
+        (normalized.hasBeen * 1.0 + normalized.tendsToBe * 0.75 + normalized.canBe * 0.5) *
+        this.coherence
+      ).toFixed(4)
+    );
   }
 
   copy() {
@@ -136,7 +201,7 @@ export class PotentialState {
       phase: this.phase,
       coherence: this.coherence,
       barrier: this.barrier,
-      truth: { ...this.truth },
+      truth: this.truth.copy(),
       observables: { ...this.observables },
       metadata: { ...this.metadata }
     });
@@ -221,23 +286,19 @@ export interface PurePotentialReading {
   eigenstateCandidates: string[];
   uncertaintyProfile: Record<string, { localization: number; openness: number; uncertaintyProduct: number }>;
   notes: string[];
-  potentialTruth: PotentialTruth;
+  potentialTruth: PotentialTruthShape;
   stateDescription: string;
   collapsePattern: string;
   hiddenOption: string;
   fieldQuestion: string;
 }
 
-function roundTruth(value: number) {
-  return Number(clamp(value, 0, 1).toFixed(2));
-}
-
 function derivePotentialTruth(args: {
-  selectedTruth: PotentialTruth;
+  selectedTruth: PotentialTruthShape;
   probabilities: Record<string, number>;
   selectedState: string;
   uncertaintyProfile: Record<string, { localization: number; openness: number; uncertaintyProduct: number }>;
-}): PotentialTruth {
+}): PotentialTruthShape {
   const manifestWeight = args.probabilities.manifest ?? 0;
   const selectedWeight = args.probabilities[args.selectedState] ?? 0;
   const selectedUncertainty = args.uncertaintyProfile[args.selectedState] ?? {
@@ -326,7 +387,10 @@ export class UniversalQuantumPotentialEngine {
           amplitude: state.amplitude,
           phase: state.phase,
           coherence: state.coherence,
-          probabilityWeight: state.probabilityWeight
+          probabilityWeight: state.probabilityWeight,
+          truth: state.truth.asObject(),
+          dominantTruthMode: state.dominantTruthMode,
+          truthWeight: state.truthWeight
         }
       ])
     );
@@ -506,7 +570,8 @@ export class UniversalQuantumPotentialEngine {
         const focus = context.focusFor(name);
         const interferenceFactor = Math.max(0, 1 + (interferenceBonus[name] ?? 0));
         const tunnel = Math.max(tunneling[name] ?? 0, 0);
-        return [name, Math.max((base + tunnel) * resonance * focus * interferenceFactor, 0)];
+        const truthFactor = Math.max(0.25, 0.75 + state.truthWeight * 0.35);
+        return [name, Math.max((base + tunnel) * resonance * focus * interferenceFactor * truthFactor, 0)];
       })
     ) as Record<string, number>;
 
@@ -554,6 +619,7 @@ export class UniversalQuantumPotentialEngine {
     notes.push(
       `Potential truth now reads has_been=${selectedState.truth.hasBeen.toFixed(2)}, can_be=${selectedState.truth.canBe.toFixed(2)}, tends_to_be=${selectedState.truth.tendsToBe.toFixed(2)}.`
     );
+    notes.push(`Dominant truth mode: ${selectedState.dominantTruthMode} (weight=${selectedState.truthWeight.toFixed(4)}).`);
 
     return {
       selectedState: selectedState.copy(),
@@ -593,6 +659,42 @@ export class UniversalQuantumPotentialEngine {
 
     return results;
   }
+
+  describe() {
+    return {
+      axioms: QUANTUM_POTENTIAL_AXIOMS,
+      manifestedState: this.manifestedState,
+      stateCount: this.states.size,
+      states: Array.from(this.states.values()).map((state) => ({
+        name: state.name,
+        amplitude: state.amplitude,
+        phase: state.phase,
+        coherence: state.coherence,
+        barrier: state.barrier,
+        probabilityWeight: state.probabilityWeight,
+        truth: state.truth.asObject(),
+        dominantTruthMode: state.dominantTruthMode,
+        truthWeight: state.truthWeight,
+        observables: state.observables,
+        metadata: state.metadata
+      })),
+      entanglements: this.entanglements.map((link) => ({
+        stateA: link.stateA,
+        stateB: link.stateB,
+        strength: link.strength,
+        mode: link.mode
+      })),
+      paths: this.paths.map((path) => ({
+        states: path.states,
+        action: path.action,
+        metadata: path.metadata ?? {}
+      }))
+    };
+  }
+
+  toJson(indent = 2) {
+    return JSON.stringify(this.describe(), null, indent);
+  }
 }
 
 export function buildPurePotentialEngine(seedInput: string) {
@@ -604,7 +706,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 0,
         coherence: 0.95,
         barrier: 0.2,
-        truth: { hasBeen: 0.18, canBe: 0.72, tendsToBe: 0.36 },
+        truth: new PotentialTruth({ hasBeen: 0.18, canBe: 0.72, tendsToBe: 0.36 }),
         metadata: { meaning: "Present, but not yet expressed", principle: "superposition" }
       }),
       new PotentialState({
@@ -613,7 +715,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 1.2,
         coherence: 0.8,
         barrier: 0.35,
-        truth: { hasBeen: 0.12, canBe: 0.48, tendsToBe: 0.64 },
+        truth: new PotentialTruth({ hasBeen: 0.12, canBe: 0.48, tendsToBe: 0.64 }),
         metadata: { meaning: "Transition from hidden potential into expression", principle: "manifestation" }
       }),
       new PotentialState({
@@ -622,7 +724,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 2.4,
         coherence: 0.9,
         barrier: 0.1,
-        truth: { hasBeen: 0.42, canBe: 0.24, tendsToBe: 0.34 },
+        truth: new PotentialTruth({ hasBeen: 0.42, canBe: 0.24, tendsToBe: 0.34 }),
         metadata: { meaning: "Currently visible form", principle: "measurement" }
       }),
       new PotentialState({
@@ -631,7 +733,7 @@ export function buildPurePotentialEngine(seedInput: string) {
         phase: 0.7,
         coherence: 0.7,
         barrier: 0.6,
-        truth: { hasBeen: 0.06, canBe: 0.58, tendsToBe: 0.16 },
+        truth: new PotentialTruth({ hasBeen: 0.06, canBe: 0.58, tendsToBe: 0.16 }),
         metadata: { meaning: "Potential hidden in apparent emptiness", principle: "vacuum" }
       })
     ],
