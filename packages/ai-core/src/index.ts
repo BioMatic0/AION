@@ -300,6 +300,7 @@ export function buildQuantumLensReport(input: AnalysisInput): QuantumLensReport 
     collapsePattern: potentialReading.collapsePattern,
     hiddenOption: potentialReading.hiddenOption,
     fieldQuestion: potentialReading.fieldQuestion,
+    potentialTruth: potentialReading.potentialTruth,
     extractedConcepts: concepts,
     suggestedQuestions: Array.from(
       new Set([

@@ -1,4 +1,4 @@
-import type { AnalysisInput } from "@aion/shared-types";
+import type { AnalysisInput, PotentialTruth } from "@aion/shared-types";
 
 export const QUANTUM_POTENTIAL_AXIOMS: Record<string, string> = {
   being: "A state is never only what is currently visible.",
@@ -212,10 +212,57 @@ export interface PurePotentialReading {
   eigenstateCandidates: string[];
   uncertaintyProfile: Record<string, { localization: number; openness: number; uncertaintyProduct: number }>;
   notes: string[];
+  potentialTruth: PotentialTruth;
   stateDescription: string;
   collapsePattern: string;
   hiddenOption: string;
   fieldQuestion: string;
+}
+
+function roundTruth(value: number) {
+  return Number(clamp(value, 0, 1).toFixed(2));
+}
+
+function derivePotentialTruth(args: {
+  probabilities: Record<string, number>;
+  selectedState: string;
+  uncertaintyProfile: Record<string, { localization: number; openness: number; uncertaintyProduct: number }>;
+  eigenstateCandidates: string[];
+  pathWeights: Record<string, number>;
+}): PotentialTruth {
+  const manifestWeight = args.probabilities.manifest ?? 0;
+  const latentWeight = args.probabilities.latent ?? 0;
+  const emergingWeight = args.probabilities.emerging ?? 0;
+  const voidWeight = args.probabilities.void_seed ?? 0;
+  const selectedWeight = args.probabilities[args.selectedState] ?? 0;
+  const selectedUncertainty = args.uncertaintyProfile[args.selectedState] ?? {
+    localization: 0,
+    openness: 0,
+    uncertaintyProduct: 0
+  };
+  const strongestPathWeight =
+    Object.values(args.pathWeights).sort((left, right) => right - left)[0] ?? 0;
+  const stableBoost = args.eigenstateCandidates.includes(args.selectedState) ? 0.08 : 0;
+
+  return {
+    hasBeen: roundTruth(
+      Math.max(manifestWeight, selectedWeight) +
+        selectedUncertainty.localization * 0.35 +
+        (args.selectedState === "manifest" ? 0.12 : 0) +
+        stableBoost
+    ),
+    canBe: roundTruth(
+      latentWeight +
+        voidWeight * 0.5 +
+        selectedUncertainty.openness * 0.25 +
+        (args.selectedState === "latent" ? 0.08 : 0)
+    ),
+    tendsToBe: roundTruth(
+      emergingWeight +
+        strongestPathWeight * 0.25 +
+        (args.selectedState === "emerging" ? 0.12 : args.selectedState === "manifest" ? 0.05 : 0)
+    )
+  };
 }
 
 export class UniversalQuantumPotentialEngine {
@@ -653,6 +700,13 @@ export function generatePurePotentialReading(input: AnalysisInput): PurePotentia
   const selectedProbability = measurement.probabilities[selectedName] ?? 0;
   const uncertainty = uncertaintyProfile[selectedName] ?? { localization: 0, openness: 0, uncertaintyProduct: 0 };
   const strongestPath = Object.entries(pathWeights).sort((left, right) => right[1] - left[1])[0]?.[0];
+  const potentialTruth = derivePotentialTruth({
+    probabilities: measurement.probabilities,
+    selectedState: selectedName,
+    uncertaintyProfile,
+    eigenstateCandidates,
+    pathWeights
+  });
 
   return {
     selectedState: selectedName,
@@ -663,6 +717,7 @@ export function generatePurePotentialReading(input: AnalysisInput): PurePotentia
     eigenstateCandidates,
     uncertaintyProfile,
     notes: measurement.notes,
+    potentialTruth,
     stateDescription:
       `The current potential field favors "${selectedName}" as the leading expression. ` +
       `${selectedMeaning} The strongest nearby states are ${rankedStates.slice(0, 3).join(", ")}.`,

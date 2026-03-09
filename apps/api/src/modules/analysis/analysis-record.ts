@@ -4,6 +4,7 @@ import type {
   AnalysisReport,
   GovernanceDecision,
   MirrorReport,
+  PotentialTruth,
   QuantumLensReport
 } from "@aion/shared-types";
 
@@ -20,6 +21,19 @@ function asGovernanceDecision(value: unknown) {
   }
 
   return value as GovernanceDecision;
+}
+
+function asPotentialTruth(value: unknown): PotentialTruth {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { hasBeen: 0, canBe: 0, tendsToBe: 0 };
+  }
+
+  const candidate = value as Partial<Record<keyof PotentialTruth, unknown>>;
+  return {
+    hasBeen: typeof candidate.hasBeen === "number" ? candidate.hasBeen : 0,
+    canBe: typeof candidate.canBe === "number" ? candidate.canBe : 0,
+    tendsToBe: typeof candidate.tendsToBe === "number" ? candidate.tendsToBe : 0
+  };
 }
 
 export function serializeAnalysisRecord(report: StoredAnalysisReport, userId: string, reportType: AnalysisRecordType) {
@@ -47,6 +61,9 @@ export function serializeAnalysisRecord(report: StoredAnalysisReport, userId: st
     collapsePattern: "collapsePattern" in report ? report.collapsePattern : null,
     hiddenOption: "hiddenOption" in report ? report.hiddenOption : null,
     fieldQuestion: "fieldQuestion" in report ? report.fieldQuestion : null,
+    potentialTruth: "potentialTruth" in report
+      ? (JSON.parse(JSON.stringify(report.potentialTruth)) as Prisma.InputJsonValue)
+      : undefined,
     generatedAt: new Date(report.generatedAt)
   };
 }
@@ -85,7 +102,8 @@ export function hydrateAnalysisRecord(record: AnalysisModel): StoredAnalysisRepo
       stateDescription: record.stateDescription ?? "",
       collapsePattern: record.collapsePattern ?? "",
       hiddenOption: record.hiddenOption ?? "",
-      fieldQuestion: record.fieldQuestion ?? ""
+      fieldQuestion: record.fieldQuestion ?? "",
+      potentialTruth: asPotentialTruth(record.potentialTruth)
     } satisfies QuantumLensReport;
   }
 

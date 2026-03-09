@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { NotificationSettingsPanel } from "../components/mvp/notification-settings-panel";
@@ -92,8 +92,7 @@ describe("NotificationSettingsPanel", () => {
 
     await user.selectOptions(screen.getByLabelText("Notification frequency"), "weekly");
     await user.selectOptions(screen.getByLabelText("Tone"), "reflective");
-    await user.clear(screen.getByLabelText("Preferred time"));
-    await user.type(screen.getByLabelText("Preferred time"), "09:15");
+    fireEvent.change(screen.getByLabelText("Preferred time"), { target: { value: "09:15" } });
     await user.selectOptions(screen.getByLabelText("Preferred weekday"), "friday");
     await user.click(screen.getByRole("button", { name: "Save preferences" }));
 

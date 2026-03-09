@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { UserProfileSettingsPanel } from "../components/mvp/user-profile-settings-panel";
@@ -44,10 +44,8 @@ describe("UserProfileSettingsPanel", () => {
 
     await screen.findByText("Profile and account protection are connected directly to the API.");
 
-    await user.clear(screen.getByLabelText("Display name"));
-    await user.type(screen.getByLabelText("Display name"), "Patrick Wirth 2");
-    await user.clear(screen.getByLabelText("Email"));
-    await user.type(screen.getByLabelText("Email"), "patrick2@example.com");
+    fireEvent.change(screen.getByLabelText("Display name"), { target: { value: "Patrick Wirth 2" } });
+    fireEvent.change(screen.getByLabelText("Email"), { target: { value: "patrick2@example.com" } });
     await user.click(screen.getByRole("button", { name: "Save profile" }));
 
     await waitFor(() => {

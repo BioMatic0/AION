@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { JournalWorkspace } from "../components/mvp/journal-workspace";
@@ -40,11 +40,11 @@ describe("JournalWorkspace", () => {
 
     await screen.findByText("Bestehender Eintrag");
 
-    await user.type(screen.getByPlaceholderText("Title"), "Neuer Fokus");
-    await user.type(screen.getByPlaceholderText("Mood"), "ruhig");
-    await user.type(
+    fireEvent.change(screen.getByPlaceholderText("Title"), { target: { value: "Neuer Fokus" } });
+    fireEvent.change(screen.getByPlaceholderText("Mood"), { target: { value: "ruhig" } });
+    fireEvent.change(
       screen.getByPlaceholderText("What is observable, what is interpretation, and what may matter later for mirror work?"),
-      "Sichtbar und klar."
+      { target: { value: "Sichtbar und klar." } }
     );
     await user.click(screen.getByRole("button", { name: "Capture entry" }));
 

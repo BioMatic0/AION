@@ -25,4 +25,7 @@ test("pure potential reading derives a stable quantum-lens interpretation", () =
   assert.ok(reading.topStates.length >= 2);
   assert.ok(Object.keys(reading.pathWeights).length >= 1);
   assert.ok(reading.fieldQuestion.length > 0);
+  assert.ok(reading.potentialTruth.hasBeen >= 0 && reading.potentialTruth.hasBeen <= 1);
+  assert.ok(reading.potentialTruth.canBe >= 0 && reading.potentialTruth.canBe <= 1);
+  assert.ok(reading.potentialTruth.tendsToBe >= 0 && reading.potentialTruth.tendsToBe <= 1);
 });

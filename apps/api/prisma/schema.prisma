@@ -291,6 +291,7 @@ model Analysis {
   collapsePattern    String?
   hiddenOption       String?
   fieldQuestion      String?
+  potentialTruth     Json?
   generatedAt        DateTime @default(now())
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 

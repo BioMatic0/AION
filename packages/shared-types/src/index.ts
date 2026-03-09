@@ -431,11 +431,18 @@ export interface MirrorReport extends AnalysisReport {
   mirrorQuestion: string;
 }
 
+export interface PotentialTruth {
+  hasBeen: number;
+  canBe: number;
+  tendsToBe: number;
+}
+
 export interface QuantumLensReport extends AnalysisReport {
   stateDescription: string;
   collapsePattern: string;
   hiddenOption: string;
   fieldQuestion: string;
+  potentialTruth: PotentialTruth;
 }
 
 export interface GrowthState {

@@ -47,7 +47,27 @@ export function ReportCard({ report }: ReportCardProps) {
         <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Mirror challenge</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.disconfirmingView}</p><p className="mt-3 text-sm font-semibold text-mist">{report.mirrorQuestion}</p></div>
       ) : null}
       {"stateDescription" in report ? (
-        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist"><div className="text-xs uppercase tracking-[0.22em] text-mist/60">Quantum lens</div><p className="mt-3 text-sm leading-7 text-mist/80">{report.stateDescription}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.collapsePattern}</p><p className="mt-3 text-sm leading-7 text-mist/80">{report.hiddenOption}</p><p className="mt-3 text-sm font-semibold text-mist">{report.fieldQuestion}</p></div>
+        <div className="mt-4 rounded-3xl bg-slate p-5 text-mist">
+          <div className="text-xs uppercase tracking-[0.22em] text-mist/60">Quantum lens</div>
+          <p className="mt-3 text-sm leading-7 text-mist/80">{report.stateDescription}</p>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl bg-white/5 px-4 py-3">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-mist/55">Has been</div>
+              <div className="mt-2 text-xl font-semibold text-mist">{report.potentialTruth.hasBeen.toFixed(2)}</div>
+            </div>
+            <div className="rounded-2xl bg-white/5 px-4 py-3">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-mist/55">Can be</div>
+              <div className="mt-2 text-xl font-semibold text-mist">{report.potentialTruth.canBe.toFixed(2)}</div>
+            </div>
+            <div className="rounded-2xl bg-white/5 px-4 py-3">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-mist/55">Tends to be</div>
+              <div className="mt-2 text-xl font-semibold text-mist">{report.potentialTruth.tendsToBe.toFixed(2)}</div>
+            </div>
+          </div>
+          <p className="mt-4 text-sm leading-7 text-mist/80">{report.collapsePattern}</p>
+          <p className="mt-3 text-sm leading-7 text-mist/80">{report.hiddenOption}</p>
+          <p className="mt-3 text-sm font-semibold text-mist">{report.fieldQuestion}</p>
+        </div>
       ) : null}
       <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate/65">
         {report.extractedConcepts.map((concept) => (
