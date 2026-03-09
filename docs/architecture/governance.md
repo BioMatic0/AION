@@ -62,3 +62,7 @@ The current runtime pipeline now works like this:
 
 - widen enforcement from analysis, mirror and growth into future browser, voice and interop modules
 - replace purely keyword-driven evaluation with richer audited heuristics or provider-assisted reasoning where appropriate
+
+## Linked assessment
+
+- ethics and trajectory evaluation: [../product/ethics-risk-evaluation.md](../product/ethics-risk-evaluation.md)

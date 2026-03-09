@@ -42,6 +42,10 @@ the app can check for new versions directly from the AION menu.
 - [AION v0.1.1 release notes](./releases/v0.1.1.html)
 - [AION v0.1.0 release notes](./releases/v0.1.0.html)
 
+## Evaluation
+
+- [Ethics and risk evaluation](./product/ethics-risk-evaluation.html)
+
 ## Open collaboration
 
 AION is published as an open MIT-licensed project with public source access and

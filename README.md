@@ -27,6 +27,7 @@ Legal documents:
 - `CONTRIBUTING.md`
 - `CODE_OF_CONDUCT.md`
 - `SECURITY.md`
+- `docs/product/ethics-risk-evaluation.md`
 
 ## Workspace Layout
 
