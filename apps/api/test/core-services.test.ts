@@ -98,6 +98,8 @@ test("AnalysisService builds reports and quantum lens outputs", async () => {
   assert.equal(analysis.mode, "thinking");
   assert.equal(quantum.mode, "quantum-lens");
   assert.ok(quantum.fieldQuestion.length > 0);
+  assert.match(quantum.stateDescription, /potential field|leading expression/i);
+  assert.ok(quantum.extractedConcepts.length >= 3);
   assert.ok(quantum.governance);
   assert.equal(quantum.governance?.action, "transform");
 });

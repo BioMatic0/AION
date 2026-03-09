@@ -62,7 +62,7 @@ export function QuantumWorkspace() {
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Quantum lens</p>
         <h2 className="mt-2 font-display text-3xl text-ink">Read patterns as a state space</h2>
         <p className="mt-4 text-sm leading-7 text-slate/80">
-          This mode remains explicitly metaphorical. It broadens perspective; it does not claim physics.
+          This mode remains explicitly metaphorical. It now uses a symbolic pure-potential engine to read latent, emerging, manifest, and hidden states without claiming physics.
         </p>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}

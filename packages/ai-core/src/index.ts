@@ -15,6 +15,7 @@ import type {
   ResponseMode
 } from "@aion/shared-types";
 import { assessEthics } from "./ethics-router";
+import { QUANTUM_POTENTIAL_AXIOMS, generatePurePotentialReading } from "./pure-potential";
 
 export interface IntentAssessment {
   domain: "auth" | "journal" | "analysis" | "growth" | "security" | "general";
@@ -290,14 +291,24 @@ export function buildMirrorReport(input: AnalysisInput): MirrorReport {
 
 export function buildQuantumLensReport(input: AnalysisInput): QuantumLensReport {
   const base = buildAnalysisReport(input, "quantum-lens");
-  const concepts = base.extractedConcepts;
+  const potentialReading = generatePurePotentialReading(input);
+  const concepts = Array.from(new Set([...base.extractedConcepts, ...potentialReading.topStates])).slice(0, 6);
 
   return {
     ...base,
-    stateDescription: `The current state space is organized around ${concepts[0] ?? "coherence"}, ${concepts[1] ?? "choice"}, and ${concepts[2] ?? "pressure"}.`,
-    collapsePattern: "The system seems to collapse early into the most familiar interpretation instead of keeping several workable possibilities open.",
-    hiddenOption: "There may be a less dramatic but more coherent option if the problem is read as calibration rather than rescue.",
-    fieldQuestion: "Which observation would increase coherence without forcing certainty too early?"
+    stateDescription: potentialReading.stateDescription,
+    collapsePattern: potentialReading.collapsePattern,
+    hiddenOption: potentialReading.hiddenOption,
+    fieldQuestion: potentialReading.fieldQuestion,
+    extractedConcepts: concepts,
+    suggestedQuestions: Array.from(
+      new Set([
+        ...base.suggestedQuestions,
+        "Which state in the field is still latent but not absent?",
+        "Which path would reduce collapse pressure without abandoning manifestation?",
+        `Which axiom matters most here: ${QUANTUM_POTENTIAL_AXIOMS.measurement}`
+      ])
+    ).slice(0, 6)
   };
 }
 
@@ -392,3 +403,4 @@ export function requiresGovernanceBlock(decision: Pick<GovernanceDecision, "acti
 }
 
 export * from "./ethics-router";
+export * from "./pure-potential";
