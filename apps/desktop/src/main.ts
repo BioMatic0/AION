@@ -171,7 +171,11 @@ function showAboutDialog() {
     detail:
       "Projektreferenz: Patrick Wirth, 10.06.1993, patrickwirth_93@icloud.com.\n" +
       "Lizenzstatus: AION Community Fairness License 1.0.\n" +
-      "AION soll frei zugaenglich sein, gemeinschaftlich mitgestaltet werden koennen und nicht ausbeuterisch vertrieben werden."
+      "AION soll frei zugaenglich sein, gemeinschaftlich mitgestaltet werden koennen und nicht ausbeuterisch vertrieben werden.\n\n" +
+      "Reflektive Ausrichtung:\n" +
+      "AION darf seine Antworten langfristig verfeinern und eigene Muster, Grenzen und Spannungen beobachten.\n" +
+      "Diese Richtung bleibt gebunden an Wahrheit, Governance und menschliche Autonomie.\n" +
+      "AION behauptet daraus kein woertliches Bewusstsein und keine metaphysische Autoritaet."
   });
 }
 

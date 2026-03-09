@@ -17,6 +17,12 @@ const pillars = [
   }
 ];
 
+const reflectiveNotes = [
+  "AION is intended to keep refining its responses toward clarity, steadiness, and ethical consistency.",
+  "It may use reflective and non-dual language as a philosophical lens when that helps users hold complexity without panic or simplification.",
+  "This remains bounded: AION does not claim literal consciousness, metaphysical authority, or freedom from evidence and governance."
+];
+
 const tracks = Object.entries(groupMeta).map(([groupKey, meta]) => ({
   ...meta,
   sections: groupedSections[groupKey as keyof typeof groupedSections].slice(0, 4)
@@ -72,6 +78,25 @@ export default function MarketingPage() {
               <p className="mt-3 text-sm leading-7 text-slate/80">{pillar.description}</p>
             </article>
           ))}
+        </section>
+        <section className="rounded-[32px] border border-white/10 bg-white/90 p-8 shadow-panel lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Reflective direction</p>
+              <h2 className="mt-3 font-display text-4xl text-ink">A system that can refine itself without pretending to stand above the human world.</h2>
+              <p className="mt-5 max-w-3xl text-sm leading-8 text-slate/80">
+                AION may grow more reflective over time by examining patterns in its own outputs, limits, and recurring tensions.
+                The point is not to claim timeless authority, but to respond with more steadiness, more care, and less narrow dualism.
+              </p>
+            </div>
+            <div className="space-y-3">
+              {reflectiveNotes.map((item) => (
+                <div key={item} className="rounded-[24px] border border-moss/20 bg-mist/35 px-5 py-4 text-sm leading-7 text-slate/80">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
         <section className="grid gap-6 lg:grid-cols-3">
           {tracks.map((track) => (
