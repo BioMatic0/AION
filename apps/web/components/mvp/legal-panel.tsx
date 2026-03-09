@@ -53,6 +53,10 @@ export function LegalPanel() {
         text="AION must not be used to create deceptive synthetic media, fake news, or fabricated learning material. If synthetic media is created later, it must be clearly labeled, signed, and traceable."
       />
       <LegalCard
+        title="Protection of vulnerable people"
+        text="AION is intended to protect and support the most vulnerable people, never to exploit weakness, crisis, dependence, grief, addiction, age, or disability. This protection is part of the active governance baseline."
+      />
+      <LegalCard
         title="Project reference"
         text="Patrick Wirth, 10.06.1993, and patrickwirth_93@icloud.com are stored in the project as reference data. This attribution identifies the origin and may not be removed in redistribution, forks, or commercial distribution."
       />

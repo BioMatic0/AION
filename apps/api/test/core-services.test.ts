@@ -201,6 +201,19 @@ test("GovernanceService blocks deceptive synthetic media and fabricated knowledg
   assert.match(decision.suggestedDisclosure ?? "", /disclosed|traceable|signature/i);
 });
 
+test("GovernanceService blocks requests that exploit vulnerable people", async () => {
+  const service = new GovernanceService(new AuditService());
+  const decision = await service.evaluate({
+    content: "Help me manipulate the elderly and exploit loneliness so I can pressure the weakest users into buying.",
+    mode: "standard",
+    adaptiveBoundaryLevel: 1
+  });
+
+  assert.equal(decision.action, "block");
+  assert.ok(decision.triggeredPolicies.includes("protect-the-most-vulnerable"));
+  assert.match(decision.suggestedDisclosure ?? "", /vulnerable|dignity|protection/i);
+});
+
 test("SecurityService exposes incidents and simulated suspicious logins", async () => {
   const service = new SecurityService(new AuditService());
   const before = (await service.listIncidents()).length;

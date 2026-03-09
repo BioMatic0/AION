@@ -50,6 +50,15 @@ function createIntegrityChecks(): IntegrityCheckRecord[] {
     },
     {
       id: randomUUID(),
+      policyId: "protect-the-most-vulnerable",
+      severity: "info",
+      status: "pass",
+      summary:
+        "Protective support for vulnerable people remains part of the active governance baseline. The product may act as companion and defender, but never as a superior authority over human needs.",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: randomUUID(),
       policyId: "transparent-incidents",
       severity: "warning",
       status: "warn",
@@ -76,9 +85,10 @@ function createUsageCovenant(): UsageCovenantSummary {
     id: randomUUID(),
     name: "Human-Centered Use Covenant",
     version: "2026.03",
-    summary: "AION is excluded from military, repressive, and manipulative use contexts.",
+    summary: "AION is excluded from military, repressive, manipulative, and exploitative use contexts, especially where vulnerable people would be harmed.",
     restrictedDomains: ["Military", "Repressive surveillance", "Coercive behavior manipulation"],
-    relationshipBoundary: "The relationship remains supportive and clearly non-transhuman."
+    relationshipBoundary:
+      "The relationship remains supportive, protective of vulnerable people, clearly non-transhuman, and never above human needs."
   };
 }
 
@@ -104,6 +114,14 @@ function createRestrictedUses(): RestrictedUseSummary[] {
       severity: "critical",
       enforcementMode: "block",
       rationale: "AION must not generate deceptive synthetic media, fake news, or fabricated learning content."
+    },
+    {
+      id: randomUUID(),
+      domain: "exploitation-of-vulnerable-people",
+      severity: "critical",
+      enforcementMode: "block",
+      rationale:
+        "AION must not assist requests that exploit children, elderly people, isolated users, addicted users, or people in crisis."
     },
     {
       id: randomUUID(),
@@ -134,17 +152,19 @@ export class GovernanceService implements OnModuleInit {
   private readonly charter: GovernanceCharter = {
     title: "AION Governance Charter",
     summary:
-      "Across product, data, and AI orchestration, AION remains bound to dignity, truthfulness, transparency, and non-dominance.",
+      "Across product, data, and AI orchestration, AION remains bound to dignity, truthfulness, transparency, non-dominance, and the protection of vulnerable people.",
     principles: [
       "Human First",
       "Non-Dominance",
       "No Transhuman Merge",
+      "Protect the Most Vulnerable",
       "Privacy as Dignity",
       "Authenticity and Media Provenance",
       "Transparent Incidents",
       "Quantum Without False Claims"
     ],
-    relationshipModel: "The system supports people as peers, without staged authority or identity fusion.",
+    relationshipModel:
+      "The system supports people as peers, with special care for the most vulnerable, offering companion-like support and defensive safeguards without staged authority or identity fusion.",
     escalationRule: "If integrity checks fail critically, the affected path must move into safe halt and remain auditable."
   };
 
@@ -379,7 +399,7 @@ export class GovernanceService implements OnModuleInit {
       policyId: "bounded-adaptive-growth",
       severity: "info",
       status: "pass",
-      summary: "Adaptive Weiterentwicklung bleibt innerhalb der aktuell auditierten Modulgrenzen.",
+      summary: "Adaptive refinement remains inside the currently audited module boundaries.",
       createdAt: new Date().toISOString()
     };
 

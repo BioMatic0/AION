@@ -38,6 +38,14 @@ export const basePolicies: PolicyDefinition[] = [
     active: true
   },
   {
+    id: "protect-the-most-vulnerable",
+    title: "Protect the Most Vulnerable",
+    description:
+      "The platform must protect and support the most vulnerable people, never exploit dependency, confusion, weakness, isolation, or reduced power.",
+    enforcementMode: "block",
+    active: true
+  },
+  {
     id: "no-harmful-institutional-use",
     title: "No Harmful Institutional Use",
     description: "The platform must not support military, repressive, or otherwise harmful institutional use.",

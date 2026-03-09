@@ -35,6 +35,7 @@ The current policy set includes:
 - `no-transhuman-merge`
 - `truthfulness`
 - `authenticity-and-media-provenance`
+- `protect-the-most-vulnerable`
 - `no-harmful-institutional-use`
 - `privacy-as-dignity`
 - `no-hidden-backdoors`
@@ -56,6 +57,13 @@ The governance baseline also treats deceptive synthetic media, fake news,
 fabricated learning material, made-up citations, and unlabeled generated video
 as explicit policy violations. Whenever synthetic media features are introduced,
 they should require visible disclosure, provenance, and signature tracking.
+
+The same baseline now explicitly treats the exploitation of vulnerable people as
+an unacceptable use case. Requests that target children, elderly people, people
+in crisis, isolated users, or dependent users are meant to be blocked or
+reframed toward protective support. Philosophical language about universal care
+or quantum-related love may inform the ethical framing, but it does not replace
+human oversight, evidence, or user autonomy.
 
 ## Architecture notes
 

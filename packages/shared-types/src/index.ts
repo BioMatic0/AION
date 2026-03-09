@@ -33,6 +33,7 @@ export type PolicyId =
   | "no-transhuman-merge"
   | "truthfulness"
   | "authenticity-and-media-provenance"
+  | "protect-the-most-vulnerable"
   | "no-harmful-institutional-use"
   | "privacy-as-dignity"
   | "no-hidden-backdoors"

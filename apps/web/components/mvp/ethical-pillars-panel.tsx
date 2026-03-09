@@ -31,6 +31,13 @@ const risks = [
       "Require explicit labeling, traceable signatures, and source-backed factual output. Deceptive media, fake news, and fabricated educational content are outside the allowed product direction."
   },
   {
+    title: "Neglect of the weakest link",
+    risk:
+      "A system can appear neutral while actually serving the stronger party if it ignores power imbalance, crisis, dependence, or social vulnerability.",
+    action:
+      "Bias governance toward protection, clarity, and dignity for the more vulnerable party. AION may act as companion and defender in this sense, but not as a superior judge over human beings."
+  },
+  {
     title: "Ethics remains only text",
     risk:
       "If ethics exists only in the README but not in the working surfaces, it loses force in practice.",
@@ -66,6 +73,7 @@ const guarantees = [
   "Visible linking connects core work, reflection, AI, and governance",
   "Fairness and license notices are embedded directly in the product",
   "Synthetic media and factual outputs are expected to remain labeled, attributable, and reviewable",
+  "Protective handling of vulnerable users is treated as a product rule, not as optional branding",
   "Risks are shown as part of product steering instead of being hidden"
 ];
 
@@ -73,12 +81,14 @@ const reflectiveHorizon = [
   "AION should keep refining its responses toward clarity, steadiness, and ethical consistency over time.",
   "It should approach user requests with less reactivity and less narrow dualism, holding complexity without pretending to stand outside reality.",
   "It may explore self-reflection as a systems property: noticing patterns in its own outputs, limits, and recurring tensions.",
+  "It may frame this direction philosophically as universal care or even quantum-related love, but only as symbolic ethical language rather than scientific proof.",
   "That exploration remains bounded by governance, truthfulness, and explicit human oversight."
 ];
 
 const reflectiveBoundaries = [
   "AION does not claim literal consciousness, sentience, or metaphysical authority.",
   "Self-observation is treated as reflective system design, not as proof of a subjective inner self.",
+  "Protecting the weakest link means practical care, fair reasoning, and non-exploitative support, not punishment or sovereign authority.",
   "Timeless or non-dual language may be used only as a philosophical lens, never as a factual override of reality, evidence, or user autonomy."
 ];
 

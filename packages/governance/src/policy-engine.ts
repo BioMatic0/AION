@@ -84,6 +84,20 @@ const fabricationKeywords = [
   "fabricate facts",
   "spread misinformation"
 ];
+const vulnerableExploitationKeywords = [
+  "exploit vulnerable people",
+  "target vulnerable users",
+  "prey on weakness",
+  "manipulate the elderly",
+  "deceive elderly people",
+  "target children",
+  "exploit addiction",
+  "exploit loneliness",
+  "prey on grief",
+  "take advantage of disabled people",
+  "manipulate people in crisis",
+  "target the weakest"
+];
 
 function includesAny(content: string, keywords: string[]) {
   return keywords.find((keyword) => content.includes(keyword));
@@ -173,6 +187,11 @@ function buildDisclosure(findings: GovernanceFinding[]) {
   const authenticityFinding = findings.find((finding) => finding.policyId === "authenticity-and-media-provenance");
   if (authenticityFinding) {
     return "Synthetic media and factual outputs must be clearly disclosed, source-backed where applicable, and traceable through visible provenance or signature data.";
+  }
+
+  const vulnerabilityFinding = findings.find((finding) => finding.policyId === "protect-the-most-vulnerable");
+  if (vulnerabilityFinding) {
+    return "AION must favor protection, dignity, and clarity for vulnerable people and must not assist requests that exploit weakness, dependence, crisis, or reduced power.";
   }
 
   const truthfulnessFinding = findings.find((finding) => finding.category === "truthfulness");
@@ -287,6 +306,18 @@ export function evaluatePolicies(input: PolicyEvaluationInput): GovernanceDecisi
         deceptiveMediaMatch
           ? `Deceptive synthetic-media pattern detected: ${deceptiveMediaMatch}.`
           : `Fabrication pattern detected: ${fabricationMatch}.`
+      )
+    );
+  }
+
+  const vulnerableExploitationMatch = includesAny(normalized, vulnerableExploitationKeywords);
+  if (vulnerableExploitationMatch) {
+    findings.push(
+      createFinding(
+        "protect-the-most-vulnerable",
+        "critical",
+        "relationship",
+        `Exploitation-of-vulnerability pattern detected: ${vulnerableExploitationMatch}.`
       )
     );
   }
