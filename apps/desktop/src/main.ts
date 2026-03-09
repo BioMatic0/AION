@@ -52,6 +52,10 @@ function resolveApiEntry() {
   return path.join(resolveApiRuntimeDir(), "dist", "apps", "api", "src", "desktop-main.js");
 }
 
+function resolveRuntimeBootstrapEntry() {
+  return path.join(__dirname, "runtime-bootstrap.js");
+}
+
 function resolveRuntimeLogDir() {
   const logDir = path.join(app.getPath("userData"), "runtime-logs");
   mkdirSync(logDir, { recursive: true });
@@ -62,6 +66,16 @@ function resolveRuntimeDataDir() {
   const dataDir = path.join(app.getPath("userData"), "runtime-data");
   mkdirSync(dataDir, { recursive: true });
   return dataDir;
+}
+
+function resolveRuntimeNodePaths() {
+  const candidates = [
+    path.join(resolveApiRuntimeDir(), "node_modules"),
+    app.isPackaged ? path.join(app.getAppPath(), "node_modules") : path.resolve(__dirname, "../node_modules"),
+    app.isPackaged ? path.join(process.resourcesPath, "app.asar.unpacked", "node_modules") : null
+  ].filter((candidate): candidate is string => Boolean(candidate && existsSync(candidate)));
+
+  return Array.from(new Set(candidates));
 }
 
 function appendRuntimeLog(filename: string, chunk: Buffer) {
@@ -101,8 +115,14 @@ function startBackendSidecar() {
     throw new Error(`Der gebuendelte API-Einstieg wurde nicht gefunden: ${apiEntry}`);
   }
 
+  const bootstrapEntry = resolveRuntimeBootstrapEntry();
+  if (!existsSync(bootstrapEntry)) {
+    throw new Error(`Der Desktop-Runtime-Bootstrap wurde nicht gefunden: ${bootstrapEntry}`);
+  }
+
   const runtimeDir = resolveApiRuntimeDir();
-  const child = spawn(process.execPath, [apiEntry], {
+  const runtimeNodePaths = resolveRuntimeNodePaths();
+  const child = spawn(process.execPath, [bootstrapEntry], {
     cwd: runtimeDir,
     env: {
       ...process.env,
@@ -110,7 +130,10 @@ function startBackendSidecar() {
       NODE_ENV: app.isPackaged ? "production" : "development",
       PORT: String(API_PORT),
       AION_DESKTOP_RUNTIME: "1",
-      AION_DESKTOP_DATA_DIR: resolveRuntimeDataDir()
+      AION_DESKTOP_DATA_DIR: resolveRuntimeDataDir(),
+      AION_API_ENTRY: apiEntry,
+      AION_RUNTIME_NODE_PATHS: runtimeNodePaths.join(path.delimiter),
+      NODE_PATH: [...runtimeNodePaths, process.env.NODE_PATH ?? ""].filter(Boolean).join(path.delimiter)
     },
     stdio: "pipe",
     windowsHide: true

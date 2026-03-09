@@ -47,7 +47,13 @@
       },
       {
         "from": "api-runtime",
-        "to": "api"
+        "to": "api",
+        "filter": [
+          "**/*",
+          "node_modules/**/*",
+          "node_modules/.pnpm/**/*",
+          ".pnpm/**/*"
+        ]
       }
     ],
     "win": {
@@ -69,7 +75,17 @@
     "generateUpdatesFilesForAllChannels": true
   },
   "dependencies": {
+    "@aion/ai-core": "workspace:*",
+    "@aion/governance": "workspace:*",
+    "@aion/shared-types": "workspace:*",
+    "@nestjs/common": "^11.0.12",
+    "@nestjs/core": "^11.0.12",
+    "@nestjs/platform-express": "^11.0.12",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "electron-log": "^5.4.3",
-    "electron-updater": "^6.8.3"
+    "electron-updater": "^6.8.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
   }
 }
