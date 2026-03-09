@@ -109,7 +109,7 @@ export function GrowthWorkspace() {
         <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Phase</div><div className="mt-3 text-2xl font-semibold text-ink">{state ? formatGrowthStage(state.currentStage) : "--"}</div></div>
         <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Fokus</div><div className="mt-3 text-2xl font-semibold text-ink">{state ? formatGrowthFocus(state.focusArea) : "--"}</div></div>
         <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Momentum</div><div className="mt-3 text-2xl font-semibold text-ink">{state?.momentumScore ?? "--"}</div></div>
-        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Koharenz</div><div className="mt-3 text-2xl font-semibold text-ink">{state?.coherenceScore ?? "--"}</div></div>
+        <div className="rounded-[28px] bg-white p-6 shadow-panel"><div className="text-xs uppercase tracking-[0.22em] text-moss">Kohaerenz</div><div className="mt-3 text-2xl font-semibold text-ink">{state?.coherenceScore ?? "--"}</div></div>
       </div>
       <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
         <form onSubmit={handleSubmit} className="rounded-[28px] bg-white p-8 shadow-panel">

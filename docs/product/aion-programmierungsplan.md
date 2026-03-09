@@ -13,9 +13,9 @@ Bereits vorhanden:
 - Monorepo mit `apps/web`, `apps/api`, `apps/worker` und geteilten Paketen
 - Next.js Web-App mit Routen fuer Dashboard, Journal, Diary, Notes, Goals, Analysis, Mirror, Growth, Notifications, Governance, Privacy und Security
 - NestJS API mit Modulgrenzen fuer Kernprodukt, Governance, Privacy, Consent, Audit und Security
-- Prisma-Schema fuer Nutzer, Capture, Goals, Notifications, Governance, Privacy, Security, Audit und AI-bezogene Daten
-- Deterministische AI-Orchestrierung fuer Analysis, Mirror, Growth, Memory und Quantum Lens
-- Sichtbare Governance-, Privacy- und Security-Oberflaechen
+- Prisma-Schema fuer Nutzer, Erfassung, Ziele, Benachrichtigungen, Governance, Datenschutz, Sicherheit, Audit und KI-bezogene Daten
+- Deterministische KI-Orchestrierung fuer Analyse, Spiegel, Wachstum, Speicher und Quantenlinse
+- Sichtbare Governance-, Datenschutz- und Sicherheitsoberflaechen
 - Testgrundlage mit API-Tests, Vitest und Playwright-Smoketests
 
 Noch offen oder nur teilweise umgesetzt:
@@ -34,8 +34,8 @@ Noch offen oder nur teilweise umgesetzt:
 Ziel ist eine produktionsreife AION-MVP-Plattform mit:
 
 - stabiler Persistenz statt fluechtiger Laufzeitdaten
-- belastbarer AI-Pipeline mit Governance-Durchsetzung
-- nachvollziehbarer Privacy-, Consent- und Security-Ausfuehrung
+- belastbarer KI-Pipeline mit Governance-Durchsetzung
+- nachvollziehbarer Datenschutz-, Consent- und Sicherheitsausfuehrung
 - klar abgegrenzten Release-Slices fuer MVP, Beta und Ausbauphase
 
 ## Programmierungsphasen
@@ -87,7 +87,7 @@ Arbeitspakete:
 - verbleibende In-Memory-Services identifizieren
 - Repository-Layer je Fachmodul einfuehren
 - Controller-Schnittstellen stabil halten, nur Service-Implementierungen tauschen
-- Migrationen, Seeds und Datenvalidierung pro Domane absichern
+- Migrationen, Seeds und Datenvalidierung pro Domaene absichern
 - API-Tests auf persistente Pfade umstellen
 
 Prioritaet:
@@ -104,7 +104,7 @@ Ergebnis:
 
 - keine kritischen Nutzdaten liegen nur noch im Speicher
 
-### Phase 3: AI-Orchestrierung produktionsfaehig machen
+### Phase 3: KI-Orchestrierung produktionsfaehig machen
 
 Ziel:
 
@@ -121,7 +121,7 @@ Arbeitspakete:
 
 Ergebnis:
 
-- echte AI-Ausgaben bei gleichzeitig nachvollziehbarer Policy-Durchsetzung
+- echte KI-Ausgaben bei gleichzeitig nachvollziehbarer Policy-Durchsetzung
 
 ### Phase 4: Hintergrundjobs und Benachrichtigungen vollenden
 
@@ -131,9 +131,9 @@ Ziel:
 
 Arbeitspakete:
 
-- Redis-basierte Queue fuer Worker-Jobs nutzen
-- Notification Jobs, Retries und Dead-Letter-Verhalten definieren
-- Mail-Versand oder Provider-Anbindung fuer Incident- und Reminder-Mails umsetzen
+- Redis-basierte Queue fuer Hintergrundjobs nutzen
+- Benachrichtigungsjobs, Wiederholungsversuche und Dead-Letter-Verhalten definieren
+- Mail-Versand oder Provider-Anbindung fuer Vorfall- und Erinnerungsmails umsetzen
 - spaeter Push oder In-App Realtime sauber vorbereiten
 - Observability fuer fehlerhafte Jobs einbauen
 
@@ -145,16 +145,16 @@ Ergebnis:
 
 Ziel:
 
-- Trust-Bereiche von Demo-Sichtbarkeit zu echter Ausfuehrung bringen
+- Vertrauensbereiche von Demo-Sichtbarkeit zu echter Ausfuehrung bringen
 
 Arbeitspakete:
 
 - Export Requests als echten Datenexport implementieren
 - Deletion Requests mit Statusmaschine und Fristen umsetzen
 - Consent-Aenderungen revisionssicher koppeln
-- Incident Detection von Simulation auf echte Heuristiken erweitern
-- optional 2FA-, Device-Trust- und Session-Hardening vorbereiten
-- Privacy-, Security- und Audit-Events quer verknuepfen
+- Vorfallerkennung von Simulationen auf echte Heuristiken erweitern
+- optional 2FA-, Geraetevertrauen- und Session-Hardening vorbereiten
+- Datenschutz-, Sicherheits- und Audit-Ereignisse quer verknuepfen
 
 Ergebnis:
 
@@ -188,9 +188,9 @@ Arbeitspakete:
 
 - Unit-, Integrations- und E2E-Abdeckung auf kritische Fluesse fokussieren
 - Contract-Tests zwischen Web, API und Shared Packages einfuehren
-- Testmatrix fuer Governance-Blocking, Privacy-Requests und Security-Incidents aufbauen
-- Release-Checkliste fuer Migrationen, Seeds, Queue-Jobs und Audit-Trails definieren
-- Runbooks fuer Backup, Incident Response und Rollback pruefen
+- Testmatrix fuer Governance-Blockierungen, Datenschutzanfragen und Sicherheitsvorfaelle aufbauen
+- Release-Checkliste fuer Migrationen, Seeds, Hintergrundjobs und Audit-Trails definieren
+- Runbooks fuer Backup, Vorfallreaktion und Rollback pruefen
 
 Ergebnis:
 
@@ -203,9 +203,9 @@ Ergebnis:
 Umfang:
 
 - Capture, Goals, Notifications
-- Governance-, Privacy- und Security-Center
+- Governance-, Datenschutz- und Sicherheitsbereiche
 - persistente Kernmodule
-- deterministische AI-Funktionen
+- deterministische KI-Funktionen
 
 Nicht enthalten:
 
@@ -221,7 +221,7 @@ Umfang:
 - Retrieval und Memory-Kontext
 - Worker-gestuetzte Jobs
 - echte Benachrichtigungsauslieferung
-- operative Privacy- und Incident-Workflows
+- operative Datenschutz- und Vorfallablaeufe
 
 ### Release 3: Ausbauphase
 
@@ -231,14 +231,14 @@ Umfang:
 - Voice
 - Media
 - Collaboration
-- erweiterte Sicherheits- und Trust-Funktionen
+- erweiterte Sicherheits- und Vertrauensfunktionen
 
 ## Kritische Risiken
 
 - Dokument- und Repo-Stand koennen fachlich auseinanderlaufen, solange das PDF nicht gegengeprueft ist
 - In-Memory-Restlogik kann zu inkonsistentem Verhalten zwischen Neustarts fuehren
-- externe AI-Anbieter ohne saubere Policy- und Audit-Kette wuerden das Trust-Modell untergraben
-- Privacy- und Security-Stubs wirken produktreif, sind aber ohne Ausfuehrungslogik nur teilweise belastbar
+- externe KI-Anbieter ohne saubere Policy- und Audit-Kette wuerden das Vertrauensmodell untergraben
+- Datenschutz- und Sicherheits-Stubs wirken produktreif, sind aber ohne Ausfuehrungslogik nur teilweise belastbar
 - unklare Priorisierung von Nebenmodulen gefaehrdet den MVP-Fokus
 
 ## Empfohlene naechste Schritte
@@ -246,5 +246,5 @@ Umfang:
 1. PDF wieder zugreifbar machen und Anforderungen gegen diesen Plan validieren.
 2. Phase 1 und Phase 2 als unmittelbaren Sprint-Block starten.
 3. Alle offenen In-Memory-Module in eine priorisierte Persistenzliste ueberfuehren.
-4. Einen separaten Epic-Track fuer AI-Provider, Embeddings und Worker anlegen.
-5. Privacy-, Security- und Governance-Funktionen als produktionskritische Tracks behandeln, nicht als spaetere Dekoration.
+4. Einen separaten Epic-Track fuer KI-Provider, Embeddings und Worker anlegen.
+5. Datenschutz-, Sicherheits- und Governance-Funktionen als produktionskritische Arbeitsstraenge behandeln, nicht als spaetere Dekoration.

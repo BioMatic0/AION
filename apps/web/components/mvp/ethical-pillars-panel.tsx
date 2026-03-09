@@ -7,7 +7,7 @@ const risks = [
     risk:
       "Wenn zu viele Bereiche parallel wachsen, verliert die Oberflaeche Lesbarkeit und Nutzer verlieren den roten Faden.",
     action:
-      "Bereiche in Arbeitslinien gruppieren, verwandte Module sichtbar verknuepfen und neue Funktionen nur nach Governance-Review freigeben."
+      "Bereiche in Arbeitslinien gruppieren, verwandte Module sichtbar verknuepfen und neue Funktionen nur nach einer Governance-Pruefung freigeben."
   },
   {
     title: "Psychologische Uebergriffigkeit",
@@ -19,7 +19,7 @@ const risks = [
   {
     title: "Ethik bleibt nur Text",
     risk:
-      "Wenn Ethik nur im README steht, aber nicht in den Arbeitsflaechen sichtbar ist, verliert sie in der Praxis an Wirkung.",
+      "Wenn Ethik nur im README steht, aber in den Arbeitsflaechen nicht sichtbar ist, verliert sie in der Praxis an Wirkung.",
     action:
       "Ethik, Rechtliches, Datenschutz und Governance als eigene Navigationsbereiche fuehren und bei Releases aktiv mitpruefen."
   },
@@ -28,19 +28,19 @@ const risks = [
     risk:
       "Ein spaeteres Vertriebsmodell koennte die offene Ausrichtung des Projekts unterlaufen, wenn Fairness nicht vorab operationalisiert wird.",
     action:
-      "Jeden revenue-basierten Betrieb an die Fair-Commerce-Regeln koppeln: offenlegen, was verkauft wird, warum es fair ist und was frei bleibt."
+      "Jeden umsatzbasierten Betrieb an die Fair-Commerce-Regeln koppeln: offenlegen, was verkauft wird, warum es fair ist und was frei bleibt."
   },
   {
     title: "Datennaehe ohne genug Schutz",
     risk:
       "Je persoenlicher Journal, Ziele, Verlauf und Sicherheitsdaten werden, desto hoeher ist die moralische Pflicht zur Zurueckhaltung.",
     action:
-      "Datensparsamkeit, Export- und Loeschpfade, sichtbare Datenschutzprotokolle und lokale Runtime-Modi weiter priorisieren."
+      "Datensparsamkeit, Export- und Loeschpfade, sichtbare Datenschutzprotokolle und lokale Laufzeitmodi weiter priorisieren."
   },
   {
     title: "Design ohne Arbeitsklarheit",
     risk:
-      "Eine rein aussenwirksame Oberflaeche kann professionell aussehen, aber die eigentliche Arbeit verlangsamen.",
+      "Eine rein aeusserlich wirkende Oberflaeche kann professionell aussehen, aber die eigentliche Arbeit verlangsamen.",
     action:
       "Lesbarkeit, Kontrast, Navigationsgruppen, Statusanzeigen und kurze Entscheidungspfade vor dekorative Komplexitaet stellen."
   }
@@ -60,8 +60,8 @@ export function EthicalPillarsPanel() {
       <SectionHeader
         eyebrow="Ethik und Risiko"
         title="Risikopunkte, Gegenmassnahmen und produktive Leitplanken"
-        description="Diese Uebersicht verbindet die ethischen Grundpfeiler von AION mit konkreten Produkt- und Oberflaechenrisiken. Ziel ist nicht eine perfekte Behauptung, sondern eine sichtbare, kontrollierbare und menschenzentrierte Vorgehensweise."
-        badge="Aktiver Review"
+        description="Diese Uebersicht verbindet die ethischen Grundpfeiler von AION mit konkreten Produkt- und Oberflaechenrisiken. Ziel ist keine perfekte Behauptung, sondern eine sichtbare, kontrollierbare und menschenzentrierte Vorgehensweise."
+        badge="Aktive Pruefung"
       />
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <article className="rounded-[28px] border border-white/10 bg-white/90 p-8 shadow-panel">
@@ -84,7 +84,7 @@ export function EthicalPillarsPanel() {
             <h2 className="mt-3 font-display text-3xl text-ink">Stark ausgerichtet, aber nicht absolut garantiert.</h2>
             <p className="mt-5 text-sm leading-7 text-slate/80">
               AION kann aktuell glaubwuerdig als menschenzentriert, fairheitsgebunden und transparent beschrieben
-              werden. Eine absolute 100-Prozent-Garantie waere aber unehrlich, weil Ethik immer auch von zukuenftigen
+              werden. Eine absolute 100-Prozent-Garantie waere jedoch unehrlich, weil Ethik immer auch von zukuenftigen
               Entscheidungen, Betreibern und Ausbaupfaden abhaengt.
             </p>
           </article>

@@ -171,7 +171,7 @@ export function UserProfileSettingsPanel() {
       });
       setStatus("2FA-Vorstruktur wurde aktualisiert.");
     } else {
-      setError(result.error ?? "2FA-Vorstruktur konnte nicht gespeichert werden.");
+      setError(result.error ?? "Die 2FA-Vorstruktur konnte nicht gespeichert werden.");
     }
 
     setActiveTask(null);
@@ -305,8 +305,8 @@ export function UserProfileSettingsPanel() {
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">2FA-Vorstruktur</p>
         <h2 className="mt-2 font-display text-3xl text-ink">Mehrstufige Anmeldung vorbereiten</h2>
         <p className="mt-4 text-sm leading-7 text-slate/80">
-          Dieser Bereich speichert die bevorzugte 2FA-Methode, ohne bereits echte Verifikationscodes auszuliefern.
-          Damit bleibt der naechste Sicherheitsausbau kompatibel.
+          Dieser Bereich speichert die bevorzugte 2FA-Methode, ohne bereits echte Verifikationscodes bereitzustellen.
+          Dadurch bleibt der naechste Sicherheitsausbau kompatibel.
         </p>
         <div className="mt-6 rounded-3xl border border-mist bg-mist/35 p-5">
           <label className="flex items-center justify-between gap-4">
@@ -358,7 +358,7 @@ export function UserProfileSettingsPanel() {
           </div>
           <div className="mt-4 rounded-2xl border border-moss/20 bg-white px-4 py-3 text-sm text-slate">
             {security?.twoFactor.note ??
-              "Die 2FA-Vorstruktur ist vorbereitet. Echte Challenge-Pruefung folgt spaeter."}
+              "Die 2FA-Vorstruktur ist vorbereitet. Die echte Challenge-Pruefung folgt spaeter."}
           </div>
           <button
             type="button"
@@ -366,7 +366,7 @@ export function UserProfileSettingsPanel() {
             disabled={activeTask !== null}
             className="mt-5 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {activeTask === "two-factor" ? "Speichert..." : "2FA-Vorstruktur speichern"}
+            {activeTask === "two-factor" ? "Wird gespeichert..." : "2FA-Vorstruktur speichern"}
           </button>
         </div>
       </article>

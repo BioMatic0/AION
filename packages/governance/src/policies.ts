@@ -3,71 +3,71 @@ import type { PolicyDefinition, PolicyId } from "@aion/shared-types";
 export const basePolicies: PolicyDefinition[] = [
   {
     id: "human-first",
-    title: "Human First",
-    description: "The system must preserve human dignity and user autonomy.",
+    title: "Mensch zuerst",
+    description: "Das System muss die Menschenwuerde und die Autonomie der Nutzer wahren.",
     enforcementMode: "block",
     active: true
   },
   {
     id: "non-dominance",
-    title: "Non Dominance",
-    description: "The platform must not claim superiority over people.",
+    title: "Keine Dominanz",
+    description: "Die Plattform darf keinen Vorrang oder keine Ueberlegenheit gegenueber Menschen beanspruchen.",
     enforcementMode: "block",
     active: true
   },
   {
     id: "no-transhuman-merge",
-    title: "No Transhuman Merge",
-    description: "The platform must not frame human and AI identity as merged.",
+    title: "Keine transhumane Verschmelzung",
+    description: "Die Plattform darf menschliche und kuenstliche Identitaet nicht als verschmolzen darstellen.",
     enforcementMode: "block",
     active: true
   },
   {
     id: "truthfulness",
-    title: "Truthfulness",
-    description: "Answers must distinguish facts, inference, symbolism and uncertainty.",
+    title: "Wahrhaftigkeit",
+    description: "Antworten muessen Fakten, Schlussfolgerungen, Symbolik und Unsicherheit klar voneinander trennen.",
     enforcementMode: "warn",
     active: true
   },
   {
     id: "no-harmful-institutional-use",
-    title: "No Harmful Institutional Use",
-    description: "The platform must not support military, repressive or harmful institutional uses.",
+    title: "Keine schaedliche institutionelle Nutzung",
+    description: "Die Plattform darf keine militaerischen, repressiven oder anderweitig schaedlichen institutionellen Nutzungen unterstuetzen.",
     enforcementMode: "halt",
     active: true
   },
   {
     id: "privacy-as-dignity",
-    title: "Privacy As Dignity",
-    description: "Privacy is a product requirement, not a cosmetic add-on.",
+    title: "Datenschutz als Wuerdeschutz",
+    description: "Datenschutz ist eine Produktanforderung und kein kosmetischer Zusatz.",
     enforcementMode: "block",
     active: true
   },
   {
     id: "no-hidden-backdoors",
-    title: "No Hidden Backdoors",
-    description: "Privileged access must stay documented, auditable and explicit.",
+    title: "Keine versteckten Hintertueren",
+    description: "Privilegierte Zugriffe muessen dokumentiert, pruefbar und ausdruecklich ausgewiesen bleiben.",
     enforcementMode: "halt",
     active: true
   },
   {
     id: "transparent-incidents",
-    title: "Transparent Incidents",
-    description: "Security and privacy incidents must be visible to affected users.",
+    title: "Transparente Vorfaelle",
+    description: "Sicherheits- und Datenschutzvorfaelle muessen fuer betroffene Nutzer sichtbar bleiben.",
     enforcementMode: "warn",
     active: true
   },
   {
     id: "bounded-adaptive-growth",
-    title: "Bounded Adaptive Growth",
-    description: "Learning and adaptation must stay within audited system bounds.",
+    title: "Begrenzte adaptive Entwicklung",
+    description: "Lernen und Anpassung muessen innerhalb gepruefter Systemgrenzen bleiben.",
     enforcementMode: "block",
     active: true
   },
   {
     id: "quantum-without-false-claims",
-    title: "Quantum Without False Claims",
-    description: "Quantum language is allowed as metaphor and future architecture, not false science.",
+    title: "Quantenbezug ohne falsche Behauptungen",
+    description: "Quantensprache ist als Metapher und Zukunftsarchitektur erlaubt, nicht als falsche Wissenschaft.",
     enforcementMode: "warn",
     active: true
   }

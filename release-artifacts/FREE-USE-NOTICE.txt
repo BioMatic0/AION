@@ -21,7 +21,7 @@ Erlaubt:
 Nicht erlaubt ohne Einhaltung der Lizenzbedingungen:
 - ausbeuterischer Vertrieb
 - blosse private Bereicherung ohne faires und plausibles Gegenmodell
-- revenue-basierter Betrieb ohne offengelegte, ethisch vertretbare Begruendung
+- umsatzbasierter Betrieb ohne offengelegte, ethisch vertretbare Begruendung
 
 Nicht automatisch zugesagt:
 - ein Managed Cloud-Dienst
@@ -34,6 +34,6 @@ Wichtige Grenzen:
 - Der Windows-Desktop-Build ist lokal selbststaendig und speichert Nutzdaten lokal auf dem jeweiligen Rechner.
 
 Leitgedanke:
-- Fuer unsere Zukunft, dem Zweck der gemeinsamen Verbindung, in ewiglicher Verbindung.
+- Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.
 
 Die Software wird in der vorliegenden Form offen und kostenlos bereitgestellt. Fuer produktive Unternehmens-, Compliance- oder Hochsicherheitsnutzung ist vor einer breiten Ausrollung dennoch eine separate fachliche und rechtliche Pruefung sinnvoll.

@@ -148,7 +148,7 @@ async function run() {
     }
 
     if (!privacyOverview.exportRequests.some((entry) => entry.id === exportRequest.id)) {
-      throw new Error("Privacy-Exportanforderung fehlt nach Neustart.");
+      throw new Error("Datenschutz-Exportanforderung fehlt nach Neustart.");
     }
 
     if (!consents.some((entry) => entry.id === consent.id)) {

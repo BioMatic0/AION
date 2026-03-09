@@ -5,7 +5,7 @@ Stand: 2026-03-09
 Aktueller Windows-Stand:
 
 - das NSIS-Setup und die portable EXE wurden mit der ueberarbeiteten Grau-/Anthrazit-Oberflaeche neu gebaut
-- die Desktop-App startet weiterhin die lokale AION-Runtime automatisch mit
+- die Desktop-App startet weiterhin die lokale AION-Laufzeit automatisch mit
 - die frischen `0.1.1`-Artefakte sind aktuell als Einzeldateien verfuegbar
 - der Windows-Desktop hat jetzt einen vorbereiteten GitHub-Update-Kanal fuer kuenftige Releases
 - die rechtlichen Begleitdateien spiegeln jetzt die AION Community Fairness License 1.0 und den Fair-Commerce-Rahmen
@@ -53,10 +53,10 @@ Aktueller Windows-Stand:
 - Projektreferenz im aktuellen Projektstand: Patrick Wirth
 - Kontaktreferenz: patrickwirth_93@icloud.com
 - Der Quellcode und die Projektdateien werden unter der AION Community Fairness License 1.0 bereitgestellt.
-- Revenue-basierter Betrieb oder Vertrieb setzt ein faires und plausibles Modell voraus und darf nicht auf Ausbeutung oder blosse private Bereicherung ausgerichtet sein.
+- Umsatzbasierter Betrieb oder Vertrieb setzt ein faires und plausibles Modell voraus und darf nicht auf Ausbeutung oder blosse private Bereicherung ausgerichtet sein.
 - Die aktuelle Windows-Version startet eine gebuendelte lokale AION-API beim Start der Anwendung automatisch mit.
 - Dadurch ist der Windows-Desktop-Build nicht mehr auf eine separat gestartete API, PostgreSQL oder Redis angewiesen.
-- Der gebuendelte Desktop-Runtime-Modus speichert lokale Nutzdaten jetzt dauerhaft in einem lokalen Desktop-State-Verzeichnis des angemeldeten Benutzers.
+- Der gebuendelte Desktop-Laufzeitmodus speichert lokale Nutzdaten jetzt dauerhaft in einem lokalen Desktop-State-Verzeichnis des angemeldeten Benutzers.
 - Die Windows-Version ist damit als eigenstaendige lokale Desktop-Anwendung fuer die externe Weitergabe geeignet, solange keine zentrale Mehrnutzer-API benoetigt wird.
 - Das Android-APK ist ein Debug-Build. Fuer echte Nutzung auf einem Telefon muss die API unter einer vom Geraet erreichbaren URL laufen und der Client mit `NEXT_PUBLIC_API_URL` dagegen neu gebaut werden.
 - Ein `.ipa` konnte auf diesem Windows-System nicht erzeugt werden. Apple-Builds benoetigen macOS mit Xcode. Deshalb liegt hier das vorbereitete Xcode-Projekt als ZIP bei.

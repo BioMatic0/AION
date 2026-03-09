@@ -67,25 +67,25 @@ export function DashboardOverview() {
       title: "Journal",
       href: "/journal",
       value: snapshot.journalCount,
-      description: "aktive Eintraege fuer Analyse und Spiegelung"
+      description: "Aktive Eintraege fuer Analyse und Spiegelung"
     },
     {
       title: "Tagebuch",
       href: "/diary",
       value: snapshot.diaryCount,
-      description: "taegliche Reflexionspunkte mit Prompt-Struktur"
+      description: "Taegliche Reflexionspunkte mit Prompt-Struktur"
     },
     {
       title: "Notizen",
       href: "/notes",
       value: snapshot.notesCount,
-      description: "lose Gedanken, die spaeter zu Systemwissen werden"
+      description: "Lose Gedanken, die spaeter zu Systemwissen werden"
     },
     {
       title: "Ziele",
       href: "/goals",
       value: `${snapshot.averageGoalProgress}%`,
-      description: "durchschnittlicher Fortschritt ueber aktive Ziele"
+      description: "Durchschnittlicher Fortschritt ueber aktive Ziele"
     }
   ];
 
@@ -93,9 +93,9 @@ export function DashboardOverview() {
     <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
       <article className="rounded-[28px] bg-white p-8 shadow-panel">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Aktueller MVP-Stand</p>
-        <h2 className="mt-3 font-display text-3xl text-ink">Das System arbeitet jetzt auf echter Runtime-Basis.</h2>
+        <h2 className="mt-3 font-display text-3xl text-ink">Das System arbeitet jetzt auf einer echten Laufzeitbasis.</h2>
         <p className="mt-4 text-base leading-8 text-slate/80">
-          Journal, Tagebuch, Notizen, Ziele und die Governance-Sicht werden ueber die API geladen. Lokale Demo-Daten sind nicht mehr die Laufzeitquelle.
+          Journal, Tagebuch, Notizen, Ziele und die Governance-Ansicht werden ueber die API geladen. Lokale Demo-Daten sind nicht mehr die Laufzeitquelle.
         </p>
         <div className="mt-6 space-y-3">
           {status ? <StatusNotice message={status} variant="success" /> : null}
@@ -118,20 +118,20 @@ export function DashboardOverview() {
         </div>
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verknuepfte Linien</p>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verknuepfte Bereiche</p>
         <h2 className="mt-3 font-display text-3xl text-ink">Arbeits-, KI- und Governance-Pfade greifen ineinander.</h2>
         <div className="mt-6 grid gap-4">
           <Link href="/analysis" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
             <span className="block font-semibold text-ink">Analyse und Spiegel</span>
-            <span className="mt-1 block leading-6">Eintraege aus Journal und Tagebuch werden mit Analyse, Spiegel und Wachstum verbunden.</span>
+            <span className="mt-1 block leading-6">Eintraege aus dem Journal und dem Tagebuch werden mit Analyse, Spiegel und Wachstum verbunden.</span>
           </Link>
           <Link href="/governance" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
             <span className="block font-semibold text-ink">Governance und Ethik</span>
-            <span className="mt-1 block leading-6">Richtlinien, Rechtliches, Ethik und Datenschutz bleiben als eigene Steuerungsflaechen sichtbar.</span>
+            <span className="mt-1 block leading-6">Richtlinien, Rechtliches, Ethik und Datenschutz bleiben als eigenstaendige Steuerungsflaechen sichtbar.</span>
           </Link>
           <Link href="/ethik" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
             <span className="block font-semibold text-ink">Risikoanalyse</span>
-            <span className="mt-1 block leading-6">Die Produktlinien werden mit konkreten Risiken, Schutzmassnahmen und naechsten Schritten bewertet.</span>
+            <span className="mt-1 block leading-6">Die Produktbereiche werden anhand konkreter Risiken, Schutzmassnahmen und naechster Schritte bewertet.</span>
           </Link>
         </div>
       </article>

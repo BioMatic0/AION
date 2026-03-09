@@ -13,4 +13,4 @@ mitgestaltet werden koennen.
 
 ## Projektgedanke
 
-Fuer unsere Zukunft, dem Zweck der gemeinsamen Verbindung, in ewiglicher Verbindung.
+Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.

@@ -81,7 +81,7 @@ export function AnalysisWorkspace() {
     if (searchResult.ok && searchResult.data) {
       setMemorySearch(searchResult.data);
     } else if (reportResult.ok) {
-      setError(searchResult.error ?? "Analyse wurde erzeugt, aber die Memory-Suche ist fehlgeschlagen.");
+      setError(searchResult.error ?? "Analyse wurde erzeugt, aber die Speichersuche ist fehlgeschlagen.");
     }
 
     setIsSubmitting(false);

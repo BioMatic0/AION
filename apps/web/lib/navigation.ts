@@ -39,7 +39,7 @@ export const sections: SectionDefinition[] = [
   {
     href: "/journal",
     label: "Journal",
-    description: "Freie Eintraege, Reflexionen und Kontext fuer spaetere Analyse.",
+    description: "Freie Eintraege, Reflexionen und Kontext fuer spaetere Analysen.",
     group: "Arbeitsbasis",
     status: "CRUD-Flaeche API-first aktiv",
     nextStep: "Tags, Suchfilter und spaetere Analyse-Verknuepfung vertiefen.",
@@ -51,9 +51,9 @@ export const sections: SectionDefinition[] = [
     label: "Tagebuch",
     description: "Gefuehrte Tagesreflexion mit automatischen Impulsen.",
     group: "Arbeitsbasis",
-    status: "Prompts und Tagessummary vorbereitet",
-    nextStep: "Kalenderlogik und automatische Rueckblicke mit Verlauf koppeln.",
-    pillars: ["Tagesbild", "Prompts", "Rueckblicke"],
+    status: "Impulse und Tageszusammenfassung vorbereitet",
+    nextStep: "Kalenderlogik und automatische Rueckblicke mit dem Verlauf koppeln.",
+    pillars: ["Tagesbild", "Impulse", "Rueckblicke"],
     related: ["/journal", "/growth", "/goals"]
   },
   {
@@ -62,7 +62,7 @@ export const sections: SectionDefinition[] = [
     description: "Schnelle Notizen, lose Gedanken und vorbereitete Umwandlung in Ziele.",
     group: "Arbeitsbasis",
     status: "Erfassung, Kategorien und Tags aktiv",
-    nextStep: "Anheft- und Aktionslogik um Umwandlung in Ziele oder Journal ergaenzen.",
+    nextStep: "Anheft- und Aktionslogik sowie die Umwandlung in Ziele oder Journal-Eintraege ergaenzen.",
     pillars: ["Kurznotizen", "Kategorien", "Suche"],
     related: ["/journal", "/goals", "/analysis"]
   },
@@ -81,8 +81,8 @@ export const sections: SectionDefinition[] = [
     label: "Analyse",
     description: "Mehrschichtige Auswertung von Eintraegen und Verlauf.",
     group: "Reflexion und KI",
-    status: "Analyseberichte und Memory-Suche aktiv",
-    nextStep: "Persistente Analysehistorie und spaetere Modellanbieter andocken.",
+    status: "Analyseberichte und Speichersuche aktiv",
+    nextStep: "Eine persistente Analysehistorie einfuehren und spaetere Modellanbieter andocken.",
     pillars: ["Beobachtung", "Psychodynamik", "Entwicklung"],
     related: ["/journal", "/mirror", "/quantum"]
   },
@@ -92,7 +92,7 @@ export const sections: SectionDefinition[] = [
     description: "Konfrontativer Modus fuer Gegenperspektive und Selbstpruefung.",
     group: "Reflexion und KI",
     status: "Spiegelberichte mit Gegenlesart aktiv",
-    nextStep: "Rollenbasierte Intensitaet und spaetere Governance-Hooks vertiefen.",
+    nextStep: "Rollenbasierte Intensitaet und spaetere Governance-Anbindungen vertiefen.",
     pillars: ["Projektion", "Alternative Sicht", "Naechster Schritt"],
     related: ["/analysis", "/growth", "/governance"]
   },
@@ -149,7 +149,7 @@ export const sections: SectionDefinition[] = [
   {
     href: "/voice",
     label: "Sprache",
-    description: "Direkter Sprachdialog mit Session-Gedaechtnis.",
+    description: "Direkter Sprachdialog mit Sitzungs-Gedaechtnis.",
     group: "Reflexion und KI",
     status: "Provider-Schnittstellen folgen",
     nextStep: "STT/TTS-Provider und Session-Timeline integrieren.",
@@ -162,7 +162,7 @@ export const sections: SectionDefinition[] = [
     description: "Entwicklungsimpulse, Zielerinnerungen und Vorfallhinweise.",
     group: "Governance und Betrieb",
     status: "Opt-in-Einstellungen und Verlauf aktiv",
-    nextStep: "Echte Worker-Jobs und Mailzustellung anschliessen.",
+    nextStep: "Echte Hintergrundjobs und die Mailzustellung anbinden.",
     pillars: ["Impulse", "Erinnerungen", "Sicherheitswarnungen"],
     related: ["/goals", "/growth", "/security"]
   },
@@ -172,17 +172,17 @@ export const sections: SectionDefinition[] = [
     description: "Wuensche, Verbesserungen, Bugs und Sicherheitsmeldungen.",
     group: "Governance und Betrieb",
     status: "Produktpflege vorbereitet",
-    nextStep: "Rueckmeldeformular und Backlog-Anbindung bauen.",
+    nextStep: "Ein Rueckmeldeformular und die Backlog-Anbindung umsetzen.",
     pillars: ["Funktion", "Fehler", "Sicherheit"],
     related: ["/changelog", "/governance", "/security"]
   },
   {
     href: "/changelog",
     label: "Aenderungen",
-    description: "Transparente Aenderungshistorie fuer Nutzer und Owner.",
+    description: "Transparente Aenderungshistorie fuer Nutzer und Projektverantwortliche.",
     group: "Governance und Betrieb",
     status: "Lesetracking folgt",
-    nextStep: "Versionierte Changelog-Eintraege speichern.",
+    nextStep: "Versionierte Changelog-Eintraege speichern und lesbar aufbereiten.",
     pillars: ["Releases", "Verbesserungen", "Sicherheitsupdates"],
     related: ["/feedback", "/governance", "/rechtliches"]
   },
@@ -199,10 +199,10 @@ export const sections: SectionDefinition[] = [
   {
     href: "/security",
     label: "Sicherheit",
-    description: "Sitzungen, Risiken, Geraete und Incident Center.",
+    description: "Sitzungen, Risiken, Geraete und Vorfallzentrum.",
     group: "Governance und Betrieb",
     status: "Sichtbarer Sicherheitsstatus aktiv",
-    nextStep: "Vorfall-Detailansichten und Nutzerwarnungen erweitern.",
+    nextStep: "Detailansichten fuer Vorfaelle und Nutzerwarnungen erweitern.",
     pillars: ["Sitzungen", "Ereignisse", "Vorfaelle"],
     related: ["/privacy", "/governance", "/notifications"]
   },
@@ -219,7 +219,7 @@ export const sections: SectionDefinition[] = [
   {
     href: "/privacy",
     label: "Datenschutz",
-    description: "Datenschutzprotokoll, Speicherregeln und Nutzerkontrolle.",
+    description: "Datenschutzprotokoll, Speicherregeln und Kontrolle durch den Nutzer.",
     group: "Governance und Betrieb",
     status: "Datenschutzoberflaeche sichtbar",
     nextStep: "Export- und Loeschpfade implementieren.",
@@ -229,10 +229,10 @@ export const sections: SectionDefinition[] = [
   {
     href: "/ethik",
     label: "Ethik",
-    description: "Grundpfeiler, Risiken und Schutzmassnahmen fuer AION.",
+    description: "Grundpfeiler, Risiken und Schutzmassnahmen von AION.",
     group: "Governance und Betrieb",
     status: "Ethik- und Risikoanalyse sichtbar",
-    nextStep: "Mit Governance-Reviews, Release-Checks und Produktentscheidungen verknuepfen.",
+    nextStep: "Mit Governance-Pruefungen, Release-Pruefungen und Produktentscheidungen verknuepfen.",
     pillars: ["Wuerde", "Fairness", "Risikosteuerung"],
     related: ["/governance", "/privacy", "/rechtliches"]
   },
@@ -242,7 +242,7 @@ export const sections: SectionDefinition[] = [
     description: "Eigentum, Lizenzstatus und kostenlose Nutzungsfreigabe der Builds.",
     group: "Governance und Betrieb",
     status: "Eigentums- und Lizenzhinweise sichtbar",
-    nextStep: "Bei Bedarf vertragliche Beitraege und externe Lizenzpruefung ergaenzen.",
+    nextStep: "Bei Bedarf vertragliche Beitraege und eine externe Lizenzpruefung ergaenzen.",
     pillars: ["Eigentum", "Lizenz", "Build-Freigabe"],
     related: ["/ethik", "/governance", "/impressum"]
   },

@@ -6,7 +6,7 @@ import { apiRequest } from "../../lib/api";
 import { StatusNotice } from "./status-notice";
 
 function formatPrivacyMode(value: PrivacyOverview["preferences"]["privacyMode"]) {
-  return value === "privacy-max" ? "Privacy Max" : "Standard";
+  return value === "privacy-max" ? "Datenschutz-Maximum" : "Standard";
 }
 
 function formatExportFormat(value: DataExportRequestSummary["format"]) {

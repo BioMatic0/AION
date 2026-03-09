@@ -9,7 +9,7 @@ const pillars = [
   },
   {
     title: "KI mit Bindung",
-    description: "Governance, Ethics Router und Incident Transparency halten die Plattform menschenzentriert."
+    description: "Governance, Ethik-Routing und Vorfalltransparenz halten die Plattform menschenzentriert."
   },
   {
     title: "Modularer Ausbau",
@@ -29,9 +29,9 @@ export default function MarketingPage() {
         <section className="grid gap-10 rounded-[36px] border border-white/10 bg-white/90 p-8 shadow-panel lg:grid-cols-[1.4fr_0.9fr] lg:p-12">
           <div className="space-y-6">
             <p className="font-body text-sm uppercase tracking-[0.32em] text-moss">{brand.name}</p>
-            <h1 className="max-w-4xl font-display text-5xl leading-tight sm:text-6xl">Die professionelle Arbeitsoberflaeche fuer Erkenntnis, Steuerung und verantwortliche KI.</h1>
+            <h1 className="max-w-4xl font-display text-5xl leading-tight sm:text-6xl">Die professionelle Arbeitsoberflaeche fuer Erkenntnis, Steuerung und verantwortungsvoll eingesetzte KI.</h1>
             <p className="max-w-3xl text-lg leading-8 text-slate/80">
-              AION verbindet Journal, Analyse, Wachstum, Governance, Datenschutz und Rechtliches in einer hellen, lesbaren und produktionsnahen Arbeitsumgebung.
+              AION verbindet Journal, Analyse, Wachstum, Governance, Datenschutz und Rechtliches in einer hellen, gut lesbaren und produktionsnahen Arbeitsumgebung.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/login" className="rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate">
@@ -54,7 +54,7 @@ export default function MarketingPage() {
             <div className="mt-4 space-y-5">
               <div>
                 <h2 className="font-display text-2xl text-ink">Die technische Aufbauphase laeuft.</h2>
-                <p className="mt-2 text-sm leading-6 text-slate/80">Dieses Repo enthaelt das Monorepo-Fundament mit Web, API, Worker, Packages, Infrastruktur und Governance-Startpunkt.</p>
+                <p className="mt-2 text-sm leading-6 text-slate/80">Dieses Repository enthaelt das Monorepo-Fundament mit Web, API, Worker, Paketen, Infrastruktur und einem Governance-Startpunkt.</p>
               </div>
               <ul className="space-y-3 text-sm leading-6 text-slate/80">
                 <li>Web-App Shell mit den AION-Hauptbereichen</li>

@@ -92,7 +92,7 @@ export function SecurityOverviewPanel() {
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Sicherheitscenter</p>
             <h2 className="mt-3 font-display text-3xl text-ink">Sitzungen, Vorfaelle und Nutzerwarnungen</h2>
             <p className="mt-4 text-sm leading-7 text-slate/80">
-              Fremdzugriffe, Sicherheitsereignisse und Incident-Meldungen bleiben in AION sichtbar, statt nur im Hintergrund zu existieren.
+              Fremdzugriffe, Sicherheitsereignisse und Vorfallmeldungen bleiben in AION sichtbar, statt nur im Hintergrund zu existieren.
             </p>
           </div>
           <button

@@ -24,9 +24,9 @@ Stand: 2026-03-08
 
 ## Vertrieb und Fairness
 
-- Ein Vertrieb oder sonstiger revenue-basierter Betrieb darf nicht auf
+- Ein Vertrieb oder sonstiger umsatzbasierter Betrieb darf nicht auf
   Ausbeutung oder bloss private Bereicherung ausgerichtet sein.
-- Vor einem Verkauf oder revenue-basierten Betrieb ist ein faires und
+- Vor einem Verkauf oder umsatzbasierten Betrieb ist ein faires und
   plausibles Modell offenzulegen, das fuer alle wesentlich Beteiligten ethisch
   und moralisch vertretbar ist.
 - Weitere Konkretisierung dazu steht in `FAIR-COMMERCE.md`.
@@ -38,4 +38,4 @@ werden koennen und einer offenen, verbindenden Zukunft dienen.
 
 Leitgedanke:
 
-> Fuer unsere Zukunft, dem Zweck der gemeinsamen Verbindung, in ewiglicher Verbindung.
+> Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.

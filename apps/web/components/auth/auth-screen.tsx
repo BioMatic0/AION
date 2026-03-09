@@ -87,19 +87,19 @@ export function AuthScreen({ mode }: AuthScreenProps) {
           <div className="space-y-6">
             <p className="font-body text-sm uppercase tracking-[0.32em] text-moss">{brand.name}</p>
             <h1 className="max-w-3xl font-display text-5xl leading-tight sm:text-6xl">
-              {isRegister ? "Offenes Konto fuer deinen AION-Arbeitsbereich." : "Anmeldung fuer deinen geschuetzten AION-Arbeitsbereich."}
+              {isRegister ? "Ein offenes Konto fuer deinen AION-Arbeitsbereich." : "Anmeldung fuer deinen geschuetzten AION-Arbeitsbereich."}
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate/80">
               {isRegister
                 ? "Lege ein eigenes Konto an, damit Journal, Ziele, Notizen, Datenschutz und KI-Ausgaben sauber deinem Nutzerprofil zugeordnet werden."
-                : "Melde dich mit deinem Konto an, damit deine Daten, Sitzungen und Auswertungen nur in deinem eigenen Kontext geladen werden."}
+                : "Melde dich mit deinem Konto an, damit deine Daten, Sitzungen und Auswertungen nur in deinem persoenlichen Kontext geladen werden."}
             </p>
             <div className="rounded-[28px] bg-slate p-6 text-mist">
               <h2 className="font-display text-2xl text-ink">Warum dieser Schritt jetzt wichtig ist</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-slate/80">
-                <li>Eigene Sitzungen statt geteilter lokaler Standardnutzer</li>
+                <li>Eigene Sitzungen statt eines geteilten lokalen Standardnutzers</li>
                 <li>Journal, Tagebuch, Ziele und Notizen werden pro Nutzer getrennt geladen</li>
-                <li>Privacy- und Security-Center spiegeln nur deinen eigenen Verlauf</li>
+                <li>Datenschutz- und Sicherheitsbereich spiegeln nur deinen eigenen Verlauf</li>
               </ul>
             </div>
           </div>

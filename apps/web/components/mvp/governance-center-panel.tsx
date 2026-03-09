@@ -45,7 +45,7 @@ export function GovernanceCenterPanel() {
     if (result.ok && result.data) {
       setOverview(result.data);
       if (!options?.silentSuccess) {
-        setStatus("Governance-Uebersicht wird live aus der API geladen.");
+        setStatus("Die Governance-Uebersicht wird live aus der API geladen.");
       }
       setError(null);
     } else {
@@ -73,7 +73,7 @@ export function GovernanceCenterPanel() {
 
     if (result.ok && result.data) {
       await loadOverview({ silentSuccess: true });
-      setStatus("Integritaetspruefung wurde ausgefuehrt.");
+      setStatus("Die Integritaetspruefung wurde ausgefuehrt.");
     } else {
       setError(result.error ?? "Integritaetspruefung konnte nicht ausgefuehrt werden.");
     }

@@ -299,7 +299,7 @@ export class PrivacyService implements OnModuleInit {
       guidance: [
         "AION trennt Beobachtung, Deutung und Symbolik auch im Datenschutzbereich sichtbar.",
         "Export und Loeschung sind als echte, explizite Nutzerpfade vorbereitet statt nur juristisch behauptet.",
-        "Privacy Max reduziert Datenspuren, ersetzt aber keine unhaltbaren Totalversprechen von vollstaendiger Anonymitaet."
+        "Das Datenschutz-Maximum reduziert Datenspuren, ersetzt aber keine unhaltbaren Totalversprechen vollstaendiger Anonymitaet."
       ]
     };
   }

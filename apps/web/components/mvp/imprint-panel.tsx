@@ -46,7 +46,7 @@ export function ImprintPanel() {
       </ImprintBlock>
       <ImprintBlock title="Rechts- und Projektdokumente">
         <p>Massgebliche Projektdateien: LICENSE, COPYRIGHT.md, REFERENCE.md, FAIR-COMMERCE.md, FREE-USE-NOTICE.txt</p>
-        <p>Builds und Quellcode sollen fuer alle breit zugaenglich und mitgestaltbar sein, ohne ausbeuterischen Vertrieb.</p>
+        <p>Builds und Quellcode sollen fuer alle breit zugaenglich und mitgestaltbar sein, ohne ausbeuterische Vertriebsmodelle.</p>
       </ImprintBlock>
       <article className="rounded-[28px] bg-white p-8 shadow-panel lg:col-span-2">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Leitgedanke</p>

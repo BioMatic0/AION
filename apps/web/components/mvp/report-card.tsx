@@ -17,7 +17,7 @@ const evidenceLabels: Record<Report["evidenceLabel"], string> = {
 const modeLabels: Record<Report["mode"], string> = {
   standard: "Standard",
   speed: "Schnell",
-  thinking: "Thinking",
+  thinking: "Vertiefung",
   expert: "Experte",
   mirror: "Spiegel",
   growth: "Wachstum",

@@ -98,7 +98,7 @@ describe("NotificationSettingsPanel", () => {
     await user.click(screen.getByRole("button", { name: "Praeferenzen speichern" }));
 
     await waitFor(() => {
-      expect(screen.getByText("Benachrichtigungs-Praeferenzen wurden gespeichert.")).toBeInTheDocument();
+      expect(screen.getByText("Die Benachrichtigungs-Praeferenzen wurden gespeichert.")).toBeInTheDocument();
     });
 
     expect(screen.getByText("Geplante Jobs").closest("article")).toHaveTextContent("Wachstum -");

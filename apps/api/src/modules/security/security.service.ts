@@ -69,7 +69,7 @@ function createDefaultNotifications(): IncidentNotificationSummary[] {
       severity: "warning",
       title: "Sicherheitswarnung sichtbar",
       description:
-        "Die lokale Entwicklungsumgebung zeigt einen simulierten Incident-Pfad fuer Nutzertransparenz.",
+        "Die lokale Entwicklungsumgebung zeigt einen simulierten Vorfallpfad fuer Nutzertransparenz.",
       recommendedAction: "Pruefe Sessions und bestaetige, ob die Aktivitaet erwartet war.",
       deliveredVia: ["email", "in-app"],
       deliveredAt: new Date().toISOString()
@@ -581,7 +581,7 @@ export class SecurityService implements OnModuleInit {
         resource: mapped.incidentType,
         actorType: "user",
         actorId: userId,
-        detail: `Incident notification ${mapped.id} was acknowledged.`
+        detail: `Die Vorfallbenachrichtigung ${mapped.id} wurde bestaetigt.`
       });
       return mapped;
     }
@@ -599,7 +599,7 @@ export class SecurityService implements OnModuleInit {
       resource: notification.incidentType,
       actorType: "user",
       actorId: userId,
-      detail: `Incident notification ${notification.id} was acknowledged.`
+      detail: `Die Vorfallbenachrichtigung ${notification.id} wurde bestaetigt.`
     });
     return notification;
   }
@@ -609,15 +609,15 @@ export class SecurityService implements OnModuleInit {
       userId,
       "login.suspicious",
       "critical",
-      "A suspicious login pattern was detected during the simulated incident flow."
+      "Im simulierten Vorfallablauf wurde ein auffaelliges Anmeldemuster erkannt."
     );
 
     return this.createIncident(userId, {
       incidentType: "login.suspicious",
       severity: "critical",
       affectedScope: "account-and-session",
-      summary: "A suspicious login flow was simulated to test transparency and incident escalation.",
-      recommendedAction: "Review active sessions, rotate credentials and confirm whether the login was expected."
+      summary: "Es wurde ein auffaelliger Anmeldeablauf simuliert, um Transparenz und Vorfalleskalation zu pruefen.",
+      recommendedAction: "Pruefe aktive Sitzungen, rotiere Zugangsdaten und bestaetige, ob die Anmeldung erwartet war."
     });
   }
 

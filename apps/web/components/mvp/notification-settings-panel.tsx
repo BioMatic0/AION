@@ -113,7 +113,7 @@ export function NotificationSettingsPanel() {
     if (result.ok && result.data) {
       setPreferences(result.data);
       await loadNotificationData({ silentSuccess: true });
-      setStatus("Benachrichtigungs-Praeferenzen wurden gespeichert.");
+      setStatus("Die Benachrichtigungs-Praeferenzen wurden gespeichert.");
     } else {
       setError(result.error ?? "Benachrichtigungs-Praeferenzen konnten nicht gespeichert werden.");
     }
@@ -132,7 +132,7 @@ export function NotificationSettingsPanel() {
 
     if (result.ok && result.data) {
       setHistory((current) => [result.data as NotificationHistoryItem, ...current]);
-      setStatus("Benachrichtigungsvorschau wurde erzeugt.");
+      setStatus("Die Benachrichtigungsvorschau wurde erzeugt.");
     } else {
       setError(result.error ?? "Benachrichtigungsvorschau konnte nicht erzeugt werden.");
     }
@@ -248,7 +248,7 @@ export function NotificationSettingsPanel() {
               disabled={isSaving}
               className="rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSaving ? "Speichert..." : "Praeferenzen speichern"}
+              {isSaving ? "Wird gespeichert..." : "Praeferenzen speichern"}
             </button>
             <button
               type="button"
@@ -256,7 +256,7 @@ export function NotificationSettingsPanel() {
               disabled={isPreviewing}
               className="rounded-2xl border border-moss/20 bg-moss/5 px-5 py-3 text-sm font-semibold text-slate disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isPreviewing ? "Erzeugt..." : "Vorschau erzeugen"}
+              {isPreviewing ? "Wird erzeugt..." : "Vorschau erzeugen"}
             </button>
           </div>
         </div>

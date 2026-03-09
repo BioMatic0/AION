@@ -32,7 +32,7 @@ export default function SectionPage({ params }: SectionPageProps) {
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{definition.label}</p>
         <h1 className="mt-3 font-display text-4xl text-ink">{definition.description}</h1>
         <p className="mt-6 max-w-3xl text-base leading-8 text-slate/80">
-          Dieser Bereich ist bereits im Monorepo verankert und wird in den naechsten Sessions funktional ausgebaut. Die UI ist absichtlich klar gehalten, damit Daten, Governance und echte Arbeitsablaeufe spaeter sauber andocken.
+          Dieser Bereich ist bereits im Monorepo verankert und wird in den naechsten Sessions funktional ausgebaut. Die Oberflaeche ist bewusst klar gehalten, damit Daten, Governance und echte Arbeitsablaeufe spaeter sauber andocken koennen.
         </p>
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
@@ -44,7 +44,7 @@ export default function SectionPage({ params }: SectionPageProps) {
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">MVP-Fokus</p>
-            <h2 className="mt-2 font-display text-3xl text-ink">Die naechsten Produktpfeiler fuer {definition.label}</h2>
+            <h2 className="mt-2 font-display text-3xl text-ink">Die naechsten Produktpfeiler fuer den Bereich {definition.label}</h2>
           </div>
           <div className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm text-slate">AION / Aufbauphase</div>
         </div>
@@ -59,7 +59,7 @@ export default function SectionPage({ params }: SectionPageProps) {
         </div>
         {relatedDefinitions.length > 0 ? (
           <div className="mt-8 border-t border-white/10 pt-8">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verbunden mit</p>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verknuepft mit</p>
             <div className="mt-4 flex flex-wrap gap-3">
               {relatedDefinitions.map((item) => (
                 <Link

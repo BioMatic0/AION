@@ -28,7 +28,7 @@ export function LegalPanel() {
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">Kurzfassung</p>
-        <h2 className="mt-3 font-display text-3xl">AION ist source-available, fair ausgerichtet und offen fuer Mitgestaltung.</h2>
+        <h2 className="mt-3 font-display text-3xl">AION ist offen zugaenglich, fair ausgerichtet und offen fuer Mitgestaltung.</h2>
         <p className="mt-5 text-sm leading-7 text-mist/80">
           Referenz und urspruenglicher Projektbezug bleiben bei Patrick Wirth. Nutzung, Veraenderung,
           Weitergabe und gemeinschaftliche Weiterentwicklung sind gemaess AION Community Fairness License 1.0
@@ -44,7 +44,7 @@ export function LegalPanel() {
       />
       <LegalCard
         title="Build-Dateien"
-        text="Windows-Builds und andere Release-Artefakte sind fuer breite Nutzung und Weitergabe gedacht. Revenue-basierter Betrieb ist nur mit einem fairen, plausiblen und nicht-ausbeuterischen Modell zulaessig."
+        text="Windows-Builds und andere Release-Artefakte sind fuer eine breite Nutzung und Weitergabe gedacht. Ein umsatzbasierter Betrieb ist nur mit einem fairen, plausiblen und nicht ausbeuterischen Modell zulaessig."
       />
       <LegalCard
         title="Projektbezug"
@@ -63,7 +63,7 @@ export function LegalPanel() {
           />
           <LegalCard
             title="FAIR-COMMERCE.md"
-            text="Beschreibt, wie ein fairer und ethisch vertretbarer Vertrieb oder revenue-basierter Betrieb von AION aussehen muss."
+            text="Beschreibt, wie ein fairer und ethisch vertretbarer Vertrieb oder ein umsatzbasierter Betrieb von AION aussehen muss."
           />
         </div>
       </article>

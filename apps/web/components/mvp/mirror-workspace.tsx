@@ -20,11 +20,11 @@ export function MirrorWorkspace() {
 
     if (result.ok && result.data) {
       setReports(result.data);
-      setStatus("Spiegel-Berichte werden live aus der API geladen.");
+      setStatus("Spiegelberichte werden live aus der API geladen.");
       setError(null);
     } else {
       setStatus(null);
-      setError(result.error ?? "Spiegel-Berichte konnten nicht geladen werden.");
+      setError(result.error ?? "Spiegelberichte konnten nicht geladen werden.");
     }
 
     setIsLoading(false);
@@ -48,7 +48,7 @@ export function MirrorWorkspace() {
     if (result.ok && result.data) {
       setReports((current) => [result.data as MirrorReport, ...current]);
       setContent("");
-      setStatus("Spiegel-Bericht wurde erzeugt.");
+      setStatus("Spiegelbericht wurde erzeugt.");
     } else {
       setError(result.error ?? "Spiegelmodus konnte nicht ausgefuehrt werden.");
     }
@@ -68,8 +68,8 @@ export function MirrorWorkspace() {
         <textarea className="mt-6 min-h-44 w-full rounded-3xl border border-mist bg-mist/50 px-4 py-4 text-sm leading-7 outline-none focus:border-moss" placeholder="Beschreibe die Lage, die geprueft und nicht bestaetigt werden soll." value={content} onChange={(event) => setContent(event.target.value)} required />
         <button type="submit" disabled={isSubmitting} className="mt-4 rounded-2xl bg-slate px-5 py-3 text-sm font-semibold text-mist transition hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? "Prueft..." : "Spiegelmodus ausfuehren"}</button>
       </form>
-      {isLoading ? <StatusNotice message="Spiegel-Berichte werden geladen..." /> : null}
-      {!isLoading && reports.length === 0 ? <StatusNotice message="Noch keine Spiegel-Berichte vorhanden." /> : null}
+      {isLoading ? <StatusNotice message="Spiegelberichte werden geladen..." /> : null}
+      {!isLoading && reports.length === 0 ? <StatusNotice message="Noch keine Spiegelberichte vorhanden." /> : null}
       {reports.map((report) => (
         <ReportCard key={report.id} report={report} />
       ))}

@@ -7,7 +7,7 @@ export default function DashboardPage() {
       <SectionHeader
         eyebrow="Dashboard"
         title="AION laeuft jetzt als echtes MVP-Fundament"
-        description="Dieses Dashboard zieht seine Kernzahlen direkt aus der API und zeigt den aktuellen Runtime-Stand von AION statt bloe Demo-Zustande."
+        description="Dieses Dashboard zieht seine Kernzahlen direkt aus der API und zeigt den aktuellen Laufzeitstand von AION statt blosser Demo-Zustaende."
         badge="API aktiv"
       />
       <DashboardOverview />
