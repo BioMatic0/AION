@@ -89,9 +89,34 @@ Current Windows state:
 - `AION-Setup-0.1.1.exe.blockmap`
 - `latest.yml`
 - `SHA256SUMS-0.1.1.txt`
+- `AION-RELEASE-SIGNATURE-MANIFEST-0.1.1.json`
+- `AION-RELEASE-SIGNATURE-0.1.1.p7s`
+- `verify-release-signature.ps1`
 
 The `0.1.0` ZIP bundles remain in the folder as older archive packages. For the
 current state, use the `0.1.1` files.
 
 If a central API URL is provided later, Android and iOS builds should be
 regenerated against that URL.
+
+## Release Signature
+
+The current `0.1.1` release files also carry a repository-linked detached
+signature trail:
+
+- `AION-RELEASE-SIGNATURE-MANIFEST-0.1.1.json`
+- `AION-RELEASE-SIGNATURE-0.1.1.p7s`
+- `verify-release-signature.ps1`
+
+Verification from the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\release-artifacts\verify-release-signature.ps1
+```
+
+This verifies release origin and file integrity against the public certificate
+stored in `signatures/AION-SIGNING-CERT.cer`.
+
+Important: this is not the same thing as a publicly trusted Windows
+Authenticode code-signing certificate. It is a cryptographic origin and
+integrity trail for the published artifacts.

@@ -52,6 +52,9 @@ Digital signature:
 - `signatures/AION-SIGNING-CERT.cer`
 - `signatures/AION-SIGNING-CERT.pem`
 - `signatures/verify-signature.ps1`
+- `release-artifacts/AION-RELEASE-SIGNATURE-MANIFEST-0.1.1.json`
+- `release-artifacts/AION-RELEASE-SIGNATURE-0.1.1.p7s`
+- `release-artifacts/verify-release-signature.ps1`
 
 ## Workspace Layout
 

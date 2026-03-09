@@ -5,7 +5,7 @@
                   "name":  "Patrick Wirth",
                   "email":  "patrickwirth_93@icloud.com"
               },
-    "generatedAtUtc":  "2026-03-09T17:32:43.9469474Z",
+    "generatedAtUtc":  "2026-03-09T17:34:58.5301649Z",
     "signatureFormat":  "PKCS7-detached",
     "digestAlgorithm":  "SHA256",
     "certificate":  {
@@ -20,7 +20,7 @@
     "signedFiles":  [
                         {
                             "path":  "README.md",
-                            "sha256":  "C01D77EB9D27146457344A8D9FFB20F717EE9526D008D74DF66C83DAED308B3A"
+                            "sha256":  "4F1CD1AC072D08B162D95AFF879727A90F5C39BA326321D8548EF17A81072F63"
                         },
                         {
                             "path":  "LICENSE",

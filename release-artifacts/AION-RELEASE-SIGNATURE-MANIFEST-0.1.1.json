@@ -1,0 +1,88 @@
+{
+    "project":  "AION",
+    "releaseVersion":  "0.1.1",
+    "signaturePurpose":  "Release artifact integrity and origin verification",
+    "owner":  {
+                  "name":  "Patrick Wirth",
+                  "email":  "patrickwirth_93@icloud.com"
+              },
+    "generatedAtUtc":  "2026-03-09T17:34:58.8304746Z",
+    "signatureFormat":  "PKCS7-detached",
+    "digestAlgorithm":  "SHA256",
+    "certificate":  {
+                        "subject":  "CN=Patrick Wirth, O=AION Project, E=patrickwirth_93@icloud.com",
+                        "thumbprint":  "0B3D9CF4312D2983FE247D5DD98EA3F524AFDA41",
+                        "notBefore":  "2026-03-09T17:22:05.0000000Z",
+                        "notAfter":  "2036-03-09T17:32:04.0000000Z",
+                        "publicCertificateCer":  "signatures/AION-SIGNING-CERT.cer",
+                        "publicCertificatePem":  "signatures/AION-SIGNING-CERT.pem"
+                    },
+    "note":  "This verifies release origin and file integrity. It is not a public Authenticode trust signature for Windows installers.",
+    "signedFiles":  [
+                        {
+                            "path":  "release-artifacts/AION.Setup.0.1.1.exe",
+                            "sizeBytes":  89897291,
+                            "sha256":  "D485843EB9CB6ED6409CF62DED47AC3173775490BDD99A3245A962D6EC16DC6E"
+                        },
+                        {
+                            "path":  "release-artifacts/AION.0.1.1.exe",
+                            "sizeBytes":  89639918,
+                            "sha256":  "61CF2FF0408649DA8B1C552953D5D27472AD47C3ED1D8D027662770D3EABB8F2"
+                        },
+                        {
+                            "path":  "release-artifacts/AION-android-debug.apk",
+                            "sizeBytes":  4926625,
+                            "sha256":  "1BEE876A90FA57BADA07BD0CC85E7A0C1EBDB907FA0796789FE877BB0132D9F1"
+                        },
+                        {
+                            "path":  "release-artifacts/AION-ios-xcode-project.zip",
+                            "sizeBytes":  1416712,
+                            "sha256":  "B065259F1595D523AEB063D6B86967F883A688F6A7DD1C99328FAA855664E718"
+                        },
+                        {
+                            "path":  "release-artifacts/AION-Setup-0.1.1.exe.blockmap",
+                            "sizeBytes":  94811,
+                            "sha256":  "92C187A81A39FF63569FDCEBAA9020F80A928705D4791DBA1C23DDC4BEBF05C1"
+                        },
+                        {
+                            "path":  "release-artifacts/latest.yml",
+                            "sizeBytes":  336,
+                            "sha256":  "63B5CDB633548BF59AF27C32A0C7144E4B5E98365806C23D7FC6074BA1F0F490"
+                        },
+                        {
+                            "path":  "release-artifacts/SHA256SUMS-0.1.1.txt",
+                            "sizeBytes":  610,
+                            "sha256":  "53A1B244BC9962082F9476B179747C516E4A14019D5334C1A0CC717BB97EBC92"
+                        },
+                        {
+                            "path":  "release-artifacts/FREE-USE-NOTICE.txt",
+                            "sizeBytes":  1833,
+                            "sha256":  "49E3F6E192D887B23D46E7B07A525865FAC54EA0CD2F5430BA974A877DA48C02"
+                        },
+                        {
+                            "path":  "release-artifacts/LICENSE",
+                            "sizeBytes":  4475,
+                            "sha256":  "4E4D0ECC27F1A402A8A64C0121E12295617E3F864E365DFC4B5E67689A4EB373"
+                        },
+                        {
+                            "path":  "release-artifacts/COPYRIGHT.md",
+                            "sizeBytes":  1270,
+                            "sha256":  "D4652160096EAD26F1E9DDB429DC1CB8DD4E5AFDD8789A7C1F4E6751315891BB"
+                        },
+                        {
+                            "path":  "release-artifacts/REFERENCE.md",
+                            "sizeBytes":  413,
+                            "sha256":  "D7EE0B2FDC62E1D1F46D1AE478F264F0795932A69472D2E6D43401CF96910EEC"
+                        },
+                        {
+                            "path":  "release-artifacts/FAIR-COMMERCE.md",
+                            "sizeBytes":  1645,
+                            "sha256":  "BCA78A17064186283BC5E4890BCACC2C8721871DA0530D5B0C2F3777E4927B73"
+                        },
+                        {
+                            "path":  "release-artifacts/README.md",
+                            "sizeBytes":  4699,
+                            "sha256":  "82D4D85CF16338405CCBC52DE23198466BF8C0DF4C687847FAEDEDCDB3E7793E"
+                        }
+                    ]
+}

@@ -55,3 +55,22 @@ It is not the same thing as a publicly trusted Windows code-signing certificate
 for installers and executables. A trusted Authenticode signature for Windows
 distribution would still require a dedicated code-signing certificate and
 separate signing of the shipped binaries.
+
+## Release artifact signature
+
+The current `0.1.1` release artifacts also include their own detached signature
+trail:
+
+- `release-artifacts/AION-RELEASE-SIGNATURE-MANIFEST-0.1.1.json`
+- `release-artifacts/AION-RELEASE-SIGNATURE-0.1.1.p7s`
+- `release-artifacts/verify-release-signature.ps1`
+
+Verification:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\release-artifacts\verify-release-signature.ps1
+```
+
+This verifies the shipped release files against the same public project
+certificate, while still remaining separate from a trusted public Authenticode
+certificate for Windows installers.
