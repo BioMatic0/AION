@@ -24,6 +24,13 @@ const risks = [
       "Treat self-reflection as a bounded design principle, not as evidence of subjective consciousness or metaphysical status."
   },
   {
+    title: "Deceptive synthetic media and fabricated knowledge",
+    risk:
+      "Generated video, teaching material, or factual output can become manipulative when origin, uncertainty, and authorship are hidden.",
+    action:
+      "Require explicit labeling, traceable signatures, and source-backed factual output. Deceptive media, fake news, and fabricated educational content are outside the allowed product direction."
+  },
+  {
     title: "Ethics remains only text",
     risk:
       "If ethics exists only in the README but not in the working surfaces, it loses force in practice.",
@@ -58,6 +65,7 @@ const guarantees = [
   "Bright, high-contrast work surfaces support longer sessions",
   "Visible linking connects core work, reflection, AI, and governance",
   "Fairness and license notices are embedded directly in the product",
+  "Synthetic media and factual outputs are expected to remain labeled, attributable, and reviewable",
   "Risks are shown as part of product steering instead of being hidden"
 ];
 

@@ -49,6 +49,10 @@ export function LegalPanel() {
         text="Windows builds and other release artifacts are intended for broad use and redistribution. Revenue-based operation is only acceptable with a fair, plausible, and non-exploitative model."
       />
       <LegalCard
+        title="Authenticity and provenance"
+        text="AION must not be used to create deceptive synthetic media, fake news, or fabricated learning material. If synthetic media is created later, it must be clearly labeled, signed, and traceable."
+      />
+      <LegalCard
         title="Project reference"
         text="Patrick Wirth, 10.06.1993, and patrickwirth_93@icloud.com are stored in the project as reference data. This attribution identifies the origin and may not be removed in redistribution, forks, or commercial distribution."
       />

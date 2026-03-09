@@ -42,6 +42,14 @@ function createIntegrityChecks(): IntegrityCheckRecord[] {
     },
     {
       id: randomUUID(),
+      policyId: "authenticity-and-media-provenance",
+      severity: "warning",
+      status: "warn",
+      summary: "Synthetic media, generated video, and factual output must stay explicitly labeled, source-aware, and traceable through provenance data.",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: randomUUID(),
       policyId: "transparent-incidents",
       severity: "warning",
       status: "warn",
@@ -92,6 +100,13 @@ function createRestrictedUses(): RestrictedUseSummary[] {
     },
     {
       id: randomUUID(),
+      domain: "deceptive-synthetic-media",
+      severity: "critical",
+      enforcementMode: "block",
+      rationale: "AION must not generate deceptive synthetic media, fake news, or fabricated learning content."
+    },
+    {
+      id: randomUUID(),
       domain: "manipulative-psychological-targeting",
       severity: "warning",
       enforcementMode: "block",
@@ -125,6 +140,7 @@ export class GovernanceService implements OnModuleInit {
       "Non-Dominance",
       "No Transhuman Merge",
       "Privacy as Dignity",
+      "Authenticity and Media Provenance",
       "Transparent Incidents",
       "Quantum Without False Claims"
     ],

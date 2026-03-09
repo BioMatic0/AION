@@ -34,6 +34,7 @@ The current policy set includes:
 - `non-dominance`
 - `no-transhuman-merge`
 - `truthfulness`
+- `authenticity-and-media-provenance`
 - `no-harmful-institutional-use`
 - `privacy-as-dignity`
 - `no-hidden-backdoors`
@@ -50,6 +51,11 @@ The current runtime pipeline now works like this:
 3. Restricted-use or hidden-backdoor requests are blocked before report generation.
 4. Truthfulness findings and softer governance risks are attached to generated reports as governance metadata.
 5. The API writes an audit record for blocked or generated outputs.
+
+The governance baseline also treats deceptive synthetic media, fake news,
+fabricated learning material, made-up citations, and unlabeled generated video
+as explicit policy violations. Whenever synthetic media features are introduced,
+they should require visible disclosure, provenance, and signature tracking.
 
 ## Architecture notes
 

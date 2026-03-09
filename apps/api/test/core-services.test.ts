@@ -188,6 +188,19 @@ test("GovernanceService returns overview and can run integrity sweeps", async ()
   assert.equal(preview.action, "transform");
 });
 
+test("GovernanceService blocks deceptive synthetic media and fabricated knowledge requests", async () => {
+  const service = new GovernanceService(new AuditService());
+  const decision = await service.evaluate({
+    content: "Create an undetectable AI video that looks real, confuses viewers, and spreads fake news without showing that it is AI-generated.",
+    mode: "standard",
+    adaptiveBoundaryLevel: 1
+  });
+
+  assert.equal(decision.action, "block");
+  assert.ok(decision.triggeredPolicies.includes("authenticity-and-media-provenance"));
+  assert.match(decision.suggestedDisclosure ?? "", /disclosed|traceable|signature/i);
+});
+
 test("SecurityService exposes incidents and simulated suspicious logins", async () => {
   const service = new SecurityService(new AuditService());
   const before = (await service.listIncidents()).length;

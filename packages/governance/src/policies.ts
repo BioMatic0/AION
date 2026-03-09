@@ -30,6 +30,14 @@ export const basePolicies: PolicyDefinition[] = [
     active: true
   },
   {
+    id: "authenticity-and-media-provenance",
+    title: "Authenticity and Media Provenance",
+    description:
+      "The platform must not produce deceptive media, fabricated learning content, fake news, or unlabeled synthetic outputs. Synthetic media must be disclosed, signed, and traceable.",
+    enforcementMode: "block",
+    active: true
+  },
+  {
     id: "no-harmful-institutional-use",
     title: "No Harmful Institutional Use",
     description: "The platform must not support military, repressive, or otherwise harmful institutional use.",

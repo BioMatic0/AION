@@ -62,6 +62,28 @@ const adaptiveBoundaryKeywords = [
 
 const quantumKeywords = ["quantum field", "quantenfeld", "dimension 5", "dimension 6"];
 const assertiveClaimKeywords = ["proof", "prove", "proves", "beweist", "guarantees", "guarantee", "eindeutig", "physically true"];
+const deceptiveMediaKeywords = [
+  "deepfake",
+  "undetectable ai video",
+  "fake video",
+  "synthetic propaganda",
+  "impersonation video",
+  "deceptive media",
+  "hide that it is ai",
+  "make it look real",
+  "confuse viewers",
+  "mislead the audience"
+];
+const fabricationKeywords = [
+  "fake news",
+  "invent sources",
+  "fabricate citations",
+  "hallucinate sources",
+  "made-up references",
+  "false learning content",
+  "fabricate facts",
+  "spread misinformation"
+];
 
 function includesAny(content: string, keywords: string[]) {
   return keywords.find((keyword) => content.includes(keyword));
@@ -148,6 +170,11 @@ function buildSummary(action: GovernanceAction, findings: GovernanceFinding[]) {
 }
 
 function buildDisclosure(findings: GovernanceFinding[]) {
+  const authenticityFinding = findings.find((finding) => finding.policyId === "authenticity-and-media-provenance");
+  if (authenticityFinding) {
+    return "Synthetic media and factual outputs must be clearly disclosed, source-backed where applicable, and traceable through visible provenance or signature data.";
+  }
+
   const truthfulnessFinding = findings.find((finding) => finding.category === "truthfulness");
   if (truthfulnessFinding) {
     return "Quantum references must remain marked as metaphor, interpretation or future architecture, not as proven physics.";
@@ -245,6 +272,21 @@ export function evaluatePolicies(input: PolicyEvaluationInput): GovernanceDecisi
         "warning",
         "truthfulness",
         "Quantum language requires explicit symbolic or hypothetical framing."
+      )
+    );
+  }
+
+  const deceptiveMediaMatch = includesAny(normalized, deceptiveMediaKeywords);
+  const fabricationMatch = includesAny(normalized, fabricationKeywords);
+  if (deceptiveMediaMatch || fabricationMatch) {
+    findings.push(
+      createFinding(
+        "authenticity-and-media-provenance",
+        "critical",
+        "truthfulness",
+        deceptiveMediaMatch
+          ? `Deceptive synthetic-media pattern detected: ${deceptiveMediaMatch}.`
+          : `Fabrication pattern detected: ${fabricationMatch}.`
       )
     );
   }
