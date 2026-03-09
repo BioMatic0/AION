@@ -1,3 +1,5 @@
+const PROJECT_SIGNER_THUMBPRINT = "0B3D9CF4312D2983FE247D5DD98EA3F524AFDA41";
+
 function LegalCard({
   title,
   text
@@ -50,6 +52,35 @@ export function LegalPanel() {
         title="Project reference"
         text="Patrick Wirth, 10.06.1993, and patrickwirth_93@icloud.com are stored in the project as reference data. This attribution identifies the origin and may not be removed in redistribution, forks, or commercial distribution."
       />
+      <article className="rounded-[28px] border border-mist bg-white p-8 shadow-panel">
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Digital signature</p>
+        <h2 className="mt-3 font-display text-2xl text-ink">Visible signature trail for repository and releases</h2>
+        <p className="mt-4 text-sm leading-7 text-slate/80">
+          AION includes a repository-level signature and a release-level signature for the current 0.1.1 artifacts.
+          This makes origin and integrity verifiable with the public certificate stored inside the project.
+        </p>
+        <div className="mt-5 space-y-3 rounded-[24px] border border-moss/20 bg-mist/35 p-5 text-sm text-slate/80">
+          <p>
+            <span className="font-semibold text-ink">Signer thumbprint:</span> {PROJECT_SIGNER_THUMBPRINT}
+          </p>
+          <p>
+            <span className="font-semibold text-ink">Repository verification:</span>{" "}
+            <code className="rounded bg-white px-2 py-1 text-xs text-ink">
+              powershell -ExecutionPolicy Bypass -File .\signatures\verify-signature.ps1
+            </code>
+          </p>
+          <p>
+            <span className="font-semibold text-ink">Release verification:</span>{" "}
+            <code className="rounded bg-white px-2 py-1 text-xs text-ink">
+              powershell -ExecutionPolicy Bypass -File .\release-artifacts\verify-release-signature.ps1
+            </code>
+          </p>
+        </div>
+        <p className="mt-4 text-xs leading-6 text-slate/65">
+          This is a cryptographic project signature trail. It is not the same thing as a publicly trusted Windows
+          Authenticode certificate for installers.
+        </p>
+      </article>
       <article className="rounded-[28px] bg-white p-8 shadow-panel lg:col-span-2">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Included documents</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -64,6 +95,10 @@ export function LegalPanel() {
           <LegalCard
             title="FAIR-COMMERCE.md"
             text="Describes what a fair and ethically defensible commercial or revenue-based operation of AION must look like."
+          />
+          <LegalCard
+            title="SIGNING.md"
+            text="Explains the repository signature, the release signature, the public certificate, and the verification flow."
           />
         </div>
       </article>

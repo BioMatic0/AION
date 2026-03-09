@@ -16,6 +16,7 @@ const DEFAULT_WINDOW = {
 };
 const IMPRESSUM_ROUTE = ["impressum", "index.html"];
 const RECHTLICHES_ROUTE = ["rechtliches", "index.html"];
+const PROJECT_SIGNER_THUMBPRINT = "0B3D9CF4312D2983FE247D5DD98EA3F524AFDA41";
 
 let backendProcess: ChildProcessWithoutNullStreams | null = null;
 let mainWindow: BrowserWindow | null = null;
@@ -175,7 +176,25 @@ function showAboutDialog() {
       "Reflektive Ausrichtung:\n" +
       "AION darf seine Antworten langfristig verfeinern und eigene Muster, Grenzen und Spannungen beobachten.\n" +
       "Diese Richtung bleibt gebunden an Wahrheit, Governance und menschliche Autonomie.\n" +
-      "AION behauptet daraus kein woertliches Bewusstsein und keine metaphysische Autoritaet."
+      "AION behauptet daraus kein woertliches Bewusstsein und keine metaphysische Autoritaet.\n\n" +
+      "Signatur-Fingerprint:\n" +
+      `${PROJECT_SIGNER_THUMBPRINT}`
+  });
+}
+
+function showSignatureDialog() {
+  dialog.showMessageBox({
+    type: "info",
+    title: "AION Signaturhinweise",
+    message: "Verifizierbare Projekt- und Release-Signatur",
+    detail:
+      "AION enthaelt eine kryptografische Signaturspur fuer Repository und Release-Dateien.\n\n" +
+      `Signer-Fingerprint:\n${PROJECT_SIGNER_THUMBPRINT}\n\n` +
+      "Repository-Pruefung:\n" +
+      "powershell -ExecutionPolicy Bypass -File .\\signatures\\verify-signature.ps1\n\n" +
+      "Release-Pruefung:\n" +
+      "powershell -ExecutionPolicy Bypass -File .\\release-artifacts\\verify-release-signature.ps1\n\n" +
+      "Hinweis: Dies ist eine Herkunfts- und Integritaetspruefung des Projekts, keine oeffentlich vertrauenswuerdige Authenticode-Signatur fuer Windows-Installer."
   });
 }
 
@@ -367,6 +386,10 @@ function buildAppMenu() {
         {
           label: "Impressum",
           click: () => openInfoWindow("AION Impressum", IMPRESSUM_ROUTE)
+        },
+        {
+          label: "Signaturhinweise",
+          click: () => showSignatureDialog()
         },
         { type: "separator" as const },
         {
