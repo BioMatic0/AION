@@ -1,37 +1,39 @@
-# AION Release-Artefakte
+# AION Release Artifacts
 
-Stand: 2026-03-09
+Status: 2026-03-09
 
-Aktueller Windows-Stand:
+Current Windows state:
 
-- das NSIS-Setup und die portable EXE wurden mit der ueberarbeiteten Grau-/Anthrazit-Oberflaeche neu gebaut
-- die Desktop-App startet weiterhin die lokale AION-Laufzeit automatisch mit
-- die frischen `0.1.1`-Artefakte sind aktuell als Einzeldateien verfuegbar
-- der Windows-Desktop hat jetzt einen vorbereiteten GitHub-Update-Kanal fuer kuenftige Releases
-- die rechtlichen Begleitdateien spiegeln jetzt die AION Community Fairness License 1.0 und den Fair-Commerce-Rahmen
+- the NSIS installer and portable executable were rebuilt with the revised gray
+  and anthracite interface
+- the desktop app still starts the local AION runtime automatically
+- the current `0.1.1` artifacts are available as standalone files
+- the Windows desktop now includes a prepared GitHub update channel for future releases
+- the legal companion files now reflect the AION Community Fairness License 1.0
+  and the fair-commerce framework
 
-## Enthaltene Dateien
+## Included Files
 
 - `AION Setup 0.1.1.exe`
-  Windows-Installer (NSIS)
+  Windows installer (NSIS)
 - `AION 0.1.1.exe`
-  Portable Windows-Version
+  Portable Windows version
 - `AION-android-debug.apk`
-  Android-Debug-APK
+  Android debug APK
 - `AION-ios-xcode-project.zip`
-  iOS-Xcode-Projekt fuer den Weiterbau auf macOS
+  iOS Xcode project for continued work on macOS
 - `AION-Windows-Free-0.1.0.zip`
-  Aelteres Weitergabepaket fuer Windows mit Installer, Portable-Version und rechtlichen Hinweisen
+  older Windows distribution bundle with installer, portable build, and legal notes
 - `AION-Release-Bundle-0.1.0.zip`
-  Aelteres Gesamtpaket mit Windows-, Android- und iOS-Artefakten sowie den rechtlichen Hinweisen
+  older combined package with Windows, Android, and iOS artifacts plus legal notes
 - `LICENSE`
-  AION Community Fairness License 1.0 des Projekts
+  the AION Community Fairness License 1.0 for the project
 - `COPYRIGHT.md`
-  Projektinterner Referenz- und Rechtehinweis
+  internal project reference and rights notice
 - `FAIR-COMMERCE.md`
-  Rahmen fuer fairen, plausiblen und nicht-ausbeuterischen Vertrieb
+  framework for fair, plausible, and non-exploitative commercial distribution
 - `REFERENCE.md`
-  Referenzdaten und gemeinsamer Projektgedanke
+  reference data and shared project principle
 
 ## SHA256
 
@@ -48,25 +50,36 @@ Aktueller Windows-Stand:
 - `AION-Release-Bundle-0.1.0.zip`
   `274F8FA836E84E828B7AA85FF6277081E5D49484F25518B1BC5315C121C647AC`
 
-## Wichtige Hinweise
+## Important Notes
 
-- Projektreferenz im aktuellen Projektstand: Patrick Wirth
-- Kontaktreferenz: patrickwirth_93@icloud.com
-- Der Quellcode und die Projektdateien werden unter der AION Community Fairness License 1.0 bereitgestellt.
-- Umsatzbasierter Betrieb oder Vertrieb setzt ein faires und plausibles Modell voraus und darf nicht auf Ausbeutung oder blosse private Bereicherung ausgerichtet sein.
-- Die aktuelle Windows-Version startet eine gebuendelte lokale AION-API beim Start der Anwendung automatisch mit.
-- Dadurch ist der Windows-Desktop-Build nicht mehr auf eine separat gestartete API, PostgreSQL oder Redis angewiesen.
-- Der gebuendelte Desktop-Laufzeitmodus speichert lokale Nutzdaten jetzt dauerhaft in einem lokalen Desktop-State-Verzeichnis des angemeldeten Benutzers.
-- Die Windows-Version ist damit als eigenstaendige lokale Desktop-Anwendung fuer die externe Weitergabe geeignet, solange keine zentrale Mehrnutzer-API benoetigt wird.
-- Das Android-APK ist ein Debug-Build. Fuer echte Nutzung auf einem Telefon muss die API unter einer vom Geraet erreichbaren URL laufen und der Client mit `NEXT_PUBLIC_API_URL` dagegen neu gebaut werden.
-- Ein `.ipa` konnte auf diesem Windows-System nicht erzeugt werden. Apple-Builds benoetigen macOS mit Xcode. Deshalb liegt hier das vorbereitete Xcode-Projekt als ZIP bei.
+- Project reference in the current project state: Patrick Wirth
+- Reference contact: patrickwirth_93@icloud.com
+- The source code and project files are provided under the AION Community
+  Fairness License 1.0.
+- Revenue-based operation or distribution requires a fair and plausible model
+  and must not be aimed at exploitation or mere private enrichment.
+- The current Windows version starts a bundled local AION API automatically when
+  the application launches.
+- Because of that, the Windows desktop build no longer depends on a separately
+  started API, PostgreSQL, or Redis.
+- The bundled desktop runtime mode now stores local user data permanently in a
+  local desktop state directory for the signed-in user.
+- The Windows version is therefore suitable as a self-contained local desktop
+  application for external distribution as long as no central multi-user API is
+  required.
+- The Android APK is a debug build. For real use on a phone, the API must be
+  reachable from the device and the client must be rebuilt against
+  `NEXT_PUBLIC_API_URL`.
+- A `.ipa` could not be produced on this Windows system. Apple builds require
+  macOS with Xcode, so the prepared Xcode project is provided as a ZIP archive instead.
 
-## Freie Weitergabe und Mitgestaltung
+## Free Distribution and Shared Contribution
 
-- Die bereitgestellten Build-Dateien koennen frei genutzt und weitergegeben werden.
-- Die Hinweise dafuer stehen in `FREE-USE-NOTICE.txt`.
-- Die ZIP-Pakete enthalten `LICENSE`, `COPYRIGHT.md`, `REFERENCE.md`, `FAIR-COMMERCE.md` und die iOS-Build-Hinweise.
-- AION soll fuer jeden und jederzeit frei zugaenglich sein und gemeinschaftlich mitgestaltet werden.
+- The provided build files may be used and redistributed freely.
+- The governing notice is included in `FREE-USE-NOTICE.txt`.
+- The ZIP packages include `LICENSE`, `COPYRIGHT.md`, `REFERENCE.md`,
+  `FAIR-COMMERCE.md`, and the iOS build notes.
+- AION is intended to remain freely accessible to everyone and open to shared contribution.
 
 ## Release 0.1.1
 
@@ -77,6 +90,8 @@ Aktueller Windows-Stand:
 - `latest.yml`
 - `SHA256SUMS-0.1.1.txt`
 
-Die `0.1.0`-ZIP-Pakete bleiben als aeltere Sammelpakete im Ordner liegen. Fuer den aktuellen Stand bitte die `0.1.1`-Dateien verwenden.
+The `0.1.0` ZIP bundles remain in the folder as older archive packages. For the
+current state, use the `0.1.1` files.
 
-Wenn spaeter eine zentrale API-URL bereitsteht, sollten Android- und iOS-Builds gegen diese URL neu erzeugt werden.
+If a central API URL is provided later, Android and iOS builds should be
+regenerated against that URL.

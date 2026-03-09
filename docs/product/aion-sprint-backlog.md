@@ -1,207 +1,209 @@
-# AION Sprint-Backlog
+# AION Sprint Backlog
 
-Stand: 2026-03-08
+Date: 2026-03-08
 
-## Planungsannahmen
+## Planning Assumptions
 
-Dieser Backlog basiert auf dem aktuellen Repository-Stand und dem Dokument [aion-programmierungsplan.md](C:\Users\Administrator\Documents\New project\docs\product\aion-programmierungsplan.md).
+This backlog is based on the current repository state and the document
+[aion-programmierungsplan.md](C:\Users\Administrator\Documents\New project\docs\product\aion-programmierungsplan.md).
 
-Arbeitsannahmen:
+Working assumptions:
 
-- Sprintlaenge: 2 Wochen
-- Prioritaet: stabiler MVP vor Feature-Ausbau
-- Schaetzung: `S` = 1 bis 2 Tage, `M` = 3 bis 5 Tage, `L` = 6 bis 10 Tage, `XL` = groesser als 10 Tage
-- Teamannahme: kleines Kernteam mit Fokus auf Web, API und Plattform
+- sprint length: 2 weeks
+- priority: stable MVP before feature expansion
+- estimation: `S` = 1 to 2 days, `M` = 3 to 5 days, `L` = 6 to 10 days,
+  `XL` = more than 10 days
+- team assumption: a small core team focused on web, API, and platform
 
-## Epic-Uebersicht
+## Epic Overview
 
-| Epic | Titel | Ziel | Prioritaet | Release |
+| Epic | Title | Goal | Priority | Release |
 | --- | --- | --- | --- | --- |
-| EP-01 | Arbeitsumgebung und Betriebsbasis | Lokales Setup, PATH, ENV, Startbarkeit, Build-Pfade | Kritisch | Release 1 |
-| EP-02 | Persistenz der Kernmodule | In-Memory-Reste in Prisma ueberfuehren | Kritisch | Release 1 |
-| EP-03 | Vertrauensmodule operationalisieren | Datenschutz, Consent, Sicherheit und Audit produktionsnah machen | Hoch | Release 1 |
-| EP-04 | Frontend-MVP haerten | End-to-End-Fluesse, Fehlerbilder, Feature-Abgrenzung | Hoch | Release 1 |
-| EP-05 | KI-Orchestrierung erweitern | Provider, Impulse, Retrieval und Governance-Hooks | Hoch | Release 2 |
-| EP-06 | Worker und Hintergrundjobs | Queue, Embeddings, Benachrichtigungsjobs und Wiederholungsversuche | Hoch | Release 2 |
-| EP-07 | Qualitaet und Freigabeprozess | Testabdeckung, Release Gates, Runbooks | Kritisch | Release 1 |
-| EP-08 | Ausbauprodukte | Browser, Voice, Media, Collaboration | Mittel | Release 3 |
+| EP-01 | Environment and runtime foundation | Local setup, PATH, ENV, startability, build paths | Critical | Release 1 |
+| EP-02 | Persistence of core modules | Move in-memory remnants to Prisma | Critical | Release 1 |
+| EP-03 | Operationalize trust modules | Make privacy, consent, security, and audit production-like | High | Release 1 |
+| EP-04 | Harden the frontend MVP | End-to-end flows, error handling, feature boundaries | High | Release 1 |
+| EP-05 | Extend AI orchestration | Providers, prompts, retrieval, governance hooks | High | Release 2 |
+| EP-06 | Worker and background jobs | Queue, embeddings, notification jobs, retries | High | Release 2 |
+| EP-07 | Quality and release process | Test coverage, release gates, runbooks | Critical | Release 1 |
+| EP-08 | Expansion products | Browser, voice, media, collaboration | Medium | Release 3 |
 
-## Epic-Details
+## Epic Details
 
-### EP-01 Arbeitsumgebung und Betriebsbasis
+### EP-01 Environment and Runtime Foundation
 
-Ziel:
+Goal:
 
-- reproduzierbare Entwicklung, Buildbarkeit und lokale Betriebsfaehigkeit
+- reproducible development, buildability, and local runtime capability
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-101 | Toolchain-Pfade bereinigen | `node`, `pnpm` und `git` systemweit oder projektsicher in den PATH bringen und dokumentieren | S | keine |
-| AION-102 | ENV-Standard vereinheitlichen | `.env`, `.env.example`, benoetigte Secrets und lokale Defaults ueberarbeiten | S | AION-101 |
-| AION-103 | Lokales Datenbank-Setup verifizieren | PostgreSQL und Redis via Compose oder lokalem Fallback startbar machen | M | AION-102 |
-| AION-104 | Start- und Buildmatrix pruefen | `build`, `lint`, `typecheck`, `test`, API-Start und Web-Start gegen frisches Setup absichern | M | AION-103 |
-| AION-105 | Entwickler-Runbook erweitern | README und Setup-Doku mit Windows-spezifischen Startpfaden aktualisieren | S | AION-104 |
+| AION-101 | Clean up toolchain paths | Make `node`, `pnpm`, and `git` reliably available in PATH and document it | S | none |
+| AION-102 | Standardize ENV setup | Review `.env`, `.env.example`, required secrets, and local defaults | S | AION-101 |
+| AION-103 | Verify local database setup | Make PostgreSQL and Redis startable via Compose or local fallback | M | AION-102 |
+| AION-104 | Verify start and build matrix | Validate `build`, `lint`, `typecheck`, `test`, API start, and web start against a fresh setup | M | AION-103 |
+| AION-105 | Extend developer runbook | Update README and setup docs with Windows-specific startup paths | S | AION-104 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- frisches Setup startet Web, API und Datenhaltung nachvollziehbar
-- bekannte PATH-Probleme sind beseitigt oder dokumentiert umschifft
+- a fresh setup can start web, API, and data services in a traceable way
+- known PATH issues are removed or clearly documented around
 
-### EP-02 Persistenz der Kernmodule
+### EP-02 Persistence of Core Modules
 
-Ziel:
+Goal:
 
-- alle kritischen Nutzdaten konsistent in PostgreSQL statt im Speicher halten
+- keep all critical user data consistently in PostgreSQL instead of memory
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-201 | Persistenz-Audit erstellen | alle Module mit In-Memory-Restlogik inventarisieren und nach Risiko priorisieren | S | EP-01 |
-| AION-202 | Journal auf Repository-Layer umstellen | Service intern auf Prisma-Repositories umziehen ohne API-Bruch | M | AION-201 |
-| AION-203 | Diary und Notes persistieren | beide Capture-Module voll auf persistente Pfade heben | M | AION-201 |
-| AION-204 | Ziele und Benachrichtigungen persistieren | Erinnerungen, Jobs, Historie und Praeferenzen sauber persistieren | L | AION-201 |
-| AION-205 | Memory persistent machen | Memory-Items, Sucheingang und Ranking-Basis auf persistente Daten stutzen | L | AION-201 |
-| AION-206 | Analysis, Mirror, Growth persistieren | generierte Reports und Zustandsdaten aus dem Cache in Prisma ueberfuehren | L | AION-201 |
-| AION-207 | Persistenz-Verifikation automatisieren | `verify:persistence` auf alle priorisierten Module erweitern | M | AION-202 |
+| AION-201 | Create persistence audit | Inventory all modules with remaining in-memory logic and prioritize by risk | S | EP-01 |
+| AION-202 | Move journal to a repository layer | Move the service internally to Prisma repositories without breaking the API | M | AION-201 |
+| AION-203 | Persist diary and notes | Move both capture modules fully to persistent paths | M | AION-201 |
+| AION-204 | Persist goals and notifications | Persist reminders, jobs, history, and preferences cleanly | L | AION-201 |
+| AION-205 | Make memory persistent | Move memory items, search input, and ranking basis to persistent data | L | AION-201 |
+| AION-206 | Persist analysis, mirror, and growth | Move generated reports and state data from cache into Prisma | L | AION-201 |
+| AION-207 | Automate persistence verification | Extend `verify:persistence` across all prioritized modules | M | AION-202 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- Neustarts verlieren keine priorisierten Nutzdaten
-- Controller-Oberflaechen bleiben stabil
-- Persistenztests decken Kernmodule ab
+- restarts do not lose prioritized user data
+- controller interfaces remain stable
+- persistence tests cover the core modules
 
-### EP-03 Vertrauensmodule operationalisieren
+### EP-03 Operationalize Trust Modules
 
-Ziel:
+Goal:
 
-- Governance, Datenschutz, Consent und Sicherheit werden echte Betriebsfunktionen
+- make governance, privacy, consent, and security into real operational functions
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-301 | Datenschutz-Export ausfuehren | Exportanfragen als echte Datenausleitung mit Status und Ablaufdatum umsetzen | L | EP-01, EP-02 |
-| AION-302 | Deletion-Workflow umsetzen | Loeschanfragen mit Statusmaschine, Terminierung und Auditierung implementieren | L | EP-01, EP-02 |
-| AION-303 | Consent-Lifecycle absichern | Consent-Aenderungen fachlich und revisionssicher mit Audit koppeln | M | EP-02 |
-| AION-304 | Vorfall-Heuristiken einfuehren | simulierte Sicherheitsausloeser um erste echte Erkennungslogik erweitern | M | EP-01 |
-| AION-305 | Sitzungs- und Geraetevertrauen vorbereiten | Grundlage fuer vertrauenswuerdige Geraete, Session-Hardening und spaetere 2FA schaffen | M | AION-304 |
-| AION-306 | Vertrauensereignisse verknuepfen | Datenschutz-, Sicherheits- und Audit-Ereignisse quer referenzierbar machen | M | AION-301 |
+| AION-301 | Implement privacy export | Build export requests as real data extraction with status and expiry | L | EP-01, EP-02 |
+| AION-302 | Implement deletion workflow | Build deletion requests with status machine, scheduling, and auditing | L | EP-01, EP-02 |
+| AION-303 | Secure the consent lifecycle | Connect consent changes to audit in a domain-correct and revision-safe way | M | EP-02 |
+| AION-304 | Introduce incident heuristics | Expand simulated security triggers into initial real detection logic | M | EP-01 |
+| AION-305 | Prepare session and device trust | Lay the groundwork for trusted devices, session hardening, and later 2FA | M | AION-304 |
+| AION-306 | Connect trust events | Make privacy, security, and audit events cross-referenceable | M | AION-301 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- Datenschutz- und Sicherheitsfunktionen loesen echte Backend-Prozesse aus
-- Der Audit-Trail ist fuer kritische Vertrauensaktionen vollstaendig
+- privacy and security features trigger real backend processes
+- the audit trail is complete for critical trust-related actions
 
-### EP-04 Frontend-MVP haerten
+### EP-04 Harden the Frontend MVP
 
-Ziel:
+Goal:
 
-- die vorhandenen Produktbereiche werden releasefaehige Nutzerfluesse
+- turn the existing product surfaces into release-ready user flows
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-401 | Kernfluesse priorisieren | Erfassung, Ziele, Benachrichtigungen, Analyse, Governance, Datenschutz und Sicherheit als MVP-Fluesse fixieren | S | keine |
-| AION-402 | Fehler- und Ladezustaende vereinheitlichen | API-Loading, Error und Empty States app-weit konsistent machen | M | AION-401 |
-| AION-403 | Placeholder-Bereiche kennzeichnen | `browser`, `voice`, `media` und aehnliche Bereiche kontrolliert abgrenzen | S | AION-401 |
-| AION-404 | Vertrauenszentrum-UX verbessern | Governance-, Datenschutz- und Sicherheitsbereiche auf Klarheit und Handlungsfaehigkeit trimmen | M | AION-402 |
-| AION-405 | Navigation und Dashboard entruempeln | Fokus auf MVP-Bereiche, klare Startpunkte und Statusanzeigen | M | AION-401 |
-| AION-406 | End-to-End-Fluesse stabilisieren | Kernfluesse mit echter API und ohne Demo-Fallback validieren | L | EP-02, AION-402 |
+| AION-401 | Prioritize core flows | Fix capture, goals, notifications, analysis, governance, privacy, and security as MVP flows | S | none |
+| AION-402 | Unify error and loading states | Make API loading, error, and empty states consistent across the app | M | AION-401 |
+| AION-403 | Mark placeholder areas | Clearly fence off `browser`, `voice`, `media`, and similar areas | S | AION-401 |
+| AION-404 | Improve trust-center UX | Trim governance, privacy, and security screens for clarity and actionability | M | AION-402 |
+| AION-405 | Simplify navigation and dashboard | Focus on MVP areas, clear entry points, and status visibility | M | AION-401 |
+| AION-406 | Stabilize end-to-end flows | Validate core flows with the real API and without demo fallbacks | L | EP-02, AION-402 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- MVP-Nutzer koennen Kernfluesse ohne Sackgassen verwenden
-- unfertige Produktbereiche werden nicht als abgeschlossen verkauft
+- MVP users can complete core flows without dead ends
+- unfinished product areas are not presented as complete
 
-### EP-05 KI-Orchestrierung erweitern
+### EP-05 Extend AI Orchestration
 
-Ziel:
+Goal:
 
-- kontrollierter Uebergang von deterministischer KI zu provider-gestuetzter Ausfuehrung
+- make a controlled transition from deterministic AI to provider-backed execution
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-501 | Provider-Adapter entwerfen | Schnittstelle fuer externe LLM-Anbieter definieren und in `packages/ai-core` integrieren | L | EP-02 |
-| AION-502 | Prompt-Versionierung runtime-faehig machen | aktive Prompt-Version, Migration und Fallbacks einfuehren | M | AION-501 |
-| AION-503 | Retrieval-Kontext definieren | Kontextaufbau aus Memory, Goals und Capture-Daten fachlich und technisch festlegen | M | EP-02 |
-| AION-504 | Governance um Modellaufrufe erweitern | Pre- und Post-Processing mit Audit und Policy-Metadaten absichern | L | AION-501 |
-| AION-505 | Provider-Fallbacks und sicherer Halt | Fehlerstrategien, Timeouts und Governance-Halt in KI-Pipelines robust machen | M | AION-504 |
+| AION-501 | Design provider adapters | Define an interface for external LLM providers and integrate it into `packages/ai-core` | L | EP-02 |
+| AION-502 | Make prompt versioning runtime-capable | Introduce active prompt versions, migrations, and fallbacks | M | AION-501 |
+| AION-503 | Define retrieval context | Specify context building from memory, goals, and capture data functionally and technically | M | EP-02 |
+| AION-504 | Extend governance around model calls | Secure pre- and post-processing with audit and policy metadata | L | AION-501 |
+| AION-505 | Provider fallbacks and safe halt | Make error strategies, timeouts, and governance halt robust in AI pipelines | M | AION-504 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- externe Modelle lassen sich kontrolliert anbinden
-- jede KI-Antwort bleibt governanceseitig nachvollziehbar
+- external models can be connected in a controlled way
+- every AI answer remains traceable from a governance perspective
 
-### EP-06 Worker und Hintergrundjobs
+### EP-06 Worker and Background Jobs
 
-Ziel:
+Goal:
 
-- asynchrone Aufgaben sauber in den Worker verlagern
+- move asynchronous work cleanly into the worker
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-601 | Queue-Grundlage einfuehren | Redis-basierte Job-Queue im Worker etablieren | L | EP-01 |
-| AION-602 | Embedding-Jobs aufsetzen | Persistente Embedding-Generierung fuer Memory und Retrieval vorbereiten | L | AION-601, EP-05 |
-| AION-603 | Benachrichtigungsjobs produktiv machen | Erinnerungen, Vorfallmeldungen und Zustellversuche als Hintergrundjobs umsetzen | L | AION-601, EP-03 |
-| AION-604 | Retry- und DLQ-Strategie | gescheiterte Jobs beobachtbar und wiederholbar machen | M | AION-601 |
-| AION-605 | Worker-Observability ausbauen | Job-Laufzeiten, Fehler und Status fuer Betrieb sichtbar machen | M | AION-604 |
+| AION-601 | Introduce queue foundation | Establish a Redis-based job queue in the worker | L | EP-01 |
+| AION-602 | Set up embedding jobs | Prepare persistent embedding generation for memory and retrieval | L | AION-601, EP-05 |
+| AION-603 | Make notification jobs production-ready | Implement reminders, incident alerts, and delivery attempts as background jobs | L | AION-601, EP-03 |
+| AION-604 | Retry and DLQ strategy | Make failed jobs observable and retryable | M | AION-601 |
+| AION-605 | Expand worker observability | Expose job durations, failures, and statuses for operations | M | AION-604 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- asynchrone Aufgaben verlassen den Request-Pfad
-- Fehler in Hintergrundjobs bleiben nachvollziehbar und steuerbar
+- asynchronous work leaves the request path
+- failures in background jobs remain visible and controllable
 
-### EP-07 Qualitaet und Freigabeprozess
+### EP-07 Quality and Release Process
 
-Ziel:
+Goal:
 
-- Releases werden durch klare technische Gates abgesichert
+- secure releases through clear technical gates
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-701 | Kritische Testmatrix definieren | Kernfaelle fuer Erfassung, Ziele, Governance, Datenschutz und Sicherheit festlegen | S | keine |
-| AION-702 | API-Integrationsluecken schliessen | fehlende Persistenz- und Vertrauensszenarien als Tests abdecken | L | EP-02, EP-03 |
-| AION-703 | Web-Smokes erweitern | MVP-Fluesse im Browser Ende-zu-Ende absichern | M | EP-04 |
-| AION-704 | Release-Checkliste erstellen | Migrationen, Seeds, Audit, Worker und Rollback als Pflichtpruefung definieren | S | EP-01 |
-| AION-705 | Runbooks validieren | Backup, Vorfallreaktion und Wiederanlauf praktisch pruefen | M | EP-03, EP-06 |
-| AION-706 | Vertrauens-Regressionstests erweitern | Datenschutz-, Consent-, Governance- und Sicherheitsgrenzfaelle systematisch als Regressionstest abdecken | M | EP-03 |
+| AION-701 | Define critical test matrix | Define core cases for capture, goals, governance, privacy, and security | S | none |
+| AION-702 | Close API integration gaps | Cover missing persistence and trust scenarios with tests | L | EP-02, EP-03 |
+| AION-703 | Extend web smoke coverage | Secure MVP flows end-to-end in the browser | M | EP-04 |
+| AION-704 | Create release checklist | Define migrations, seeds, audit, worker, and rollback as mandatory release checks | S | EP-01 |
+| AION-705 | Validate runbooks | Validate backup, incident response, and restart procedures in practice | M | EP-03, EP-06 |
+| AION-706 | Extend trust regression tests | Cover privacy, consent, governance, and security edge cases systematically as regression tests | M | EP-03 |
 
-Abnahmekriterien:
+Acceptance criteria:
 
-- kritische Produktpfade sind vor Release test- und betriebsseitig abgesichert
+- critical product flows are protected by test and operational gates before release
 
-### EP-08 Ausbauprodukte
+### EP-08 Expansion Products
 
-Ziel:
+Goal:
 
-- Nebenmodule geplant ausbauen, ohne den MVP zu verwischen
+- expand secondary modules deliberately without blurring the MVP
 
 Tickets:
 
-| ID | Ticket | Beschreibung | Aufwand | Abhaengigkeiten |
+| ID | Ticket | Description | Effort | Dependencies |
 | --- | --- | --- | --- | --- |
-| AION-801 | Browser-Modul konzipieren | Scope, Governance-Risiken und technische Architektur fuer Browser-Funktionen definieren | M | Release 2 |
-| AION-802 | Voice-Pipeline konzipieren | STT, TTS, Datenschutz und Governance fuer Sprache planen | M | Release 2 |
-| AION-803 | Medien-Pipeline konzipieren | Upload, Verarbeitung, Speicherung und Vertrauensgrenzen fuer Medien planen | M | Release 2 |
-| AION-804 | Collaboration-Roadmap erstellen | Rollen, Freigaben, Datentrennung und Auditing vorbereiten | M | Release 2 |
+| AION-801 | Design browser module | Define scope, governance risks, and architecture for browser features | M | Release 2 |
+| AION-802 | Design voice pipeline | Plan STT, TTS, privacy, and governance for voice | M | Release 2 |
+| AION-803 | Design media pipeline | Plan upload, processing, storage, and trust gates for media | M | Release 2 |
+| AION-804 | Create collaboration roadmap | Prepare roles, permissions, data separation, and auditing | M | Release 2 |
 
-## Sprint-Empfehlung
+## Sprint Recommendation
 
-### Sprint 1: Betriebsfaehiger MVP-Unterbau
+### Sprint 1: Operational MVP Foundation
 
-Ziel:
+Goal:
 
-- Setup stabilisieren und die hoechstriskanten Persistenzluecken schliessen
+- stabilize the setup and close the highest-risk persistence gaps
 
 Commitment:
 
@@ -216,17 +218,17 @@ Commitment:
 - AION-701
 - AION-704
 
-Erfolgskriterien:
+Success criteria:
 
-- lokale Umgebung ist reproduzierbar startbar
-- Journal, Diary und Notes sind belastbar persistent
-- Test- und Release-Gates sind initial definiert
+- the local environment starts reproducibly
+- journal, diary, and notes are persistently reliable
+- test and release gates are initially defined
 
-### Sprint 2: Persistenz und MVP-Fluesse
+### Sprint 2: Persistence and MVP Flows
 
-Ziel:
+Goal:
 
-- Goals, Notifications und Frontend-Kernfluesse stabilisieren
+- stabilize goals, notifications, and core frontend flows
 
 Commitment:
 
@@ -235,19 +237,19 @@ Commitment:
 - AION-403
 - AION-405
 - AION-406
-- AION-702 teilweise fuer Capture und Notifications
+- AION-702 partly for capture and notifications
 - AION-703 initial
 
-Erfolgskriterien:
+Success criteria:
 
-- Kernnutzung funktioniert ohne Demo-Fallbacks
-- Notifications und Goals sind fachlich konsistent
+- core usage works without demo fallbacks
+- notifications and goals are functionally consistent
 
-### Sprint 3: Vertrauensfunktionen produktionsnah machen
+### Sprint 3: Make Trust Functions Production-Like
 
-Ziel:
+Goal:
 
-- Datenschutz und Sicherheit von sichtbaren Stubs zu echten Prozessen bewegen
+- move privacy and security from visible stubs to real processes
 
 Commitment:
 
@@ -258,15 +260,15 @@ Commitment:
 - AION-404
 - AION-706
 
-Erfolgskriterien:
+Success criteria:
 
-- Export, Loeschung und erste Vorfall-Heuristiken sind produktnah umsetzbar
+- export, deletion, and first incident heuristics are product-ready
 
-### Sprint 4: KI- und Worker-Beta vorbereiten
+### Sprint 4: Prepare AI and Worker Beta
 
-Ziel:
+Goal:
 
-- externe AI und Hintergrundjobs technisch vorbereiten
+- prepare external AI and background jobs technically
 
 Commitment:
 
@@ -277,37 +279,37 @@ Commitment:
 - AION-604
 - AION-605
 
-Erfolgskriterien:
+Success criteria:
 
-- KI-Kern und Worker haben eine tragfaehige Beta-Architektur
+- the AI core and worker have a viable beta architecture
 
-## Reihenfolge und Abhaengigkeiten
+## Order and Dependencies
 
-Empfohlene Hauptreihenfolge:
+Recommended primary order:
 
-1. EP-01 vor allem anderen abschliessen.
-2. EP-02 parallel zu EP-04 starten.
-3. EP-03 erst auf bereits stabilisierter Persistenz aufsetzen.
-4. EP-05 und EP-06 gemeinsam fuer Release 2 vorbereiten.
-5. EP-08 strikt nach dem MVP behandeln.
+1. Finish EP-01 before anything else.
+2. Start EP-02 in parallel with EP-04.
+3. Build EP-03 only on top of already stabilized persistence.
+4. Prepare EP-05 and EP-06 together for Release 2.
+5. Treat EP-08 strictly after the MVP.
 
-Blocker:
+Blockers:
 
-- ohne stabile ENV- und Datenbankbasis bleiben Persistenz- und Worker-Tickets riskant
-- ohne persistentes Memory ist Retrieval nur eingeschraenkt sinnvoll
-- ohne Audit-Kopplung sind Datenschutz- und Governance-Prozesse unvollstaendig
+- without a stable ENV and database foundation, persistence and worker tickets remain risky
+- without persistent memory, retrieval is only partially useful
+- without audit coupling, privacy and governance processes remain incomplete
 
-## Empfohlene Prioritaet fuer sofortige Umsetzung
+## Recommended Immediate Priority
 
-Unmittelbar anfangen mit:
+Start immediately with:
 
-1. AION-101 bis AION-104
-2. AION-201 bis AION-204
-3. AION-402 und AION-406
-4. AION-701 bis AION-704
+1. AION-101 through AION-104
+2. AION-201 through AION-204
+3. AION-402 and AION-406
+4. AION-701 through AION-704
 
-Bewusst spaeter:
+Deliberately later:
 
-1. AION-801 bis AION-804
-2. Browser, Voice und Media ohne klaren MVP-Nutzen
-3. tiefe KI-Provider-Integration vor Abschluss der Persistenzbasis
+1. AION-801 through AION-804
+2. browser, voice, and media without clear MVP value
+3. deep AI provider integration before the persistence foundation is complete

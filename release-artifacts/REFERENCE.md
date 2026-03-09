@@ -1,16 +1,16 @@
-# AION Referenzdaten
+# AION Reference Data
 
-Diese Datei hinterlegt die vom Projektinitiator gewuenschten Referenzdaten im Projekt.
+This file records the reference data requested by the project initiator.
 
 - Name: Patrick Wirth
-- Geburtsdatum: 10.06.1993
-- E-Mail: patrickwirth_93@icloud.com
+- Date of birth: 1993-06-10
+- Email: patrickwirth_93@icloud.com
 
-## Freier Zugang und Mitgestaltung
+## Free Access and Shared Contribution
 
-AION soll fuer jeden und jederzeit frei zugaenglich sein und gemeinschaftlich
-mitgestaltet werden koennen.
+AION is intended to remain freely accessible to everyone and open to shared
+contribution.
 
-## Projektgedanke
+## Project Principle
 
-Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.
+For our future, in the spirit of shared connection and enduring solidarity.

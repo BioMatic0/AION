@@ -1,39 +1,47 @@
 AION Community Access Notice
-Stand: 2026-03-08
+Date: 2026-03-08
 
-Diese Freigabe bezieht sich auf die bereitgestellten Release-Artefakte in diesem Ordner
-und auf die offene Mitgestaltung des Projekts.
+This notice applies to the release artifacts provided in this folder and to the
+open collaborative direction of the project.
 
-Projektreferenz:
+Project reference:
 - Patrick Wirth
 - patrickwirth_93@icloud.com
 
-Lizenzstatus:
-- Das Projekt wird unter der AION Community Fairness License 1.0 gefuehrt.
-- Quellcode und Build-Dateien sollen frei zugaenglich und mitgestaltbar sein.
+License status:
+- The project is governed by the AION Community Fairness License 1.0.
+- Source code and build files are intended to remain freely accessible and open
+  to contribution.
 
-Erlaubt:
-- kostenlose Nutzung der bereitgestellten AION-Builds
-- kostenlose Weitergabe der Release-Dateien
-- Installation auf eigenen Geraeten fuer private, kreative, lernbezogene und organisatorische Nutzung
-- Mitgestaltung, Veraenderung und Weiterentwicklung gemaess AION Community Fairness License 1.0
+Permitted:
+- free use of the provided AION builds
+- free redistribution of the release files
+- installation on your own devices for private, creative, educational, and organizational use
+- contribution, modification, and further development in accordance with the
+  AION Community Fairness License 1.0
 
-Nicht erlaubt ohne Einhaltung der Lizenzbedingungen:
-- ausbeuterischer Vertrieb
-- blosse private Bereicherung ohne faires und plausibles Gegenmodell
-- umsatzbasierter Betrieb ohne offengelegte, ethisch vertretbare Begruendung
+Not permitted without compliance with the license terms:
+- exploitative commercial distribution
+- mere private enrichment without a fair and plausible counter-model
+- revenue-based operation without a disclosed and ethically defensible justification
 
-Nicht automatisch zugesagt:
-- ein Managed Cloud-Dienst
-- plattformuebergreifend identische Funktionalitaet
-- eine zentrale Betreiberinfrastruktur
+Not automatically guaranteed:
+- a managed cloud service
+- identical functionality across all platforms
+- a centralized operator infrastructure
 
-Wichtige Grenzen:
-- Android liegt derzeit als Debug-APK vor und benoetigt fuer echte Nutzung eine erreichbare API-URL.
-- iPhone/iOS liegt auf diesem Windows-System nur als Xcode-Projekt vor; ein finales .ipa muss auf macOS mit Xcode gebaut werden.
-- Der Windows-Desktop-Build ist lokal selbststaendig und speichert Nutzdaten lokal auf dem jeweiligen Rechner.
+Important limits:
+- Android is currently provided as a debug APK and requires a reachable API URL
+  for real device usage.
+- On this Windows system, iPhone/iOS is provided only as an Xcode project; a
+  final `.ipa` must be built on macOS with Xcode.
+- The Windows desktop build is self-contained locally and stores user data on
+  the respective local machine.
 
-Leitgedanke:
-- Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.
+Guiding principle:
+- For our future, in the spirit of shared connection and enduring solidarity.
 
-Die Software wird in der vorliegenden Form offen und kostenlos bereitgestellt. Fuer produktive Unternehmens-, Compliance- oder Hochsicherheitsnutzung ist vor einer breiten Ausrollung dennoch eine separate fachliche und rechtliche Pruefung sinnvoll.
+The software is provided openly and free of charge in its current form. For
+production enterprise use, compliance-sensitive environments, or high-security
+deployment, a separate technical and legal review is still advisable before
+large-scale rollout.

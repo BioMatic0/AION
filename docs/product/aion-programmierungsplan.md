@@ -1,250 +1,259 @@
-# AION Programmierungsplan
+# AION Implementation Plan
 
-Stand: 2026-03-08
+Date: 2026-03-08
 
-## Ausgangslage
+## Starting Point
 
-Hinweis: Das urspruenglich referenzierte PDF `AION_Gesamtpaket_Patrick_Wirth.pdf` war in dieser Sitzung nicht direkt lesbar, weil das angegebene Laufwerk `D:` aktuell nicht eingebunden ist. Dieser Plan basiert daher auf dem vorhandenen Repository, den Architekturdateien unter `docs/` und dem aktuellen MVP-Stand im Monorepo.
+Note: the originally referenced PDF `AION_Gesamtpaket_Patrick_Wirth.pdf` was not
+directly readable in this session because the referenced `D:` drive is not
+currently mounted. This plan is therefore based on the existing repository, the
+architecture files under `docs/`, and the current MVP state in the monorepo.
 
-## Aktueller Projektstand
+## Current Project State
 
-Bereits vorhanden:
+Already available:
 
-- Monorepo mit `apps/web`, `apps/api`, `apps/worker` und geteilten Paketen
-- Next.js Web-App mit Routen fuer Dashboard, Journal, Diary, Notes, Goals, Analysis, Mirror, Growth, Notifications, Governance, Privacy und Security
-- NestJS API mit Modulgrenzen fuer Kernprodukt, Governance, Privacy, Consent, Audit und Security
-- Prisma-Schema fuer Nutzer, Erfassung, Ziele, Benachrichtigungen, Governance, Datenschutz, Sicherheit, Audit und KI-bezogene Daten
-- Deterministische KI-Orchestrierung fuer Analyse, Spiegel, Wachstum, Speicher und Quantenlinse
-- Sichtbare Governance-, Datenschutz- und Sicherheitsoberflaechen
-- Testgrundlage mit API-Tests, Vitest und Playwright-Smoketests
+- monorepo with `apps/web`, `apps/api`, `apps/worker`, and shared packages
+- Next.js web app with routes for dashboard, journal, diary, notes, goals,
+  analysis, mirror, growth, notifications, governance, privacy, and security
+- NestJS API with module boundaries for the core product, governance, privacy,
+  consent, audit, and security
+- Prisma schema for users, capture, goals, notifications, governance, privacy,
+  security, audit, and AI-related data
+- deterministic AI orchestration for analysis, mirror, growth, memory, and quantum lens
+- visible governance, privacy, and security surfaces
+- testing baseline with API tests, Vitest, and Playwright smoke tests
 
-Noch offen oder nur teilweise umgesetzt:
+Still open or only partially implemented:
 
-- externe LLM-Anbindung
-- Embeddings und Retrieval-Pipeline
-- Worker-gestuetzte Hintergrundjobs
-- echte Benachrichtigungsauslieferung
-- ausfuehrbare Export- und Loeschprozesse
-- Ablosung verbleibender In-Memory-Logik durch Prisma-Repositories
-- echte Sicherheitsheuristiken statt Simulationen
-- Vollausbau von Browser-, Voice-, Media- und Kollaborationsfunktionen
+- external LLM integration
+- embeddings and retrieval pipeline
+- worker-based background jobs
+- real notification delivery
+- executable export and deletion flows
+- replacement of remaining in-memory logic with Prisma repositories
+- real security heuristics instead of simulations
+- full implementation of browser, voice, media, and collaboration features
 
-## Zielbild
+## Target State
 
-Ziel ist eine produktionsreife AION-MVP-Plattform mit:
+The target is a production-ready AION MVP platform with:
 
-- stabiler Persistenz statt fluechtiger Laufzeitdaten
-- belastbarer KI-Pipeline mit Governance-Durchsetzung
-- nachvollziehbarer Datenschutz-, Consent- und Sicherheitsausfuehrung
-- klar abgegrenzten Release-Slices fuer MVP, Beta und Ausbauphase
+- stable persistence instead of volatile runtime data
+- a reliable AI pipeline with governance enforcement
+- traceable privacy, consent, and security execution
+- clearly separated release slices for MVP, beta, and expansion phases
 
-## Programmierungsphasen
+## Implementation Phases
 
-### Phase 0: Anforderungen finalisieren
+### Phase 0: Finalize Requirements
 
-Ziel:
+Goal:
 
-- PDF-Inhalt nachliefern oder Laufwerk `D:` wieder verfuegbar machen
-- Anforderungen aus PDF gegen den Repo-Stand mappen
-- Epics, Muss-Kriterien und Nicht-Ziele verbindlich festlegen
+- recover the PDF content or make drive `D:` available again
+- map the PDF requirements against the repository state
+- define epics, must-have criteria, and non-goals conclusively
 
-Arbeitspakete:
+Work packages:
 
-- PDF automatisch extrahieren und in Backlog-Eintraege ueberfuehren
-- vorhandene Features mit dokumentierten Anforderungen abgleichen
-- Lueckenliste mit Prioritaet `MVP`, `Beta`, `spaeter` erstellen
+- extract the PDF into backlog entries
+- compare existing features with documented requirements
+- create a gap list with priorities `MVP`, `Beta`, and `Later`
 
-Ergebnis:
+Result:
 
-- belastbares Scope-Dokument als Single Source of Truth
+- a reliable scope document as the single source of truth
 
-### Phase 1: Entwicklungsumgebung und Betriebsbasis haerten
+### Phase 1: Harden the Development and Runtime Foundation
 
-Ziel:
+Goal:
 
-- reproduzierbare lokale und spaetere Staging-Umgebung
+- reproducible local and later staging environments
 
-Arbeitspakete:
+Work packages:
 
-- Node 24, pnpm 10, PostgreSQL 16 und Redis 7 verbindlich aufsetzen
-- `node`, `pnpm` und `git` sauber in den `PATH` bringen
-- `.env` und Secret-Handling standardisieren
-- Docker- oder lokale Fallback-Setups dokumentieren
-- Start-, Build-, Lint- und Testpfade auf einer frischen Maschine pruefen
+- standardize Node 24, pnpm 10, PostgreSQL 16, and Redis 7
+- ensure `node`, `pnpm`, and `git` are available cleanly in `PATH`
+- standardize `.env` handling and secret management
+- document Docker and local fallback setups
+- verify start, build, lint, and test paths on a fresh machine
 
-Ergebnis:
+Result:
 
-- jeder Entwickler kann das System reproduzierbar starten und testen
+- every developer can start and test the system reproducibly
 
-### Phase 2: Persistenz konsequent abschliessen
+### Phase 2: Finish Persistence Consistently
 
-Ziel:
+Goal:
 
-- alle Kernmodule auf Prisma-gestuetzte Persistenz umstellen
+- move all core modules to Prisma-backed persistence
 
-Arbeitspakete:
+Work packages:
 
-- verbleibende In-Memory-Services identifizieren
-- Repository-Layer je Fachmodul einfuehren
-- Controller-Schnittstellen stabil halten, nur Service-Implementierungen tauschen
-- Migrationen, Seeds und Datenvalidierung pro Domaene absichern
-- API-Tests auf persistente Pfade umstellen
+- identify all remaining in-memory services
+- introduce repository layers per domain
+- keep controller interfaces stable and replace only service implementations
+- secure migrations, seeds, and data validation per domain
+- move API tests to persistent paths
 
-Prioritaet:
+Priority:
 
-- Journal
-- Diary
-- Notes
-- Goals
-- Notifications
-- Memory
-- Analysis, Mirror und Growth
+- journal
+- diary
+- notes
+- goals
+- notifications
+- memory
+- analysis, mirror, and growth
 
-Ergebnis:
+Result:
 
-- keine kritischen Nutzdaten liegen nur noch im Speicher
+- no critical user data remains only in memory
 
-### Phase 3: KI-Orchestrierung produktionsfaehig machen
+### Phase 3: Make AI Orchestration Production-Ready
 
-Ziel:
+Goal:
 
-- von deterministischen Regeln zu einer kontrollierten Provider-Integration wechseln
+- move from deterministic rules toward controlled provider integration
 
-Arbeitspakete:
+Work packages:
 
-- Provider-Adapter fuer externe LLMs einfuehren
-- Prompt-Versionierung in `packages/prompts` runtime-faehig machen
-- Retrieval-Pipeline mit persistentem Memory aufbauen
-- Embedding-Generierung in den Worker verschieben
-- Governance-Entscheidungen vor und nach Modellaufrufen auditiert absichern
-- Fallbacks definieren, wenn Provider ausfallen oder Governance blockiert
+- add provider adapters for external LLMs
+- make prompt versioning in `packages/prompts` runtime-capable
+- build a retrieval pipeline with persistent memory
+- move embedding generation into the worker
+- audit governance decisions before and after model calls
+- define fallbacks when providers fail or governance blocks execution
 
-Ergebnis:
+Result:
 
-- echte KI-Ausgaben bei gleichzeitig nachvollziehbarer Policy-Durchsetzung
+- real AI outputs with traceable policy enforcement
 
-### Phase 4: Hintergrundjobs und Benachrichtigungen vollenden
+### Phase 4: Complete Background Jobs and Notifications
 
-Ziel:
+Goal:
 
-- asynchrone und zustellbare Systemprozesse einfuehren
+- introduce asynchronous and deliverable system processes
 
-Arbeitspakete:
+Work packages:
 
-- Redis-basierte Queue fuer Hintergrundjobs nutzen
-- Benachrichtigungsjobs, Wiederholungsversuche und Dead-Letter-Verhalten definieren
-- Mail-Versand oder Provider-Anbindung fuer Vorfall- und Erinnerungsmails umsetzen
-- spaeter Push oder In-App Realtime sauber vorbereiten
-- Observability fuer fehlerhafte Jobs einbauen
+- use a Redis-based queue for background jobs
+- define notification jobs, retries, and dead-letter handling
+- implement mail delivery or provider integration for incident and reminder emails
+- prepare push or in-app realtime later in a clean way
+- add observability for failed jobs
 
-Ergebnis:
+Result:
 
-- Erinnerungen, Sicherheitsmeldungen und Exportprozesse laufen nicht mehr nur stub-basiert
+- reminders, security alerts, and export processes no longer rely only on stubs
 
-### Phase 5: Privacy, Consent und Security operationalisieren
+### Phase 5: Operationalize Privacy, Consent, and Security
 
-Ziel:
+Goal:
 
-- Vertrauensbereiche von Demo-Sichtbarkeit zu echter Ausfuehrung bringen
+- move trust-related areas from demo visibility to real execution
 
-Arbeitspakete:
+Work packages:
 
-- Export Requests als echten Datenexport implementieren
-- Deletion Requests mit Statusmaschine und Fristen umsetzen
-- Consent-Aenderungen revisionssicher koppeln
-- Vorfallerkennung von Simulationen auf echte Heuristiken erweitern
-- optional 2FA-, Geraetevertrauen- und Session-Hardening vorbereiten
-- Datenschutz-, Sicherheits- und Audit-Ereignisse quer verknuepfen
+- implement export requests as real data export
+- implement deletion requests with status flow and deadlines
+- connect consent changes in a revision-safe way
+- extend incident detection from simulation toward real heuristics
+- optionally prepare 2FA, device trust, and session hardening
+- connect privacy, security, and audit events across modules
 
-Ergebnis:
+Result:
 
-- Governance, Privacy und Security werden operative Produktfunktionen
+- governance, privacy, and security become operational product functions
 
-### Phase 6: Frontend auf produktive Nutzerfluesse trimmen
+### Phase 6: Refine the Frontend for Productive User Flows
 
-Ziel:
+Goal:
 
-- vorhandene Routen in saubere End-to-End-Erlebnisse ueberfuehren
+- turn the current routes into clean end-to-end product experiences
 
-Arbeitspakete:
+Work packages:
 
-- Platzhalterbereiche gegen echten Reifegrad abgrenzen
-- API-Fehler, Ladezustaende und Leerdaten sauber vereinheitlichen
-- Kernfluesse priorisieren: Capture, Goals, Notifications, Analysis, Governance, Privacy, Security
-- unvollstaendige Bereiche wie `browser`, `voice`, `media` per Feature Flag oder Roadmap-Hinweis kontrollieren
-- UX fuer Datenschutz, Governance und Vorfallkommunikation vertrauenswuerdig ausbauen
+- distinguish placeholder areas from truly mature functionality
+- unify API errors, loading states, and empty states consistently
+- prioritize core flows: capture, goals, notifications, analysis, governance,
+  privacy, and security
+- gate unfinished areas like `browser`, `voice`, and `media` with feature flags
+  or roadmap guidance
+- improve UX for privacy, governance, and incident communication in a trustable way
 
-Ergebnis:
+Result:
 
-- konsistente, glaubwuerdige und releasefaehige Nutzeroberflaeche
+- a consistent, credible, and release-ready user interface
 
-### Phase 7: Qualitaetssicherung und Freigabeprozess
+### Phase 7: Quality Assurance and Release Process
 
-Ziel:
+Goal:
 
-- belastbare technische Freigabekriterien schaffen
+- establish reliable technical release criteria
 
-Arbeitspakete:
+Work packages:
 
-- Unit-, Integrations- und E2E-Abdeckung auf kritische Fluesse fokussieren
-- Contract-Tests zwischen Web, API und Shared Packages einfuehren
-- Testmatrix fuer Governance-Blockierungen, Datenschutzanfragen und Sicherheitsvorfaelle aufbauen
-- Release-Checkliste fuer Migrationen, Seeds, Hintergrundjobs und Audit-Trails definieren
-- Runbooks fuer Backup, Vorfallreaktion und Rollback pruefen
+- focus unit, integration, and E2E coverage on critical flows
+- introduce contract tests between web, API, and shared packages
+- build a test matrix for governance blocking, privacy requests, and security incidents
+- define a release checklist for migrations, seeds, background jobs, and audit trails
+- validate runbooks for backup, incident response, and rollback
 
-Ergebnis:
+Result:
 
-- jede Auslieferung ist technisch und fachlich nachvollziehbar freigabefaehig
+- each release can be approved with technical and functional traceability
 
-## Empfohlene Release-Slices
+## Recommended Release Slices
 
-### Release 1: Stabiler MVP
+### Release 1: Stable MVP
 
-Umfang:
+Scope:
 
-- Capture, Goals, Notifications
-- Governance-, Datenschutz- und Sicherheitsbereiche
-- persistente Kernmodule
-- deterministische KI-Funktionen
+- capture, goals, notifications
+- governance, privacy, and security centers
+- persistent core modules
+- deterministic AI functions
 
-Nicht enthalten:
+Not included:
 
-- externe LLMs
-- echte Embeddings
-- Voice, Media, Browser
+- external LLMs
+- real embeddings
+- voice, media, browser
 
-### Release 2: Intelligente Beta
+### Release 2: Intelligent Beta
 
-Umfang:
+Scope:
 
-- externe Modellanbieter
-- Retrieval und Memory-Kontext
-- Worker-gestuetzte Jobs
-- echte Benachrichtigungsauslieferung
-- operative Datenschutz- und Vorfallablaeufe
+- external model providers
+- retrieval and memory context
+- worker-based jobs
+- real notification delivery
+- operational privacy and incident workflows
 
-### Release 3: Ausbauphase
+### Release 3: Expansion Phase
 
-Umfang:
+Scope:
 
-- Browser
-- Voice
-- Media
-- Collaboration
-- erweiterte Sicherheits- und Vertrauensfunktionen
+- browser
+- voice
+- media
+- collaboration
+- expanded security and trust functions
 
-## Kritische Risiken
+## Critical Risks
 
-- Dokument- und Repo-Stand koennen fachlich auseinanderlaufen, solange das PDF nicht gegengeprueft ist
-- In-Memory-Restlogik kann zu inkonsistentem Verhalten zwischen Neustarts fuehren
-- externe KI-Anbieter ohne saubere Policy- und Audit-Kette wuerden das Vertrauensmodell untergraben
-- Datenschutz- und Sicherheits-Stubs wirken produktreif, sind aber ohne Ausfuehrungslogik nur teilweise belastbar
-- unklare Priorisierung von Nebenmodulen gefaehrdet den MVP-Fokus
+- the document state and repository state may diverge as long as the PDF is not revalidated
+- remaining in-memory logic can cause inconsistent behavior across restarts
+- external AI providers without clean policy and audit chains would undermine the trust model
+- privacy and security stubs may appear product-ready while still being only partially reliable
+- unclear prioritization of side modules endangers MVP focus
 
-## Empfohlene naechste Schritte
+## Recommended Next Steps
 
-1. PDF wieder zugreifbar machen und Anforderungen gegen diesen Plan validieren.
-2. Phase 1 und Phase 2 als unmittelbaren Sprint-Block starten.
-3. Alle offenen In-Memory-Module in eine priorisierte Persistenzliste ueberfuehren.
-4. Einen separaten Epic-Track fuer KI-Provider, Embeddings und Worker anlegen.
-5. Datenschutz-, Sicherheits- und Governance-Funktionen als produktionskritische Arbeitsstraenge behandeln, nicht als spaetere Dekoration.
+1. Make the PDF accessible again and validate the requirements against this plan.
+2. Start Phase 1 and Phase 2 as the immediate sprint block.
+3. Turn all remaining in-memory modules into a prioritized persistence list.
+4. Create a separate epic track for AI providers, embeddings, and worker expansion.
+5. Treat privacy, security, and governance functions as production-critical tracks,
+   not as later decoration.

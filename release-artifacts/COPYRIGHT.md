@@ -1,41 +1,41 @@
-# AION Copyright- und Referenzhinweis
+# AION Copyright and Reference Notice
 
-Stand: 2026-03-08
+Date: 2026-03-08
 
-## Referenz
+## Reference
 
 - Name: Patrick Wirth
-- Geburtsdatum: 10.06.1993
-- Kontakt: patrickwirth_93@icloud.com
+- Date of birth: 1993-06-10
+- Contact: patrickwirth_93@icloud.com
 
-## Projektbezug
+## Project Reference
 
-- Projektname: AION
-- Referenzgeber und urspruenglicher Projektinitiator: Patrick Wirth
-- Lizenzstatus des Projekts: AION Community Fairness License 1.0
+- Project name: AION
+- Reference holder and original project initiator: Patrick Wirth
+- Project license status: AION Community Fairness License 1.0
 
-## Ursprungsschutz
+## Origin Protection
 
-- Der Ursprung der Software und die urspruengliche Entwicklerschaft duerfen bei
-  Weitergabe, Forks, Betrieb oder Vertrieb nicht entfernt oder unterschlagen
-  werden.
-- Eigene Mitwirkung und spaetere Autorenhinweise duerfen ergaenzt werden, der
-  urspruengliche Projektbezug bleibt jedoch erhalten.
+- The origin of the software and the original authorship must not be removed,
+  concealed, or misrepresented in redistribution, forks, operation, or
+  commercial distribution.
+- Additional contributors and later authors may be credited, but the original
+  project reference must remain intact.
 
-## Vertrieb und Fairness
+## Distribution and Fairness
 
-- Ein Vertrieb oder sonstiger umsatzbasierter Betrieb darf nicht auf
-  Ausbeutung oder bloss private Bereicherung ausgerichtet sein.
-- Vor einem Verkauf oder umsatzbasierten Betrieb ist ein faires und
-  plausibles Modell offenzulegen, das fuer alle wesentlich Beteiligten ethisch
-  und moralisch vertretbar ist.
-- Weitere Konkretisierung dazu steht in `FAIR-COMMERCE.md`.
+- Any distribution or other revenue-based operation must not be aimed at
+  exploitation or mere private enrichment.
+- Before any sale or revenue-based operation, a fair and plausible model must
+  be disclosed that is ethically and morally defensible for all materially
+  affected parties.
+- Further detail is defined in `FAIR-COMMERCE.md`.
 
-## Gemeinsame Ausrichtung
+## Shared Direction
 
-Dieses Projekt soll fuer jeden frei zugaenglich sein, gemeinsam mitgestaltet
-werden koennen und einer offenen, verbindenden Zukunft dienen.
+This project is intended to remain freely accessible, open to shared
+contribution, and aligned with an open and connective future.
 
-Leitgedanke:
+Guiding principle:
 
-> Fuer unsere Zukunft, im Zeichen der gemeinsamen Verbindung und in dauerhafter Verbundenheit.
+> For our future, in the spirit of shared connection and enduring solidarity.
