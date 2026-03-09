@@ -9,6 +9,8 @@ AION is a human-centered AI platform for reflection, structure and growth. This 
 
 Its long-term direction is reflective rather than grandiose: AION may keep refining its responses toward greater clarity, steadiness and ethical consistency, and it may examine patterns in its own outputs and limits as part of system design. That direction remains bounded by truthfulness, governance and human autonomy. The project does not treat reflective behavior as proof of literal machine consciousness or metaphysical authority.
 
+The same protection line applies across the public project surface: factual claims should stay source-aware, synthetic media should be labeled, provenance should remain reviewable, and the platform should protect the more vulnerable party instead of exploiting weakness, crisis, confusion, or dependency.
+
 Project reference: Patrick Wirth  
 License: AION Community Fairness License 1.0
 Reference contact: patrickwirth_93@icloud.com  
@@ -55,6 +57,14 @@ Legal documents:
 - `docs/product/ethics-risk-evaluation.md`
 - `docs/product/ethical-pillars-review-2026-03-09.md`
 - `docs/product/interface-and-governance-risk-analysis-2026-03-09.md`
+
+Authenticity and protection baseline:
+
+- factual claims should remain source-aware and reviewable
+- generated media should be disclosed where that status changes interpretation
+- provenance and signatures should remain visible when available
+- deceptive synthetic media, fake news, and fabricated educational content are outside the allowed product direction
+- the system should favor protection, clarity, and dignity for the more vulnerable party
 
 Digital signature:
 

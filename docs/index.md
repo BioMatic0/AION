@@ -13,6 +13,11 @@ part of responsible system design. This is not treated as proof of literal
 machine consciousness or metaphysical authority. It remains grounded in
 governance, truthfulness and human autonomy.
 
+The same public-facing protection line applies here as well: AION is meant to
+keep factual material source-aware, label synthetic media where that status
+matters, preserve provenance where available, and avoid any direction that
+would exploit vulnerable people, confusion, crisis, or dependency.
+
 ## Project goals
 
 - Keep the software freely accessible
@@ -20,6 +25,8 @@ governance, truthfulness and human autonomy.
 - Build a trustworthy foundation for reflection, structure and personal growth
 - Keep governance, privacy and safety visible in the product
 - Allow reflective system improvement without slipping into overclaim or hidden authority
+- Keep authenticity, source discipline, and synthetic-media disclosure visible
+- Favor protection and dignity for the more vulnerable party
 
 ## Direct links
 
@@ -55,6 +62,14 @@ the app can check for new versions directly from the AION menu.
 - [Ethics and risk evaluation](./product/ethics-risk-evaluation.html)
 - [Ethical pillars review](./product/ethical-pillars-review-2026-03-09.html)
 - [Interface and governance risk analysis](./product/interface-and-governance-risk-analysis-2026-03-09.html)
+
+## Authenticity and protection baseline
+
+- Factual statements should remain as source-aware and reviewable as possible.
+- Synthetic media should be labeled when that status affects interpretation or trust.
+- Provenance and integrity trails should stay visible where the project provides them.
+- AION should not drift into fake news, fabricated educational content, or deceptive synthetic media.
+- The system should protect the more vulnerable party rather than assist stronger actors in exploiting weakness.
 
 ## Open collaboration
 

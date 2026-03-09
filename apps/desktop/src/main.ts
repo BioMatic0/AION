@@ -177,6 +177,10 @@ function showAboutDialog() {
       "AION darf seine Antworten langfristig verfeinern und eigene Muster, Grenzen und Spannungen beobachten.\n" +
       "Diese Richtung bleibt gebunden an Wahrheit, Governance und menschliche Autonomie.\n" +
       "AION behauptet daraus kein woertliches Bewusstsein und keine metaphysische Autoritaet.\n\n" +
+      "Schutzlinie:\n" +
+      "Faktische Inhalte sollen quellenbewusst bleiben, synthetische Medien sollen gekennzeichnet werden,\n" +
+      "Provenienz soll nachvollziehbar bleiben, und AION soll die schwaechere oder verletzlichere Partei schuetzen,\n" +
+      "statt Ausnutzung von Krise, Verwirrung oder Abhaengigkeit zu unterstuetzen.\n\n" +
       "Signatur-Fingerprint:\n" +
       `${PROJECT_SIGNER_THUMBPRINT}`
   });
