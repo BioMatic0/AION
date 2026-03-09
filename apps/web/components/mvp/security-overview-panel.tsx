@@ -5,6 +5,8 @@ import type { SecurityCenterOverview, SecurityIncidentSummary } from "@aion/shar
 import { apiRequest } from "../../lib/api";
 import { StatusNotice } from "./status-notice";
 
+const PROJECT_SIGNER_THUMBPRINT = "0B3D9CF4312D2983FE247D5DD98EA3F524AFDA41";
+
 function formatSeverity(value: SecurityCenterOverview["events"][number]["severity"]) {
   const map: Record<SecurityCenterOverview["events"][number]["severity"], string> = {
     info: "Info",
@@ -108,6 +110,39 @@ export function SecurityOverviewPanel() {
           {status ? <StatusNotice message={status} variant="success" /> : null}
           {error ? <StatusNotice message={error} variant="error" /> : null}
         </div>
+      </article>
+
+      <article className="rounded-[28px] border border-mist bg-white p-8 shadow-panel">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verification</p>
+            <h2 className="mt-3 font-display text-3xl text-ink">Visible signature integrity</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate/80">
+              AION exposes its repository and release-signature trail as part of the product trust model. This lets users verify origin and file integrity instead of relying only on hidden build claims.
+            </p>
+          </div>
+          <div className="rounded-[24px] border border-moss/20 bg-mist/35 px-5 py-4 text-sm text-slate/80">
+            <span className="font-semibold text-ink">Signer thumbprint:</span>
+            <div className="mt-2 break-all font-mono text-xs text-slate">{PROJECT_SIGNER_THUMBPRINT}</div>
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 xl:grid-cols-2">
+          <div className="rounded-[24px] border border-moss/20 bg-mist/35 p-5">
+            <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Repository check</p>
+            <code className="mt-4 block rounded-2xl bg-white px-4 py-3 text-xs leading-6 text-ink">
+              powershell -ExecutionPolicy Bypass -File .\signatures\verify-signature.ps1
+            </code>
+          </div>
+          <div className="rounded-[24px] border border-moss/20 bg-mist/35 p-5">
+            <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Release check</p>
+            <code className="mt-4 block rounded-2xl bg-white px-4 py-3 text-xs leading-6 text-ink">
+              powershell -ExecutionPolicy Bypass -File .\release-artifacts\verify-release-signature.ps1
+            </code>
+          </div>
+        </div>
+        <p className="mt-5 text-xs leading-6 text-slate/65">
+          This is a cryptographic origin and integrity trail for the project and shipped artifacts. It is not a publicly trusted Windows Authenticode certificate.
+        </p>
       </article>
 
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
