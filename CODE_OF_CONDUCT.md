@@ -1,133 +1,106 @@
-# Code of Conduct
+# Verhaltenskodex
 
-## Purpose
+## Zweck
 
-AION exists to support human dignity, clarity, reflection, development and
-responsible collaboration. This project is meant to strengthen people, not to
-degrade, manipulate or silence them.
+AION existiert, um menschliche Würde, Klarheit, Reflexion, Entwicklung und verantwortungsvolle Zusammenarbeit zu fördern. Dieses Projekt soll Menschen stärken, nicht sie erniedrigen, manipulieren oder zum Schweigen bringen.
 
-This code of conduct is therefore not written to enforce conformity. It is
-written to protect a space where people can contribute openly, disagree
-honestly and work together without intimidation or abuse.
+Dieser Verhaltenskodex wurde daher nicht verfasst, um Konformität durchzusetzen. Er wurde geschrieben, um einen Raum zu schützen, in dem Menschen offen beitragen, ehrlich widersprechen und zusammenarbeiten können, ohne Einschüchterung oder Missbrauch.
 
-## Our commitment
+## Unser Engagement
 
-Everyone participating in AION, including maintainers, contributors, reviewers
-and community members, is expected to act in a way that is:
+Von allen, die an AION teilnehmen – einschließlich Maintainer, Mitwirkender, Reviewer und Community-Mitglieder – wird erwartet, dass sie sich auf folgende Weise verhalten:
 
-- human-centered
-- respectful without being submissive
-- truthful without being cruel
-- clear without being demeaning
-- critical without being destructive
-- open to disagreement without hostility
+- menschenzentriert
+- respektvoll, ohne unterwürfig zu sein
+- wahrhaftig, ohne grausam zu sein
+- klar, ohne erniedrigend zu sein
+- kritisch, ohne zerstörerisch zu sein
+- offen für Meinungsverschiedenheiten, ohne Feindseligkeit
 
-We want AION to reflect the same ethical direction as the project itself:
+Wir möchten, dass AION dieselbe ethische Ausrichtung widerspiegelt wie das Projekt selbst:
 
-- dignity before dominance
-- truthfulness before posturing
-- transparency before hidden control
-- collaboration before manipulation
-- responsibility before escalation
+- Würde vor Dominanz
+- Wahrhaftigkeit vor Posieren
+- Transparenz vor verborgener Kontrolle
+- Zusammenarbeit vor Manipulation
+- Verantwortung vor Eskalation
 
-## Expected behavior
+## Erwartetes Verhalten
 
-Participants are expected to:
+Von allen Teilnehmenden wird erwartet, dass sie:
 
-- treat other people as subjects with dignity, not as targets
-- discuss ideas, architecture and decisions directly and in good faith
-- welcome critique, review and disagreement without retaliation
-- make room for different levels of experience
-- explain concerns clearly and concretely
-- de-escalate conflict when possible
-- keep discussions relevant to the project and its purpose
-- challenge ideas rigorously without attacking the worth of the person
-- act in ways that protect the long-term trustworthiness of the project
-- preserve honest attribution of project origin and contribution history
-- discuss monetization, hosting or distribution models in a transparent and
-  ethically defensible way
+- andere Menschen mit Würde behandeln, nicht als Untergebene oder Zielscheiben
+- Ideen, Architektur und Entscheidungen direkt und in gutem Glauben diskutieren
+- Kritik, Überprüfung und Meinungsverschiedenheiten ohne Vergeltung begrüßen
+- Raum für unterschiedliche Erfahrungsstufen schaffen
+- ihre Anliegen klar und konkret formulieren
+- Konflikte, wenn möglich, deeskalieren
+- Diskussionen auf das Projekt und seinen Zweck bezogen halten
+- Ideen rigoros hinterfragen, ohne den Wert einer Person anzugreifen
+- so handeln, dass die langfristige Vertrauenswürdigkeit des Projekts geschützt wird
+- die Herkunft des Projekts und die Geschichte seiner Beiträge ehrlich zuschreiben
+- Monetarisierungs-, Hosting- oder Vertriebsmodelle transparent und auf ethisch vertretbare Weise diskutieren
 
-## Unacceptable behavior
+## Inakzeptables Verhalten
 
-The following behavior is not compatible with AION's purpose:
+Folgendes Verhalten ist mit dem Zweck von AION nicht vereinbar:
 
-- harassment, intimidation or threats
-- humiliation, demeaning treatment or abusive targeting
-- hateful, discriminatory or dehumanizing language
-- doxxing or publishing private information without consent
-- manipulation, coercion or attempts to psychologically dominate others
-- bad-faith disruption designed to exhaust, derail or poison collaboration
-- repeated personal attacks instead of substantive critique
-- calls for harm, repression or dehumanization
-- knowingly false, deceptive or malicious misrepresentation of another person's
-  work, intent or identity
-- attempts to erase, falsify or conceal the documented origin of AION or the
-  original developer reference
-- pushing exploitative commercialization, extraction or private enrichment
-  models that contradict the project's documented fairness principles
+- Belästigung, Einschüchterung oder Drohungen
+- Demütigung, erniedrigende Behandlung oder missbräuchliches Anvisieren einzelner Personen
+- hasserfüllte, diskriminierende oder entmenschlichende Sprache
+- Doxxing oder die Veröffentlichung privater Informationen ohne Zustimmung
+- Manipulation, Zwang oder Versuche, andere psychologisch zu dominieren
+- böswillige Störung mit dem Ziel, Zusammenarbeit zu erschöpfen, zu entgleisen oder zu vergiften
+- wiederholte persönliche Angriffe anstelle substanzieller Kritik
+- Aufrufe zu Schaden, Unterdrückung oder Entmenschlichung
+- wissentlich falsche, irreführende oder böswillige Falschdarstellungen der Arbeit, Absicht oder Identität einer anderen Person
+- Versuche, den dokumentierten Ursprung von AION oder den Verweis auf die ursprünglichen Entwickler zu verdrängen oder zu löschen
+- Förderung ausbeuterischer Kommerzialisierungs-, Förder- oder Bereicherungsmodelle, die den dokumentierten Fairnessprinzipien des Projekts widersprechen
 
-## Origin and fair commercialization
+## Ursprung und faire Kommerzialisierung
 
-The documented origin of AION must be treated honestly in community spaces,
-public collaboration and project-facing materials. People may extend, fork and
-contribute to the project, but they must not behave as if the original project
-origin can simply be erased from discussion, presentation or project history.
+Der dokumentierte Ursprung von AION muss in Gemeinschaftsräumen, in der öffentlichen Zusammenarbeit und in projektbezogenen Materialien ehrlich behandelt werden. Menschen können das Projekt erweitern, forken und dazu beitragen, aber sie dürfen sich nicht so verhalten, als könne der Ursprung des ursprünglichen Projekts einfach aus Diskussionen, Präsentationen oder der Projektgeschichte gelöscht werden.
 
-Likewise, proposals for hosting, selling, supporting or distributing AION must
-remain ethically defensible. Discussion about sustainability, pricing and
-operations is allowed. What is not acceptable is framing AION primarily as a
-vehicle for extraction, unfair enrichment or opaque monetization at the expense
-of the community, users or documented project purpose.
+Ebenso müssen Vorschläge zum Hosten, Verkaufen, Unterstützen oder Verbreiten von AION ethisch vertretbar bleiben. Diskussionen über Nachhaltigkeit, Preisgestaltung und operative Modelle sind erlaubt. Nicht akzeptabel ist es jedoch, AION in erster Linie als Vehikel für Extraktion, ungerechte Bereicherung oder intransparente Monetarisierung auf Kosten der Gemeinschaft, der Nutzer oder des dokumentierten Projektzwecks zu behandeln.
 
-## Protection of contributions and discussion
+## Schutz von Beiträgen und Diskussionen
 
-AION is intended to remain an open and ethically grounded collaboration space.
-For that reason:
+AION soll ein offener und ethisch fundierter Raum für Zusammenarbeit bleiben. Aus diesem Grund gilt:
 
-- strong critique is allowed
-- disagreement is allowed
-- uncomfortable questions are allowed
-- principled opposition is allowed
-- technically hard review is allowed
+- starke Kritik ist erlaubt
+- Meinungsverschiedenheit ist erlaubt
+- unangenehme Fragen sind erlaubt
+- prinzipientreuer Widerstand ist erlaubt
+- harte technische Überprüfung ist erlaubt
 
-Comments, issues, pull requests, discussions and contributions must not be
-removed simply because they are critical, unpopular, inconvenient or challenging
-to maintainers or contributors.
+Kommentare, Issues, Pull Requests, Diskussionen und Beiträge dürfen nicht allein deshalb entfernt werden, weil sie kritisch, unbeliebt, unbequem oder für Maintainer oder Mitwirkende herausfordernd sind.
 
-They may only be removed when the content itself violates this code of conduct.
+Sie dürfen nur entfernt werden, wenn der Inhalt selbst gegen diesen Verhaltenskodex verstößt.
 
-## Enforcement and removal policy
+## Durchsetzungs- und Entfernungspolitik
 
-Moderation must be proportionate, explainable and tied to an actual guideline
-violation.
+Moderation muss verhältnismäßig, nachvollziehbar und an einen tatsächlichen Verstoß gegen die Richtlinien gebunden sein.
 
-Whenever reasonably possible, maintainers should prefer:
+Wann immer es vernünftigerweise möglich ist, sollten Maintainer zunächst Folgendes bevorzugen:
 
-- clarification
-- boundary-setting
-- de-escalation
-- documented moderation notes
+- Klarstellung
+- Grenzsetzung
+- Deeskalation
+- dokumentierte Moderationshinweise
 
-before removing content outright.
+bevor Inhalte vollständig entfernt werden.
 
-Removal, hiding or locking of comments, pull requests, issues or contributions
-is justified only when there is a concrete violation of the standards above.
-Examples include harassment, threats, hate, doxxing, abusive targeting,
-malicious disruption or repeated manipulative conduct.
+Das Entfernen, Verbergen oder Sperren von Kommentaren, Pull Requests, Issues oder Beiträgen ist nur dann gerechtfertigt, wenn ein konkreter Verstoß gegen die oben genannten Standards vorliegt. Beispiele dafür sind Belästigung, Drohungen, Hass, Doxxing, missbräuchliches Anvisieren, böswillige Störung oder wiederholtes manipulatives Verhalten.
 
-Moderation must not be used to suppress disagreement, criticism, review,
-whistleblowing, dissenting technical judgment or ethically grounded objections.
+Moderation darf nicht dazu verwendet werden, Meinungsverschiedenheiten, Kritik, Whistleblowing, abweichende technische Einschätzungen oder ethisch begründete Einwände zu unterdrücken.
 
-## Reporting
+## Meldung von Verstößen
 
-If you experience or witness behavior that violates this code of conduct, report
-it to:
+Wenn Sie Verhalten erleben oder beobachten, das gegen diesen Verhaltenskodex verstößt, melden Sie es bitte an:
 
-- Patrick Wirth
-- patrickwirth_93@icloud.com
+Patrick Wirth
+patrickwirth_93@icloud.com
 
-## Final note
+## Abschließender Hinweis
 
-AION is meant to serve human dignity, responsible development and shared
-connection. This code of conduct exists to protect that purpose while preserving
-open contribution, honest critique and fair participation.
+AION soll der Menschenwürde, verantwortungsvollen Entwicklung und gemeinschaftlichen Verbindung dienen. Dieser Verhaltenskodex existiert, um diesen Zweck zu schützen und gleichzeitig offene Beiträge, ehrliche Kritik und faire Teilhabe zu bewahren.
