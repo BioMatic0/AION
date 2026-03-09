@@ -18,6 +18,11 @@ Erlaubt:
 - Installation auf eigenen Geraeten fuer private, kreative, lernbezogene und organisatorische Nutzung
 - Mitgestaltung, Veraenderung und Weiterentwicklung gemaess AION Community Fairness License 1.0
 
+Nicht erlaubt ohne Einhaltung der Lizenzbedingungen:
+- ausbeuterischer Vertrieb
+- blosse private Bereicherung ohne faires und plausibles Gegenmodell
+- revenue-basierter Betrieb ohne offengelegte, ethisch vertretbare Begruendung
+
 Nicht automatisch zugesagt:
 - ein Managed Cloud-Dienst
 - plattformuebergreifend identische Funktionalitaet

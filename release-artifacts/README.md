@@ -1,6 +1,6 @@
 # AION Release-Artefakte
 
-Stand: 2026-03-08
+Stand: 2026-03-09
 
 Aktueller Windows-Stand:
 
@@ -8,25 +8,28 @@ Aktueller Windows-Stand:
 - die Desktop-App startet weiterhin die lokale AION-Runtime automatisch mit
 - die frischen `0.1.1`-Artefakte sind aktuell als Einzeldateien verfuegbar
 - der Windows-Desktop hat jetzt einen vorbereiteten GitHub-Update-Kanal fuer kuenftige Releases
+- die rechtlichen Begleitdateien spiegeln jetzt die AION Community Fairness License 1.0 und den Fair-Commerce-Rahmen
 
 ## Enthaltene Dateien
 
-- `AION Setup 0.1.0.exe`
+- `AION Setup 0.1.1.exe`
   Windows-Installer (NSIS)
-- `AION 0.1.0.exe`
+- `AION 0.1.1.exe`
   Portable Windows-Version
 - `AION-android-debug.apk`
   Android-Debug-APK
 - `AION-ios-xcode-project.zip`
   iOS-Xcode-Projekt fuer den Weiterbau auf macOS
 - `AION-Windows-Free-0.1.0.zip`
-  Weitergabepaket fuer Windows mit Installer, Portable-Version und rechtlichen Hinweisen
+  Aelteres Weitergabepaket fuer Windows mit Installer, Portable-Version und rechtlichen Hinweisen
 - `AION-Release-Bundle-0.1.0.zip`
-  Gesamtpaket mit Windows-, Android- und iOS-Artefakten sowie den rechtlichen Hinweisen
+  Aelteres Gesamtpaket mit Windows-, Android- und iOS-Artefakten sowie den rechtlichen Hinweisen
 - `LICENSE`
   AION Community Fairness License 1.0 des Projekts
 - `COPYRIGHT.md`
   Projektinterner Referenz- und Rechtehinweis
+- `FAIR-COMMERCE.md`
+  Rahmen fuer fairen, plausiblen und nicht-ausbeuterischen Vertrieb
 - `REFERENCE.md`
   Referenzdaten und gemeinsamer Projektgedanke
 
@@ -50,6 +53,7 @@ Aktueller Windows-Stand:
 - Projektreferenz im aktuellen Projektstand: Patrick Wirth
 - Kontaktreferenz: patrickwirth_93@icloud.com
 - Der Quellcode und die Projektdateien werden unter der AION Community Fairness License 1.0 bereitgestellt.
+- Revenue-basierter Betrieb oder Vertrieb setzt ein faires und plausibles Modell voraus und darf nicht auf Ausbeutung oder blosse private Bereicherung ausgerichtet sein.
 - Die aktuelle Windows-Version startet eine gebuendelte lokale AION-API beim Start der Anwendung automatisch mit.
 - Dadurch ist der Windows-Desktop-Build nicht mehr auf eine separat gestartete API, PostgreSQL oder Redis angewiesen.
 - Der gebuendelte Desktop-Runtime-Modus speichert lokale Nutzdaten jetzt dauerhaft in einem lokalen Desktop-State-Verzeichnis des angemeldeten Benutzers.
@@ -61,7 +65,7 @@ Aktueller Windows-Stand:
 
 - Die bereitgestellten Build-Dateien koennen frei genutzt und weitergegeben werden.
 - Die Hinweise dafuer stehen in `FREE-USE-NOTICE.txt`.
-- Die ZIP-Pakete enthalten `LICENSE`, `COPYRIGHT.md`, `REFERENCE.md` und die iOS-Build-Hinweise.
+- Die ZIP-Pakete enthalten `LICENSE`, `COPYRIGHT.md`, `REFERENCE.md`, `FAIR-COMMERCE.md` und die iOS-Build-Hinweise.
 - AION soll fuer jeden und jederzeit frei zugaenglich sein und gemeinschaftlich mitgestaltet werden.
 
 ## Release 0.1.1

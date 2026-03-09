@@ -32,6 +32,7 @@ Legal documents:
 - `CODE_OF_CONDUCT.md`
 - `SECURITY.md`
 - `docs/product/ethics-risk-evaluation.md`
+- `docs/product/ethical-pillars-review-2026-03-09.md`
 
 ## Workspace Layout
 

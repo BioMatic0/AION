@@ -45,6 +45,7 @@ the app can check for new versions directly from the AION menu.
 ## Evaluation
 
 - [Ethics and risk evaluation](./product/ethics-risk-evaluation.html)
+- [Ethical pillars review](./product/ethical-pillars-review-2026-03-09.html)
 
 ## Open collaboration
 
