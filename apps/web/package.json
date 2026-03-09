@@ -2,7 +2,7 @@
   "name": "@aion/web",
   "version": "0.1.1",
   "private": true,
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

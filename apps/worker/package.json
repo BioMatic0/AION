@@ -2,7 +2,7 @@
   "name": "@aion/worker",
   "version": "0.1.1",
   "private": true,
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "author": "Patrick Wirth <patrickwirth_93@icloud.com>",
   "scripts": {
     "dev": "tsx watch src/index.ts",

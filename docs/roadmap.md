@@ -10,7 +10,7 @@ permalink: /roadmap.html
 
 - Public GitHub repository
 - Public releases for Windows and Android plus iOS Xcode project
-- Open MIT license
+- Public fairness-conditioned source license
 - Contribution, code-of-conduct and security documents
 - Buildable monorepo with API, web and desktop surfaces
 - Public roadmap project and milestone

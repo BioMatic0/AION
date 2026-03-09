@@ -31,7 +31,7 @@ export function ImprintPanel() {
         <h2 className="mt-3 font-display text-3xl">Projektreferenz: Patrick Wirth</h2>
         <p className="mt-5 text-sm leading-7 text-mist/80">
           AION wird im Projektstand als frei zugaengliches und offen mitgestaltbares Projekt gefuehrt.
-          Die aktuelle Freigabe erfolgt unter der MIT License.
+          Die aktuelle Freigabe erfolgt unter der AION Community Fairness License 1.0.
         </p>
       </article>
       <ImprintBlock title="Referenzdaten">
@@ -41,12 +41,12 @@ export function ImprintPanel() {
       </ImprintBlock>
       <ImprintBlock title="Projektstatus">
         <p>Projektname: AION</p>
-        <p>Lizenz: MIT</p>
+        <p>Lizenz: AION Community Fairness License 1.0</p>
         <p>Softwaretyp: offene KI- und Entwicklungsplattform</p>
       </ImprintBlock>
       <ImprintBlock title="Rechts- und Projektdokumente">
-        <p>Massgebliche Projektdateien: LICENSE, COPYRIGHT.md, REFERENCE.md, FREE-USE-NOTICE.txt</p>
-        <p>Builds und Quellcode sollen fuer alle frei zugaenglich und mitgestaltbar sein.</p>
+        <p>Massgebliche Projektdateien: LICENSE, COPYRIGHT.md, REFERENCE.md, FAIR-COMMERCE.md, FREE-USE-NOTICE.txt</p>
+        <p>Builds und Quellcode sollen fuer alle breit zugaenglich und mitgestaltbar sein, ohne ausbeuterischen Vertrieb.</p>
       </ImprintBlock>
       <article className="rounded-[28px] bg-white p-8 shadow-panel lg:col-span-2">
         <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Leitgedanke</p>

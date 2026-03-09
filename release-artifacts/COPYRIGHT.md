@@ -12,7 +12,24 @@ Stand: 2026-03-08
 
 - Projektname: AION
 - Referenzgeber und urspruenglicher Projektinitiator: Patrick Wirth
-- Lizenzstatus des Projekts: MIT License
+- Lizenzstatus des Projekts: AION Community Fairness License 1.0
+
+## Ursprungsschutz
+
+- Der Ursprung der Software und die urspruengliche Entwicklerschaft duerfen bei
+  Weitergabe, Forks, Betrieb oder Vertrieb nicht entfernt oder unterschlagen
+  werden.
+- Eigene Mitwirkung und spaetere Autorenhinweise duerfen ergaenzt werden, der
+  urspruengliche Projektbezug bleibt jedoch erhalten.
+
+## Vertrieb und Fairness
+
+- Ein Vertrieb oder sonstiger revenue-basierter Betrieb darf nicht auf
+  Ausbeutung oder bloss private Bereicherung ausgerichtet sein.
+- Vor einem Verkauf oder revenue-basierten Betrieb ist ein faires und
+  plausibles Modell offenzulegen, das fuer alle wesentlich Beteiligten ethisch
+  und moralisch vertretbar ist.
+- Weitere Konkretisierung dazu steht in `FAIR-COMMERCE.md`.
 
 ## Gemeinsame Ausrichtung
 

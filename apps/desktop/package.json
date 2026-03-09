@@ -2,10 +2,10 @@
   "name": "@aion/desktop",
   "version": "0.1.1",
   "private": true,
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "description": "Windows-Desktop-Wrapper fuer die AION-Anwendung.",
   "author": "Patrick Wirth",
-  "copyright": "Copyright (c) 2026 Patrick Wirth. Released under the MIT License.",
+  "copyright": "Copyright (c) 2026 Patrick Wirth. Released under the AION Community Fairness License 1.0.",
   "main": "build/main.js",
   "scripts": {
     "dev": "tsc -p tsconfig.json && electron .",

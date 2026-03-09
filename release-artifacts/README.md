@@ -24,7 +24,7 @@ Aktueller Windows-Stand:
 - `AION-Release-Bundle-0.1.0.zip`
   Gesamtpaket mit Windows-, Android- und iOS-Artefakten sowie den rechtlichen Hinweisen
 - `LICENSE`
-  MIT License des Projekts
+  AION Community Fairness License 1.0 des Projekts
 - `COPYRIGHT.md`
   Projektinterner Referenz- und Rechtehinweis
 - `REFERENCE.md`
@@ -49,7 +49,7 @@ Aktueller Windows-Stand:
 
 - Projektreferenz im aktuellen Projektstand: Patrick Wirth
 - Kontaktreferenz: patrickwirth_93@icloud.com
-- Der Quellcode und die Projektdateien werden unter der MIT License bereitgestellt.
+- Der Quellcode und die Projektdateien werden unter der AION Community Fairness License 1.0 bereitgestellt.
 - Die aktuelle Windows-Version startet eine gebuendelte lokale AION-API beim Start der Anwendung automatisch mit.
 - Dadurch ist der Windows-Desktop-Build nicht mehr auf eine separat gestartete API, PostgreSQL oder Redis angewiesen.
 - Der gebuendelte Desktop-Runtime-Modus speichert lokale Nutzdaten jetzt dauerhaft in einem lokalen Desktop-State-Verzeichnis des angemeldeten Benutzers.

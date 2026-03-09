@@ -132,7 +132,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
           <main className="flex-1">{children}</main>
           <footer className="rounded-[28px] border border-white/10 bg-white/90 px-6 py-4 text-sm text-slate shadow-panel">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p>Copyright (c) 2026 Patrick Wirth. Veroeffentlicht unter der MIT License und offen fuer Mitgestaltung.</p>
+              <p>Copyright (c) 2026 Patrick Wirth. Veroeffentlicht unter der AION Community Fairness License 1.0 und offen fuer Mitgestaltung.</p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/rechtliches" className="font-semibold text-moss hover:text-ink">
                   Rechtliches

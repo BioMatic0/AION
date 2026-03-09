@@ -170,8 +170,8 @@ function showAboutDialog() {
     message: `AION ${version}`,
     detail:
       "Projektreferenz: Patrick Wirth, 10.06.1993, patrickwirth_93@icloud.com.\n" +
-      "Lizenzstatus: MIT License.\n" +
-      "AION soll frei zugaenglich sein und gemeinschaftlich mitgestaltet werden koennen."
+      "Lizenzstatus: AION Community Fairness License 1.0.\n" +
+      "AION soll frei zugaenglich sein, gemeinschaftlich mitgestaltet werden koennen und nicht ausbeuterisch vertrieben werden."
   });
 }
 

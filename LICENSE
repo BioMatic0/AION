@@ -1,16 +1,102 @@
-MIT License
+AION Community Fairness License 1.0
 
 Copyright (c) 2026 Patrick Wirth
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This license governs the use, modification, redistribution and operation of the
+AION source code, project files and substantial derived works.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Purpose
+
+AION is intended to remain broadly accessible, human-centered and open to
+shared contribution. It may be used, studied, modified and redistributed, but
+not in ways that erase the origin of the software or turn its distribution into
+an exploitative extraction model.
+
+2. Granted rights
+
+Subject to the conditions below, permission is granted to any person obtaining
+a copy of this software and associated documentation files to:
+
+- use the software
+- copy and redistribute the software
+- modify and adapt the software
+- publish forks and derived versions
+- operate the software for personal, educational, research, community or
+  organizational purposes
+
+3. Required attribution and origin protection
+
+Any source distribution, substantial reuse, hosted deployment or redistributed
+build of AION or a substantial derivative work must preserve:
+
+- the copyright notice
+- this license text
+- clear attribution that AION originates from Patrick Wirth
+
+The original developer of the source software may not be removed from origin,
+copyright or attribution notices in the source code, legal notices or end-user
+legal information where such notices are displayed.
+
+You may add your own authorship and contribution notices, but you may not
+falsely present AION or a substantial derivative work as having no original
+project origin.
+
+4. Commercial distribution and operation
+
+Commercial distribution, hosting, resale, paid support or other revenue-linked
+operation of AION or a substantial derivative work is allowed only if all of
+the following conditions are met:
+
+- the primary purpose is not exploitative extraction or disproportionate
+  personal financial enrichment
+- the commercial model is explained in a clear, public and plausible form to
+  affected users, customers or partners
+- the explanation is ethically and commercially defensible for all materially
+  affected parties
+- the original attribution and project origin remain visible
+
+At minimum, the commercial explanation must state:
+
+- what is being sold
+- what remains freely accessible
+- why payment is required
+- how pricing was determined
+- which costs, maintenance, infrastructure, support or development efforts the
+  revenue is meant to cover
+- how the model avoids exploitative pricing or deceptive lock-in
+
+Pure extraction models that mainly seek to appropriate community work or
+maximize private gain without a fair and plausible value basis are not
+permitted under this license.
+
+5. Ethical use condition
+
+The software may not be used or distributed in a manner that materially
+contradicts the documented human-centered and dignity-oriented purpose of AION,
+including by using it primarily for manipulation, degradation, abusive control
+or clearly exploitative conduct.
+
+6. Contributions
+
+Unless explicitly agreed otherwise in writing, contributions submitted to the
+project are provided under this same license.
+
+7. Required companion documents
+
+Where commercially distributed or publicly deployed, the distributor or
+operator must make available, together with the relevant legal notices:
+
+- this license
+- preserved origin attribution
+- a fair and plausible commercial model statement if money is charged or
+  revenue is generated from the distribution or operation
+
+8. No trademark or endorsement grant
+
+This license does not grant trademark rights, endorsement rights or the right
+to imply approval by the original developer.
+
+9. Warranty disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,3 +105,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+10. Interpretation note
+
+This is a source-available, attribution-preserving and fairness-conditioned
+license. It is not intended to function as an unrestricted MIT-style license.
+If you need to commercially operate or redistribute AION, you are responsible
+for ensuring that your model, notices and conduct remain consistent with this
+license and applicable law.

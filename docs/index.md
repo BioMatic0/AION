@@ -48,10 +48,12 @@ the app can check for new versions directly from the AION menu.
 
 ## Open collaboration
 
-AION is published as an open MIT-licensed project with public source access and
-shared contribution files already included in the repository:
+AION is published as a publicly accessible source-available project under the
+AION Community Fairness License 1.0 with shared contribution files already
+included in the repository:
 
 - `LICENSE`
+- `FAIR-COMMERCE.md`
 - `CONTRIBUTING.md`
 - `CODE_OF_CONDUCT.md`
 - `SECURITY.md`

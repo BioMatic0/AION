@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright (c) 2026 Patrick Wirth. Released under the MIT License.</string>
+	<string>Copyright (c) 2026 Patrick Wirth. Released under the AION Community Fairness License 1.0.</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>

@@ -2,7 +2,7 @@
   "name": "aion",
   "version": "0.1.1",
   "private": true,
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "author": "Patrick Wirth",
   "description": "AION monorepo for a human-centered AI platform.",
   "packageManager": "pnpm@10.6.5",

@@ -37,7 +37,7 @@ export default function MarketingPage() {
               <Link href="/impressum" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Impressum
               </Link>
-              <span className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm text-slate">Patrick Wirth / MIT / offen fuer Mitgestaltung</span>
+              <span className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm text-slate">Patrick Wirth / Fairness-Lizenz / offen fuer Mitgestaltung</span>
             </div>
           </div>
           <div className="rounded-[28px] bg-slate p-6 text-mist">

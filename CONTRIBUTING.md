@@ -45,4 +45,7 @@ The current project reference is:
 ## Licensing
 
 By contributing, you agree that your contribution is provided under the same
-MIT License as the rest of the project.
+AION Community Fairness License 1.0 as the rest of the project. Contributions
+must preserve the original project attribution and remain compatible with the
+human-centered, non-exploitative purpose documented in `LICENSE`,
+`COPYRIGHT.md` and `FAIR-COMMERCE.md`.

@@ -9,14 +9,14 @@ Projektreferenz:
 - patrickwirth_93@icloud.com
 
 Lizenzstatus:
-- Das Projekt wird unter der MIT License gefuehrt.
+- Das Projekt wird unter der AION Community Fairness License 1.0 gefuehrt.
 - Quellcode und Build-Dateien sollen frei zugaenglich und mitgestaltbar sein.
 
 Erlaubt:
 - kostenlose Nutzung der bereitgestellten AION-Builds
 - kostenlose Weitergabe der Release-Dateien
 - Installation auf eigenen Geraeten fuer private, kreative, lernbezogene und organisatorische Nutzung
-- Mitgestaltung, Veraenderung und Weiterentwicklung gemaess MIT License
+- Mitgestaltung, Veraenderung und Weiterentwicklung gemaess AION Community Fairness License 1.0
 
 Nicht automatisch zugesagt:
 - ein Managed Cloud-Dienst

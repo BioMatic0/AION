@@ -5,11 +5,14 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/BioMatic0/AION/ci.yml?branch=main)](https://github.com/BioMatic0/AION/actions/workflows/ci.yml)
 [![Discussions](https://img.shields.io/github/discussions/BioMatic0/AION)](https://github.com/BioMatic0/AION/discussions)
 
-AION is a human-centered AI platform for reflection, structure and growth. This repository now contains a buildable MVP foundation plus a usable product slice across capture, goals, notifications, the first AI workflow layer and visible governance/privacy/security surfaces. The project is intended to remain openly accessible and open to shared contribution.
+AION is a human-centered AI platform for reflection, structure and growth. This repository now contains a buildable MVP foundation plus a usable product slice across capture, goals, notifications, the first AI workflow layer and visible governance/privacy/security surfaces. The project is intended to remain broadly accessible and open to shared contribution under a fairness-conditioned source license.
 
 Project reference: Patrick Wirth  
-License: MIT
+License: AION Community Fairness License 1.0
 Reference contact: patrickwirth_93@icloud.com  
+
+Note: the project remains publicly accessible and collaborative, but it is no
+longer an unrestricted MIT-style license.
 
 Public source:
 
@@ -23,6 +26,7 @@ Legal documents:
 - `LICENSE`
 - `COPYRIGHT.md`
 - `REFERENCE.md`
+- `FAIR-COMMERCE.md`
 - `release-artifacts/FREE-USE-NOTICE.txt`
 - `CONTRIBUTING.md`
 - `CODE_OF_CONDUCT.md`
@@ -122,7 +126,7 @@ The current repository delivers:
 - audit-backed governance decisions on analysis, mirror and growth endpoints, including blocking for restricted-use requests
 - reusable API smoke verification for Prisma-backed governance, privacy, security, consent and audit persistence
 - architecture docs and runbooks updated to the current implementation slice
-- a documented open project reference and MIT-based collaboration baseline
+- a documented project reference and fairness-based collaboration baseline
 - public collaboration files and publishing guidance for mirrored code hosting
 - Windows desktop packaging with a prepared GitHub-based auto-update path for installed releases
 
