@@ -52,6 +52,9 @@ export default function MarketingPage() {
               <Link href="/ethik" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Ethics and risks
               </Link>
+              <Link href="/login?next=%2Fauthenticity" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
+                Authenticity &amp; sources
+              </Link>
               <Link href="/contribute" className="rounded-full border border-moss/20 bg-moss/5 px-6 py-3 text-sm font-semibold text-slate transition hover:border-moss/40">
                 Contribute
               </Link>

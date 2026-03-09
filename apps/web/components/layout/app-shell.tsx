@@ -159,6 +159,9 @@ export function AppShell({ children, navigation }: AppShellProps) {
                 <Link href="/ethik" className="font-semibold text-moss hover:text-ink">
                   Ethics
                 </Link>
+                <Link href="/authenticity" className="font-semibold text-moss hover:text-ink">
+                  Authenticity &amp; Sources
+                </Link>
                 <Link href="/rechtliches" className="font-semibold text-moss hover:text-ink">
                   Legal
                 </Link>

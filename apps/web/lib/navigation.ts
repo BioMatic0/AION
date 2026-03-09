@@ -204,7 +204,17 @@ export const sections: SectionDefinition[] = [
     status: "Visible security status is active",
     nextStep: "Expand detail views for incidents and user warnings.",
     pillars: ["Sessions", "Events", "Incidents"],
-    related: ["/privacy", "/governance", "/notifications"]
+    related: ["/privacy", "/governance", "/authenticity"]
+  },
+  {
+    href: "/authenticity",
+    label: "Authenticity & Sources",
+    description: "Source expectations, synthetic-media labeling, and provenance rules.",
+    group: "Governance and Operations",
+    status: "Authenticity guidance is visible",
+    nextStep: "Connect source enforcement and later media provenance checks to more modules.",
+    pillars: ["Sources", "Disclosure", "Provenance"],
+    related: ["/security", "/governance", "/rechtliches"]
   },
   {
     href: "/governance",
@@ -214,7 +224,7 @@ export const sections: SectionDefinition[] = [
     status: "Governance center with policy transparency is active",
     nextStep: "Deepen policy versioning and admin review.",
     pillars: ["Charter", "Policies", "Integrity"],
-    related: ["/privacy", "/security", "/ethik"]
+    related: ["/privacy", "/security", "/authenticity"]
   },
   {
     href: "/privacy",
@@ -234,7 +244,7 @@ export const sections: SectionDefinition[] = [
     status: "Ethics and risk analysis is visible",
     nextStep: "Tie it to governance checks, release reviews, and product decisions.",
     pillars: ["Dignity", "Fairness", "Risk control"],
-    related: ["/governance", "/privacy", "/rechtliches"]
+    related: ["/governance", "/authenticity", "/rechtliches"]
   },
   {
     href: "/rechtliches",
@@ -244,7 +254,7 @@ export const sections: SectionDefinition[] = [
     status: "Ownership and license notices are visible",
     nextStep: "Add contributor agreements and external license review if needed.",
     pillars: ["Ownership", "License", "Build access"],
-    related: ["/ethik", "/governance", "/impressum"]
+    related: ["/ethik", "/authenticity", "/impressum"]
   },
   {
     href: "/settings",

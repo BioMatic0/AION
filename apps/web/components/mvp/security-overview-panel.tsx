@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { SecurityCenterOverview, SecurityIncidentSummary } from "@aion/shared-types";
 import { apiRequest } from "../../lib/api";
 import { StatusNotice } from "./status-notice";
@@ -143,6 +144,20 @@ export function SecurityOverviewPanel() {
         <p className="mt-5 text-xs leading-6 text-slate/65">
           This is a cryptographic origin and integrity trail for the project and shipped artifacts. It is not a publicly trusted Windows Authenticode certificate.
         </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href="/authenticity"
+            className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm font-semibold text-slate transition hover:border-moss/40 hover:bg-mist/70"
+          >
+            Authenticity &amp; Sources
+          </Link>
+          <Link
+            href="/rechtliches"
+            className="rounded-full border border-moss/20 bg-moss/5 px-4 py-2 text-sm font-semibold text-slate transition hover:border-moss/40 hover:bg-mist/70"
+          >
+            Legal
+          </Link>
+        </div>
       </article>
 
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
