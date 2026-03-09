@@ -3,29 +3,30 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --aion-bg: #0d0f13;
-  --aion-bg-elevated: #171b22;
-  --aion-bg-panel: #1d222b;
-  --aion-bg-soft: #262d37;
-  --aion-line: #353d49;
-  --aion-line-strong: #4c5563;
-  --aion-text: #f3f5f7;
-  --aion-text-muted: #cad1db;
-  --aion-text-soft: #93a1b3;
-  --aion-accent: #8d98a8;
+  color-scheme: light;
+  --aion-bg: #edf1f4;
+  --aion-bg-elevated: #f7f8fa;
+  --aion-bg-panel: #ffffff;
+  --aion-bg-soft: #e5ebf1;
+  --aion-line: #d7dee6;
+  --aion-line-strong: #b9c4d1;
+  --aion-text: #1f2937;
+  --aion-text-muted: #4d5e73;
+  --aion-text-soft: #748398;
+  --aion-accent: #5f7288;
 }
 
 html,
 body {
   margin: 0;
   min-height: 100%;
-  background:
-    radial-gradient(circle at top, rgba(82, 90, 104, 0.2), transparent 28%),
-    linear-gradient(180deg, #0b0d11 0%, #11151b 38%, #151a22 100%);
 }
 
 body {
+  background:
+    radial-gradient(circle at top left, rgba(123, 140, 160, 0.18), transparent 24%),
+    radial-gradient(circle at right, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(180deg, #eef2f5 0%, #e8edf2 45%, #e4e9ef 100%);
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--aion-text);
 }
@@ -43,7 +44,7 @@ a {
   input,
   textarea,
   select {
-    background: rgba(18, 22, 28, 0.94);
+    background: rgba(255, 255, 255, 0.96);
     color: var(--aion-text);
     border-color: var(--aion-line);
     caret-color: var(--aion-text);
@@ -51,7 +52,7 @@ a {
 
   input::placeholder,
   textarea::placeholder {
-    color: rgba(147, 161, 179, 0.78);
+    color: rgba(116, 131, 152, 0.82);
   }
 
   input:focus,
@@ -59,17 +60,17 @@ a {
   select:focus {
     outline: none;
     border-color: var(--aion-line-strong);
-    box-shadow: 0 0 0 1px rgba(141, 152, 168, 0.28);
+    box-shadow: 0 0 0 1px rgba(95, 114, 136, 0.18);
   }
 }
 
 @layer utilities {
   .bg-white {
-    background-color: rgba(29, 34, 43, 0.96) !important;
+    background-color: rgba(255, 255, 255, 0.96) !important;
   }
 
   .bg-white\/90 {
-    background-color: rgba(29, 34, 43, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
   }
 
   .bg-mist {
@@ -77,19 +78,19 @@ a {
   }
 
   .bg-mist\/40 {
-    background-color: rgba(38, 45, 55, 0.76) !important;
+    background-color: rgba(229, 235, 241, 0.82) !important;
   }
 
   .bg-mist\/70 {
-    background-color: rgba(38, 45, 55, 0.9) !important;
+    background-color: rgba(229, 235, 241, 0.96) !important;
   }
 
   .bg-moss\/5 {
-    background-color: rgba(255, 255, 255, 0.035) !important;
+    background-color: rgba(95, 114, 136, 0.06) !important;
   }
 
   .bg-moss\/10 {
-    background-color: rgba(255, 255, 255, 0.06) !important;
+    background-color: rgba(95, 114, 136, 0.1) !important;
   }
 
   .bg-slate {
@@ -97,15 +98,15 @@ a {
   }
 
   .bg-slate\/70 {
-    background-color: rgba(23, 27, 34, 0.7) !important;
+    background-color: rgba(247, 248, 250, 0.88) !important;
   }
 
   .bg-ink {
-    background-color: #2f3640 !important;
+    background-color: #2d3a49 !important;
   }
 
   .bg-ember\/10 {
-    background-color: rgba(141, 152, 168, 0.12) !important;
+    background-color: rgba(95, 114, 136, 0.08) !important;
   }
 
   .text-ink {
@@ -117,11 +118,11 @@ a {
   }
 
   .text-slate\/75 {
-    color: rgba(202, 209, 219, 0.75) !important;
+    color: rgba(77, 94, 115, 0.75) !important;
   }
 
   .text-slate\/80 {
-    color: rgba(202, 209, 219, 0.8) !important;
+    color: rgba(77, 94, 115, 0.82) !important;
   }
 
   .text-moss {
@@ -129,19 +130,19 @@ a {
   }
 
   .text-mist {
-    color: #eef2f7 !important;
+    color: #263242 !important;
   }
 
   .text-mist\/60 {
-    color: rgba(238, 242, 247, 0.6) !important;
+    color: rgba(38, 50, 66, 0.6) !important;
   }
 
   .text-mist\/75 {
-    color: rgba(238, 242, 247, 0.75) !important;
+    color: rgba(38, 50, 66, 0.75) !important;
   }
 
   .text-mist\/80 {
-    color: rgba(238, 242, 247, 0.8) !important;
+    color: rgba(38, 50, 66, 0.82) !important;
   }
 
   .border-mist {
@@ -149,66 +150,66 @@ a {
   }
 
   .border-moss\/20 {
-    border-color: rgba(147, 161, 179, 0.18) !important;
+    border-color: rgba(116, 131, 152, 0.2) !important;
   }
 
   .border-moss\/25 {
-    border-color: rgba(147, 161, 179, 0.24) !important;
+    border-color: rgba(116, 131, 152, 0.24) !important;
   }
 
   .border-moss\/40 {
-    border-color: rgba(147, 161, 179, 0.34) !important;
+    border-color: rgba(116, 131, 152, 0.36) !important;
   }
 
   .border-ember\/20 {
-    border-color: rgba(141, 152, 168, 0.24) !important;
+    border-color: rgba(95, 114, 136, 0.24) !important;
   }
 
   .border-ink\/20 {
-    border-color: rgba(243, 245, 247, 0.12) !important;
+    border-color: rgba(31, 41, 55, 0.12) !important;
   }
 
   .border-ink\/40 {
-    border-color: rgba(243, 245, 247, 0.26) !important;
+    border-color: rgba(31, 41, 55, 0.24) !important;
   }
 
   .border-white\/10 {
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(215, 222, 230, 0.9) !important;
   }
 
   .border-white\/20 {
-    border-color: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(185, 196, 209, 0.82) !important;
   }
 
   .ring-moss\/10 {
-    --tw-ring-color: rgba(147, 161, 179, 0.12) !important;
+    --tw-ring-color: rgba(116, 131, 152, 0.12) !important;
   }
 
   .hover\:bg-ink:hover {
-    background-color: #404854 !important;
+    background-color: #415165 !important;
   }
 
   .hover\:bg-slate:hover {
-    background-color: #242a33 !important;
+    background-color: #eef2f6 !important;
   }
 
   .hover\:bg-mist\/70:hover {
-    background-color: rgba(46, 54, 64, 0.94) !important;
+    background-color: rgba(221, 229, 237, 0.98) !important;
   }
 
   .hover\:border-ink\/40:hover {
-    border-color: rgba(243, 245, 247, 0.28) !important;
+    border-color: rgba(31, 41, 55, 0.26) !important;
   }
 
   .hover\:border-moss\/30:hover {
-    border-color: rgba(147, 161, 179, 0.28) !important;
+    border-color: rgba(116, 131, 152, 0.28) !important;
   }
 
   .hover\:border-moss\/40:hover {
-    border-color: rgba(147, 161, 179, 0.34) !important;
+    border-color: rgba(116, 131, 152, 0.38) !important;
   }
 
   .disabled\:bg-slate\/70:disabled {
-    background-color: rgba(45, 52, 61, 0.7) !important;
+    background-color: rgba(215, 222, 230, 0.8) !important;
   }
 }

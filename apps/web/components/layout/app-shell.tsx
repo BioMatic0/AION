@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { AuthSessionPayload } from "@aion/shared-types";
 import { brand } from "@aion/ui";
 import { apiRequest } from "../../lib/api";
-import type { SectionDefinition } from "../../lib/navigation";
+import { groupMeta, groupedSections, type SectionDefinition } from "../../lib/navigation";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -59,7 +59,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
 
   if (authStatus !== "ready" || !auth) {
     return (
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.2),_transparent_30%),linear-gradient(180deg,_#0b0d11_0%,_#11151b_42%,_#151a22_100%)] px-6 py-8 text-ink sm:px-8 lg:px-12">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(125,139,157,0.18),_transparent_32%),linear-gradient(180deg,_#f1f4f7_0%,_#e8edf2_50%,_#e3e8ee_100%)] px-6 py-8 text-ink sm:px-8 lg:px-12">
         <div className="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center">
           <div className="w-full rounded-[32px] bg-white/90 p-10 text-center shadow-panel">
             <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{brand.name}</p>
@@ -74,41 +74,60 @@ export function AppShell({ children, navigation }: AppShellProps) {
     );
   }
 
+  const activeSection = navigation.find((item) => item.href === pathname);
+
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.16),_transparent_26%),linear-gradient(180deg,_#0b0d11_0%,_#10141a_38%,_#151a22_100%)] text-ink">
-      <div className="mx-auto flex min-h-screen max-w-[1600px] gap-6 px-4 py-4 sm:px-6 lg:px-8">
-        <aside className="hidden w-80 shrink-0 rounded-[28px] border border-white/10 bg-slate p-6 text-mist shadow-panel lg:block">
-          <div className="space-y-3">
-            <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">{brand.name}</p>
-            <h1 className="font-display text-3xl leading-tight">Adaptive Intelligenz fuer Ordnung, Navigation und Bewusstseinsmuster.</h1>
-            <p className="font-body text-sm leading-6 text-mist/75">MVP-Fundament fuer die AION-Plattform mit klarer Governance, Datenschutz by Design und modularen Ausbaupfaden.</p>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(125,139,157,0.16),_transparent_24%),linear-gradient(180deg,_#f1f4f7_0%,_#e8edf2_45%,_#e3e8ee_100%)] text-ink">
+      <div className="mx-auto flex min-h-screen max-w-[1640px] gap-6 px-4 py-4 sm:px-6 lg:px-8">
+        <aside className="hidden w-96 shrink-0 rounded-[32px] border border-white/10 bg-white/90 p-6 text-mist shadow-panel lg:block">
+          <div className="space-y-3 border-b border-white/10 pb-6">
+            <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">{brand.name}</p>
+            <h1 className="font-display text-3xl leading-tight text-ink">Arbeitsraum fuer Struktur, Reflexion und verantwortliche KI.</h1>
+            <p className="font-body text-sm leading-6 text-slate/80">
+              Ein heller, klarer Arbeitsraum fuer produktive Nutzung, sichtbare Governance und nachvollziehbare Entscheidungen.
+            </p>
           </div>
-          <nav className="mt-10 space-y-2">
-            {navigation.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`block rounded-2xl border px-4 py-3 transition ${
-                    isActive
-                      ? "border-ember bg-ember/10 text-white"
-                      : "border-white/10 bg-white/90 text-mist/80 hover:border-white/20 hover:bg-white/90"
-                  }`}
-                >
-                  <div className="font-body text-sm font-semibold">{item.label}</div>
-                  <div className="mt-1 text-xs leading-5 text-inherit/75">{item.description}</div>
-                </Link>
-              );
-            })}
+          <div className="mt-6 rounded-[24px] border border-moss/20 bg-moss/5 p-5">
+            <p className="font-body text-xs uppercase tracking-[0.24em] text-moss">Aktive Linie</p>
+            <h2 className="mt-2 font-display text-2xl text-ink">{activeSection?.label ?? "Arbeitsbereich"}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate/80">{activeSection?.description ?? "Wird aus der Navigation geladen."}</p>
+          </div>
+          <nav className="mt-8 space-y-6">
+            {Object.entries(groupMeta).map(([groupKey, meta]) => (
+              <div key={groupKey} className="space-y-3">
+                <div>
+                  <p className="font-body text-xs uppercase tracking-[0.26em] text-moss">{meta.title}</p>
+                  <p className="mt-1 text-xs leading-5 text-slate/75">{meta.description}</p>
+                </div>
+                <div className="space-y-2">
+                  {groupedSections[groupKey as keyof typeof groupedSections].map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`block rounded-2xl border px-4 py-3 transition ${
+                          isActive
+                            ? "border-ember/20 bg-ember/10 text-ink"
+                            : "border-white/10 bg-mist/40 text-mist/80 hover:border-moss/30 hover:bg-mist/70"
+                        }`}
+                      >
+                        <div className="font-body text-sm font-semibold">{item.label}</div>
+                        <div className="mt-1 text-xs leading-5 text-slate/75">{item.description}</div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
         </aside>
         <div className="flex min-w-0 flex-1 flex-col gap-6">
-          <header className="rounded-[28px] border border-white/10 bg-white/90 px-6 py-5 shadow-panel backdrop-blur">
+          <header className="rounded-[32px] border border-white/10 bg-white/90 px-6 py-5 shadow-panel backdrop-blur">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">AION Aufbauphase</p>
-                <h2 className="font-display text-3xl text-ink">Monorepo-Fundament im Ausbau</h2>
+                <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">AION Arbeitsoberflaeche</p>
+                <h2 className="font-display text-3xl text-ink">Verknuepfte Produktlinien mit sichtbarer Verantwortung</h2>
               </div>
               <div className="flex flex-wrap items-center justify-end gap-3">
                 <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
@@ -116,7 +135,7 @@ export function AppShell({ children, navigation }: AppShellProps) {
                   <div className="text-xs text-slate/75">{auth.user.email}</div>
                 </div>
                 <div className="rounded-2xl border border-moss/20 bg-moss/5 px-4 py-3 text-sm text-slate">
-                  Aktiver Bereich: <span className="font-semibold">{pathname}</span>
+                  Aktiver Bereich: <span className="font-semibold">{activeSection?.label ?? pathname}</span>
                 </div>
                 <button
                   type="button"
@@ -134,6 +153,9 @@ export function AppShell({ children, navigation }: AppShellProps) {
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p>Copyright (c) 2026 Patrick Wirth. Veroeffentlicht unter der AION Community Fairness License 1.0 und offen fuer Mitgestaltung.</p>
               <div className="flex flex-wrap gap-4">
+                <Link href="/ethik" className="font-semibold text-moss hover:text-ink">
+                  Ethik
+                </Link>
                 <Link href="/rechtliches" className="font-semibold text-moss hover:text-ink">
                   Rechtliches
                 </Link>

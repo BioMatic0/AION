@@ -81,7 +81,7 @@ export function AuthScreen({ mode }: AuthScreenProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(96,105,118,0.22),_transparent_30%),linear-gradient(180deg,_#090b0f_0%,_#0f1318_40%,_#141922_100%)] px-6 py-10 text-ink sm:px-8 lg:px-12">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(125,139,157,0.2),_transparent_30%),linear-gradient(180deg,_#f1f4f7_0%,_#e8edf2_45%,_#e2e8ee_100%)] px-6 py-10 text-ink sm:px-8 lg:px-12">
       <div className="mx-auto flex min-h-[80vh] max-w-6xl items-center justify-center">
         <section className="grid w-full gap-10 rounded-[36px] border border-white/10 bg-white/90 p-8 shadow-panel lg:grid-cols-[1.2fr_0.9fr] lg:p-12">
           <div className="space-y-6">
@@ -95,8 +95,8 @@ export function AuthScreen({ mode }: AuthScreenProps) {
                 : "Melde dich mit deinem Konto an, damit deine Daten, Sitzungen und Auswertungen nur in deinem eigenen Kontext geladen werden."}
             </p>
             <div className="rounded-[28px] bg-slate p-6 text-mist">
-              <h2 className="font-display text-2xl">Warum dieser Schritt jetzt wichtig ist</h2>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-mist/80">
+              <h2 className="font-display text-2xl text-ink">Warum dieser Schritt jetzt wichtig ist</h2>
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate/80">
                 <li>Eigene Sitzungen statt geteilter lokaler Standardnutzer</li>
                 <li>Journal, Tagebuch, Ziele und Notizen werden pro Nutzer getrennt geladen</li>
                 <li>Privacy- und Security-Center spiegeln nur deinen eigenen Verlauf</li>

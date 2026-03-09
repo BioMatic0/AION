@@ -9,14 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#f3f5f7",
-        mist: "#eef2f7",
-        ember: "#8d98a8",
-        moss: "#93a1b3",
-        slate: "#cad1db"
+        ink: "#1f2937",
+        mist: "#263242",
+        ember: "#5f7288",
+        moss: "#748398",
+        slate: "#4d5e73"
       },
       boxShadow: {
-        panel: "0 28px 80px rgba(0, 0, 0, 0.34)"
+        panel: "0 22px 50px rgba(73, 91, 115, 0.14)"
       },
       fontFamily: {
         display: ["\"IBM Plex Serif\"", "Georgia", "serif"],

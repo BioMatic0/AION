@@ -22,9 +22,11 @@ const navigation = [
     href: "/journal",
     label: "Journal",
     description: "Reflexion und Eintraege",
+    group: "Arbeitsbasis" as const,
     status: "Aktiv",
     nextStep: "Weiter ausbauen",
-    pillars: ["Eintraege", "Tags", "Kontext"]
+    pillars: ["Eintraege", "Tags", "Kontext"],
+    related: ["/diary", "/analysis"]
   }
 ];
 

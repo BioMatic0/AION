@@ -118,13 +118,22 @@ export function DashboardOverview() {
         </div>
       </article>
       <article className="rounded-[28px] bg-slate p-8 text-mist shadow-panel">
-        <p className="font-body text-xs uppercase tracking-[0.28em] text-mist/60">Aktueller Fokus</p>
-        <h2 className="mt-3 font-display text-3xl">API-first und echte Produktpfade</h2>
-        <ul className="mt-6 space-y-4 text-sm leading-7 text-mist/80">
-          <li>Die Kernbereiche laufen nicht mehr auf lokale UI-Scheinzustande zurueck.</li>
-          <li>Frontend-Fehler und API-Fehler sind jetzt sichtbar statt versteckt.</li>
-          <li>Der naechste Schritt ist semantische Suche mit echter Embeddings-Pipeline.</li>
-        </ul>
+        <p className="font-body text-xs uppercase tracking-[0.28em] text-moss">Verknuepfte Linien</p>
+        <h2 className="mt-3 font-display text-3xl text-ink">Arbeits-, KI- und Governance-Pfade greifen ineinander.</h2>
+        <div className="mt-6 grid gap-4">
+          <Link href="/analysis" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
+            <span className="block font-semibold text-ink">Analyse und Spiegel</span>
+            <span className="mt-1 block leading-6">Eintraege aus Journal und Tagebuch werden mit Analyse, Spiegel und Wachstum verbunden.</span>
+          </Link>
+          <Link href="/governance" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
+            <span className="block font-semibold text-ink">Governance und Ethik</span>
+            <span className="mt-1 block leading-6">Richtlinien, Rechtliches, Ethik und Datenschutz bleiben als eigene Steuerungsflaechen sichtbar.</span>
+          </Link>
+          <Link href="/ethik" className="rounded-2xl border border-moss/20 bg-white/80 px-4 py-4 text-sm text-slate transition hover:border-moss/40">
+            <span className="block font-semibold text-ink">Risikoanalyse</span>
+            <span className="mt-1 block leading-6">Die Produktlinien werden mit konkreten Risiken, Schutzmassnahmen und naechsten Schritten bewertet.</span>
+          </Link>
+        </div>
       </article>
     </div>
   );

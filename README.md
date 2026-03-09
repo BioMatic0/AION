@@ -33,6 +33,7 @@ Legal documents:
 - `SECURITY.md`
 - `docs/product/ethics-risk-evaluation.md`
 - `docs/product/ethical-pillars-review-2026-03-09.md`
+- `docs/product/interface-and-governance-risk-analysis-2026-03-09.md`
 
 ## Workspace Layout
 
