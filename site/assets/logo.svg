@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+<title id="title">Infinity Holding Symbol</title><desc id="desc">Sieben goldene Punkte um ein Unendlichkeitszeichen.</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0d59a"/><stop offset=".52" stop-color="#c79645"/><stop offset="1" stop-color="#8e6428"/></linearGradient></defs>
+<circle cx="110" cy="110" r="92" fill="#0a0c0b" stroke="url(#g)" stroke-width="2"/>
+<path d="M110 28 177 66 194 142 147 202 73 202 26 142 43 66Z" fill="none" stroke="#d2a959" stroke-opacity=".26"/>
+<g fill="url(#g)"><circle cx="110" cy="28" r="5"/><circle cx="177" cy="66" r="5"/><circle cx="194" cy="142" r="5"/><circle cx="147" cy="202" r="5"/><circle cx="73" cy="202" r="5"/><circle cx="26" cy="142" r="5"/><circle cx="43" cy="66" r="5"/></g>
+<path d="M55 112c17-30 36-30 55 0s38 30 55 0c-17-30-36-30-55 0s-38 30-55 0Z" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="110" cy="112" r="4" fill="#f0d59a"/>
+</svg>
