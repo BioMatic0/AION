@@ -1,0 +1,194 @@
+name: Generate Wirth Nexara HD Helix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/generate-nexara-hd-helix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-helix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Generate transparent high-resolution rotating Helix
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw
+          from pathlib import Path
+          import math
+
+          FINAL_SIZE = 800
+          SUPER = 2
+          SIZE = FINAL_SIZE * SUPER
+          FRAMES = 72
+          DURATION = 80
+          CENTER = SIZE / 2
+          SCALE = 300 * SUPER
+
+          colors = [
+              (244, 221, 158),
+              (224, 177, 73),
+              (206, 87, 70),
+              (171, 86, 151),
+              (84, 146, 195),
+              (85, 179, 157),
+              (224, 231, 236),
+          ]
+          orientations = [
+              (58, -18, 0),
+              (-49, 31, 17),
+              (35, 61, -28),
+              (74, 8, 39),
+              (-66, -43, -50),
+              (24, -77, 65),
+              (-21, 84, -79),
+          ]
+          radii = [1.00, .91, .82, .73, .64, .55, .46]
+
+          def mm(a, b):
+              return [[sum(a[i][k] * b[k][j] for k in range(3)) for j in range(3)] for i in range(3)]
+
+          def mv(m, v):
+              return [sum(m[i][k] * v[k] for k in range(3)) for i in range(3)]
+
+          def rx(deg):
+              a = math.radians(deg); c = math.cos(a); s = math.sin(a)
+              return [[1,0,0],[0,c,-s],[0,s,c]]
+
+          def ry(deg):
+              a = math.radians(deg); c = math.cos(a); s = math.sin(a)
+              return [[c,0,s],[0,1,0],[-s,0,c]]
+
+          def rz(deg):
+              a = math.radians(deg); c = math.cos(a); s = math.sin(a)
+              return [[c,-s,0],[s,c,0],[0,0,1]]
+
+          def rotation(ax, ay, az):
+              return mm(rz(az), mm(ry(ay), rx(ax)))
+
+          samples = 520
+          base = []
+          for i in range(samples):
+              t = 2 * math.pi * i / (samples - 1)
+              base.append([
+                  math.sin(t),
+                  .53 * math.sin(2*t),
+                  .12 * math.cos(2*t) + .04 * math.sin(3*t),
+              ])
+
+          def projected(points):
+              result = []
+              camera = 4.8
+              for x, y, z in points:
+                  f = camera / (camera - z)
+                  result.append((CENTER + x*f*SCALE, CENTER - y*f*SCALE, z))
+              return result
+
+          def draw_curve(draw, pts, color, width):
+              depths = [p[2] for p in pts]
+              lo, hi = min(depths), max(depths)
+              span = max(hi-lo, 1e-6)
+              for i in range(len(pts)-1):
+                  d = (((pts[i][2]+pts[i+1][2])*.5)-lo)/span
+                  bright = .48 + .52*d
+                  alpha = int(90 + 165*d)
+                  c = tuple(min(255, int(v*bright + 22*d)) for v in color)
+                  p1 = pts[i][:2]; p2 = pts[i+1][:2]
+                  draw.line([p1,p2], fill=(*c,alpha), width=max(1,int(width)), joint='curve')
+                  if d > .72:
+                      h = tuple(min(255, v+38) for v in c)
+                      draw.line([p1,p2], fill=(*h,min(245,alpha+15)), width=max(1,int(width*.42)), joint='curve')
+
+          rgba_frames = []
+          for frame_index in range(FRAMES):
+              p = frame_index / FRAMES
+              canvas = Image.new('RGBA', (SIZE,SIZE), (0,0,0,0))
+              draw = ImageDraw.Draw(canvas)
+              global_r = mm(rz(360*p), mm(ry(38*math.sin(2*math.pi*p)), rx(51*math.sin(4*math.pi*p))))
+
+              layers = []
+              for idx, ((ax,ay,az), radius, color) in enumerate(zip(orientations,radii,colors)):
+                  direction = 1 if idx % 2 == 0 else -1
+                  spin = direction * 360 * (1 + idx*.11) * p
+                  local_r = rotation(ax, ay, az+spin)
+                  combined = mm(global_r, local_r)
+                  pulse = 1 + .024*math.sin(4*math.pi*p + idx*.72)
+                  points = [mv(combined, [v[0]*radius*pulse, v[1]*radius*pulse, v[2]*radius*pulse]) for v in base]
+                  screen = projected(points)
+                  layers.append((sum(q[2] for q in screen)/len(screen), screen, color, (2.0+idx*.07)*SUPER))
+
+              layers.sort(key=lambda item:item[0])
+              for _, pts, color, width in layers:
+                  draw_curve(draw, pts, color, width)
+
+              core_r = mm(global_r, mm(rz(-720*p), ry(31*math.sin(2*math.pi*p))))
+              core = projected([mv(core_r, [v[0]*.27, v[1]*.27, v[2]*.27]) for v in base])
+              draw_curve(draw, core, (250,236,198), 1.8*SUPER)
+
+              pulse = (5 + 1.5*(.5+.5*math.sin(4*math.pi*p))) * SUPER
+              draw.ellipse((CENTER-pulse,CENTER-pulse,CENTER+pulse,CENTER+pulse), fill=(255,247,220,225))
+              rgba_frames.append(canvas.resize((FINAL_SIZE,FINAL_SIZE), Image.Resampling.LANCZOS))
+
+          gif_frames = []
+          for frame in rgba_frames:
+              alpha = frame.getchannel('A')
+              rgb = Image.new('RGB', frame.size, (0,0,0))
+              rgb.paste(frame.convert('RGB'), mask=alpha)
+              pal = rgb.quantize(colors=191, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
+              palette = pal.getpalette()
+              if len(palette) < 768:
+                  palette += [0] * (768-len(palette))
+              palette[765:768] = [0,0,0]
+              pal.putpalette(palette)
+              indexed = bytearray(pal.tobytes())
+              alpha_bytes = alpha.tobytes()
+              for i, a in enumerate(alpha_bytes):
+                  if a < 16:
+                      indexed[i] = 255
+              out = Image.frombytes('P', frame.size, bytes(indexed))
+              out.putpalette(palette)
+              out.info['transparency'] = 255
+              out.info['disposal'] = 2
+              gif_frames.append(out)
+
+          target = Path('wirth-nexara-vercel-v10/assets/nexara-7-infinity-helix-company-colors.gif')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          gif_frames[0].save(
+              target,
+              save_all=True,
+              append_images=gif_frames[1:],
+              duration=DURATION,
+              loop=0,
+              transparency=255,
+              disposal=2,
+              optimize=True,
+          )
+          print(f'Generated {target} ({target.stat().st_size} bytes)')
+          PY
+
+      - name: Commit generated Helix asset
+        run: |
+          git config user.name "Wirth Nexara Helix Builder"
+          git config user.email "actions@users.noreply.github.com"
+          git add wirth-nexara-vercel-v10/assets/nexara-7-infinity-helix-company-colors.gif
+          if git diff --cached --quiet; then
+            echo "No asset change detected."
+          else
+            git commit -m "Replace homepage Helix with transparent HD counter-rotation [skip ci]"
+            git push
+          fi
