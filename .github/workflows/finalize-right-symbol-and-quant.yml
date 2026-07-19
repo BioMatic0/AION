@@ -1,0 +1,111 @@
+name: Finalize right symbol and quant position
+
+on:
+  push:
+    paths:
+      - ".github/workflows/finalize-right-symbol-and-quant.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Finalize homepage symbol and quant control
+        shell: bash
+        run: |
+          set -e
+          mkdir -p wirth-nexara-vercel-v10/assets
+
+          # Recover the already prepared transparent animated WebP from the earlier
+          # one-time workflow when the asset is not yet present.
+          if [ ! -s wirth-nexara-vercel-v10/assets/wirth-nexara-7d-transparent.webp ] && [ -f .github/workflows/add-new-right-symbol.yml ]; then
+            awk '/^UklG/{copy=1} copy{print} /^B64$/{exit}' .github/workflows/add-new-right-symbol.yml | sed '$d' > /tmp/symbol.b64
+            base64 -d /tmp/symbol.b64 > wirth-nexara-vercel-v10/assets/wirth-nexara-7d-transparent.webp
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('wirth-nexara-vercel-v10/index.html')
+          text = path.read_text(encoding='utf-8')
+
+          symbol = '''<div class="hero-right-symbol reveal" aria-label="Rotierendes Wirth-NeXara-7D-Symbol">
+          <img src="assets/wirth-nexara-7d-transparent.webp" alt="Wirth NeXara 7D Symbol"/>
+          </div>'''
+
+          if 'class="hero-right-symbol reveal"' not in text:
+              anchor = '<div aria-label="Direktnavigation zu den sieben Säulen" class="hero-pillar-navigation reveal">'
+              if anchor not in text:
+                  raise SystemExit('Homepage hero navigation anchor not found')
+              text = text.replace(anchor, symbol + '\n' + anchor, 1)
+          else:
+              text = re.sub(
+                  r'<div class="hero-right-symbol reveal"[^>]*>.*?</div>',
+                  symbol,
+                  text,
+                  count=1,
+                  flags=re.S
+              )
+
+          final_style = '''<style id="new-right-homepage-symbol">
+          #start .hero-grid{grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr)!important;align-items:center;position:relative}
+          #start .hero-copy{max-width:820px}
+          #start .hero-right-symbol{min-height:500px;display:grid;place-items:center;position:relative;isolation:isolate;background:none!important;overflow:visible}
+          #start .hero-right-symbol::before{content:none!important;display:none!important}
+          #start .hero-right-symbol img{position:relative;z-index:1;width:min(100%,590px);height:auto;display:block;background:transparent!important;filter:drop-shadow(0 0 25px rgba(238,177,255,.17)) drop-shadow(0 0 38px rgba(213,172,93,.12));animation:none!important;transform:none!important;mix-blend-mode:screen}
+          #start .hero-pillar-navigation{grid-column:1/-1!important}
+          #start .homepage-quant-relocated{position:absolute!important;left:73%!important;top:63%!important;right:auto!important;bottom:auto!important;margin:0!important;transform:translate(-50%,-50%)!important;z-index:12!important}
+          @media(max-width:980px){#start .hero-grid{grid-template-columns:1fr!important}#start .hero-right-symbol{min-height:360px}#start .hero-right-symbol img{width:min(84%,480px)}#start .homepage-quant-relocated{position:relative!important;left:auto!important;top:auto!important;transform:none!important;margin:14px auto 0!important}}
+          @media(max-width:560px){#start .hero-right-symbol{min-height:285px}#start .hero-right-symbol img{width:min(92%,370px)}}
+          </style>'''
+
+          if re.search(r'<style id="new-right-homepage-symbol">.*?</style>', text, flags=re.S):
+              text = re.sub(r'<style id="new-right-homepage-symbol">.*?</style>', final_style, text, count=1, flags=re.S)
+          else:
+              text = text.replace('</head>', final_style + '\n</head>', 1)
+
+          relocation = '''<script id="relocate-homepage-quant-control">
+          (() => {
+            const hero = document.getElementById('start');
+            if (!hero) return;
+            const hasQuantText = el => /27\\s*QUANTS?/i.test((el.textContent || '').trim());
+            const deepestTextMatch = [...hero.querySelectorAll('*')].find(el =>
+              hasQuantText(el) && ![...el.children].some(hasQuantText)
+            );
+            const semanticMatch = [...hero.querySelectorAll('[class*="quant" i],[id*="quant" i]')].find(el => {
+              const r = el.getBoundingClientRect();
+              return r.width > 24 && r.height > 24;
+            });
+            const target = deepestTextMatch || semanticMatch;
+            if (!target) return;
+            target.classList.add('homepage-quant-relocated');
+            if (target.parentElement !== hero) hero.appendChild(target);
+          })();
+          </script>'''
+
+          if re.search(r'<script id="relocate-homepage-quant-control">.*?</script>', text, flags=re.S):
+              text = re.sub(r'<script id="relocate-homepage-quant-control">.*?</script>', relocation, text, count=1, flags=re.S)
+          else:
+              text = text.replace('</body>', relocation + '\n</body>', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "Wirth Nexara Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add wirth-nexara-vercel-v10/index.html wirth-nexara-vercel-v10/assets/wirth-nexara-7d-transparent.webp
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "Finalize transparent 7D symbol and quant placement"
+          git push
