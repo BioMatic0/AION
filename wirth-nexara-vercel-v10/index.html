@@ -8,7 +8,7 @@
 <meta content="Wirth Nexara verbindet sieben eigenständige Säulen, geordnete Projekte und eine verantwortliche Aufbauarchitektur." name="description"/>
 <meta content="#090a0d" name="theme-color"/>
 <meta content="Wirth Nexara" property="og:title"/>
-<meta content="Wissen. Werte. Wirkung. – Sieben Säulen, ein geordneter Aufbau." property="og:description"/>
+<meta content="Wissen. Werke. Wirkung. – Sieben Säulen, ein geordneter Aufbau." property="og:description"/>
 <meta content="website" property="og:type"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CjxzdG9wIHN0b3AtY29sb3I9IiNmNmRmOWQiLz48c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjYjg4YTM2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNmQ0NTE4Ii8+CjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPgo8cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgcng9IjI4IiBmaWxsPSIjMDkwYTBkIi8+CjxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjQzIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjZykiIHN0cm9rZS13aWR0aD0iNCIvPgo8cGF0aCBkPSJNMjQgNjRjMTMtMjUgMzEtMjUgNDAgMHMyNyAyNSA0MCAwYy0xMy0yNS0zMS0yNS00MCAwcy0yNyAyNS00MCAwWiIKZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2cpIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSI2NCIgY3k9IjY0IiByPSI1IiBmaWxsPSIjZjZkZjlkIi8+Cjwvc3ZnPg==" rel="icon" type="image/svg+xml"/>
 <style>
@@ -2759,13 +2759,27 @@ body{overflow-x:hidden;zoom:var(--patrick-site-scale);width:calc(100% / var(--pa
 @media(max-width:980px){#start.hero{min-height:0;padding-top:108px}#start .hero-pillar-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){#start .hero-pillar-buttons{grid-template-columns:1fr}}
 </style>
+
+<style id="w3-interwoven-rotation-style">
+.hero-mark.helix-showcase{position:relative;isolation:isolate;perspective:1200px;transform-style:preserve-3d}
+.hero-mark.helix-showcase[data-w3-rotation="active"]>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform-origin:50% 50%;will-change:transform,opacity;pointer-events:none}
+.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-primary{z-index:3;opacity:.96;animation:w3-orbit-primary 24s linear infinite}
+.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-secondary{z-index:2;opacity:.34;mix-blend-mode:screen;filter:saturate(1.15) brightness(1.08);animation:w3-orbit-secondary 18s linear infinite}
+.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-tertiary{z-index:1;opacity:.22;mix-blend-mode:screen;filter:saturate(.9) brightness(1.12);animation:w3-orbit-tertiary 31s linear infinite}
+.front-ambient-helix>img{transform-origin:50% 50%;will-change:transform;animation:w3-ambient-orbit 52s linear infinite}
+@keyframes w3-orbit-primary{from{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(.98)}to{transform:rotateX(360deg) rotateY(360deg) rotateZ(360deg) scale(.98)}}
+@keyframes w3-orbit-secondary{from{transform:rotateX(58deg) rotateY(18deg) rotateZ(0deg) scale(.82)}to{transform:rotateX(-302deg) rotateY(-342deg) rotateZ(-360deg) scale(.82)}}
+@keyframes w3-orbit-tertiary{from{transform:rotateX(-34deg) rotateY(66deg) rotateZ(0deg) scale(.68)}to{transform:rotateX(326deg) rotateY(426deg) rotateZ(360deg) scale(.68)}}
+@keyframes w3-ambient-orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.hero-mark.helix-showcase[data-w3-rotation="active"]>img,.front-ambient-helix>img{animation-duration:1ms!important;animation-iteration-count:1!important}}
+</style>
 </head>
 <body>
 <header class="site-header">
 <div class="container nav">
 <a aria-label="Wirth Nexara Startseite" class="brand" href="#start">
 <img alt="" aria-hidden="true" class="brand-symbol" height="42" src="assets/wirth-nexara-symbol.png" width="42"/>
-<span class="brand-copy"><strong class="brand-name">WIRTH NEXARA</strong><small>WISSEN. WERTE. WIRKUNG.</small></span>
+<span class="brand-copy"><strong class="brand-name">WIRTH NEXARA</strong><small>WISSEN. WERKE. WIRKUNG.</small></span>
 </a>
 <button aria-expanded="false" aria-label="Navigation öffnen" class="menu-toggle">☰</button>
 <nav aria-label="Hauptnavigation" class="nav-links">
@@ -2819,8 +2833,8 @@ body{overflow-x:hidden;zoom:var(--patrick-site-scale);width:calc(100% / var(--pa
 <div class="container hero-grid">
 <div class="hero-copy reveal">
 <div class="eyebrow">Wirth Nexara · Aufbauarchitektur</div>
-<h1>Wissen.<span>Werte. Wirkung.</span></h1>
-<p class="lead">Sieben eigenständige Säulen verbinden Wissen, Werte, Systeme, Kreativität, Forschung, Wirkung und einen kontrollierten Aufbau.</p>
+<h1>Wissen.<span>Werke. Wirkung.</span></h1>
+<p class="lead">Sieben eigenständige Säulen verbinden Wissen, Werke, Systeme, Kreativität, Forschung und Wirkung zu einer verantwortlichen Aufbauarchitektur.</p>
 
 </div>
 <div aria-label="Rotierende Nexara-Helix neben dem Starttext" class="hero-mark helix-showcase reveal">
@@ -4210,7 +4224,7 @@ body{overflow-x:hidden;zoom:var(--patrick-site-scale);width:calc(100% / var(--pa
 <div class="container footer-grid">
 <div>
 <strong class="gold">WIRTH NEXARA</strong><br/>
-<span>Wissen. Werte. Wirkung.</span><br/>
+<span>Wissen. Werke. Wirkung.</span><br/>
 <small>© <span id="year">2026</span> Patrick Wirth. Alle Rechte vorbehalten.</small>
 </div>
 <div class="legal-links">
@@ -4505,5 +4519,23 @@ document.getElementById('year').textContent = new Date().getFullYear();
   apply(false);
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1ccee5eaffd4633',t:'MTc4NDMyOTk0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1ccee5eaffd4633',t:'MTc4NDMyOTk0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script id="w3-interwoven-rotation-script">
+(() => {
+  const host = document.querySelector('.hero-mark.helix-showcase');
+  const original = host?.querySelector('img');
+  if (!host || !original || host.dataset.w3Rotation === 'active') return;
+  original.classList.add('w3-helix-primary');
+  const secondary = original.cloneNode(true);
+  secondary.className = 'w3-helix-secondary';
+  secondary.setAttribute('aria-hidden', 'true');
+  const tertiary = original.cloneNode(true);
+  tertiary.className = 'w3-helix-tertiary';
+  tertiary.setAttribute('aria-hidden', 'true');
+  host.append(secondary, tertiary);
+  host.dataset.w3Rotation = 'active';
+  host.setAttribute('aria-label', 'Sieben ineinander rotierende Nexara-Bahnen in vollständiger 360-Grad-Bewegung');
+})();
+</script>
+</body>
 </html>
