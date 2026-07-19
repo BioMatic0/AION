@@ -1,0 +1,65 @@
+name: Patch Wirth Nexara W3
+
+on:
+  push:
+    paths:
+      - ".github/workflows/patch-wirth-nexara-w3.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Apply W3 branding and 360-degree helix motion
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("wirth-nexara-vercel-v10/index.html")
+          text = path.read_text(encoding="utf-8")
+
+          replacements = {
+              "Wissen. Werte. Wirkung.": "Wissen. Werke. Wirkung.",
+              "WISSEN. WERTE. WIRKUNG.": "WISSEN. WERKE. WIRKUNG.",
+              "<h1>Wissen.<span>Werte. Wirkung.</span></h1>": "<h1>Wissen.<span>Werke. Wirkung.</span></h1>",
+              "Sieben eigenständige Säulen verbinden Wissen, Werte, Systeme, Kreativität, Forschung, Wirkung und einen kontrollierten Aufbau.": "Sieben eigenständige Säulen verbinden Wissen, Werke, Systeme, Kreativität, Forschung und Wirkung zu einer verantwortlichen Aufbauarchitektur.",
+          }
+          for old, new in replacements.items():
+              text = text.replace(old, new)
+
+          scale_marker = "--patrick-site-scale:1.10"
+          if scale_marker not in text:
+              scale_style = '''\n<style id="w3-site-scale">\n:root{--patrick-site-scale:1.10}\nhtml{overflow-x:hidden}\nbody{overflow-x:hidden;zoom:var(--patrick-site-scale);width:calc(100% / var(--patrick-site-scale));min-width:calc(100% / var(--patrick-site-scale))}\n@supports not (zoom:1.1){body{transform:scale(var(--patrick-site-scale));transform-origin:top left;width:calc(100% / var(--patrick-site-scale))}}\n</style>\n'''
+              text = text.replace("</head>", scale_style + "</head>", 1)
+
+          style_marker = 'id="w3-interwoven-rotation-style"'
+          if style_marker not in text:
+              motion_style = '''\n<style id="w3-interwoven-rotation-style">\n.hero-mark.helix-showcase{position:relative;isolation:isolate;perspective:1200px;transform-style:preserve-3d}\n.hero-mark.helix-showcase[data-w3-rotation="active"]>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform-origin:50% 50%;will-change:transform,opacity;pointer-events:none}\n.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-primary{z-index:3;opacity:.96;animation:w3-orbit-primary 24s linear infinite}\n.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-secondary{z-index:2;opacity:.34;mix-blend-mode:screen;filter:saturate(1.15) brightness(1.08);animation:w3-orbit-secondary 18s linear infinite}\n.hero-mark.helix-showcase[data-w3-rotation="active"]>.w3-helix-tertiary{z-index:1;opacity:.22;mix-blend-mode:screen;filter:saturate(.9) brightness(1.12);animation:w3-orbit-tertiary 31s linear infinite}\n.front-ambient-helix>img{transform-origin:50% 50%;will-change:transform;animation:w3-ambient-orbit 52s linear infinite}\n@keyframes w3-orbit-primary{from{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(.98)}to{transform:rotateX(360deg) rotateY(360deg) rotateZ(360deg) scale(.98)}}\n@keyframes w3-orbit-secondary{from{transform:rotateX(58deg) rotateY(18deg) rotateZ(0deg) scale(.82)}to{transform:rotateX(-302deg) rotateY(-342deg) rotateZ(-360deg) scale(.82)}}\n@keyframes w3-orbit-tertiary{from{transform:rotateX(-34deg) rotateY(66deg) rotateZ(0deg) scale(.68)}to{transform:rotateX(326deg) rotateY(426deg) rotateZ(360deg) scale(.68)}}\n@keyframes w3-ambient-orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}\n@media (prefers-reduced-motion:reduce){.hero-mark.helix-showcase[data-w3-rotation="active"]>img,.front-ambient-helix>img{animation-duration:1ms!important;animation-iteration-count:1!important}}\n</style>\n'''
+              text = text.replace("</head>", motion_style + "</head>", 1)
+
+          script_marker = 'id="w3-interwoven-rotation-script"'
+          if script_marker not in text:
+              motion_script = '''\n<script id="w3-interwoven-rotation-script">\n(() => {\n  const host = document.querySelector('.hero-mark.helix-showcase');\n  const original = host?.querySelector('img');\n  if (!host || !original || host.dataset.w3Rotation === 'active') return;\n  original.classList.add('w3-helix-primary');\n  const secondary = original.cloneNode(true);\n  secondary.className = 'w3-helix-secondary';\n  secondary.setAttribute('aria-hidden', 'true');\n  const tertiary = original.cloneNode(true);\n  tertiary.className = 'w3-helix-tertiary';\n  tertiary.setAttribute('aria-hidden', 'true');\n  host.append(secondary, tertiary);\n  host.dataset.w3Rotation = 'active';\n  host.setAttribute('aria-label', 'Sieben ineinander rotierende Nexara-Bahnen in vollständiger 360-Grad-Bewegung');\n})();\n</script>\n'''
+              text = text.replace("</body>", motion_script + "</body>", 1)
+
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "Wirth Nexara Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add wirth-nexara-vercel-v10/index.html
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "Update W3 branding and interwoven 360-degree helix"
+          git push
