@@ -1,0 +1,64 @@
+name: Remove right homepage symbol
+
+on:
+  push:
+    paths:
+      - ".github/workflows/remove-right-homepage-symbol.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Remove right-side homepage symbol
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("wirth-nexara-vercel-v10/index.html")
+          text = path.read_text(encoding="utf-8")
+
+          text, hero_count = re.subn(
+              r'\s*<div aria-label="Rotierende Nexara-Helix neben dem Starttext" class="hero-mark helix-showcase reveal">\s*<img alt="" src="assets/nexara-7-infinity-helix-company-colors\.gif"/>\s*</div>',
+              '',
+              text,
+              count=1
+          )
+
+          text, ambient_count = re.subn(
+              r'\s*<div aria-hidden="true" class="front-ambient-helix">\s*<img alt="" src="assets/nexara-7-infinity-helix-company-colors\.gif"/>\s*</div>',
+              '',
+              text,
+              count=1
+          )
+
+          marker = 'id="homepage-symbol-removed"'
+          if marker not in text:
+              css = '''\n<style id="homepage-symbol-removed">\n#start .hero-grid{grid-template-columns:minmax(0,1fr)!important}\n#start .hero-copy{max-width:860px}\n#start .hero-pillar-navigation{grid-column:1!important}\n.front-ambient-helix,.hero-mark.helix-showcase{display:none!important}\n</style>\n'''
+              text = text.replace("</head>", css + "</head>", 1)
+
+          if hero_count == 0 and 'homepage-symbol-removed' not in text:
+              raise SystemExit("Right-side hero symbol was not found")
+
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit change
+        shell: bash
+        run: |
+          git config user.name "Wirth Nexara Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add wirth-nexara-vercel-v10/index.html
+          if git diff --cached --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git commit -m "Remove right-side homepage symbol"
+          git push
